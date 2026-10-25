@@ -1,4 +1,24 @@
 (function () {
+    var root = document.documentElement;
+    if ((" " + (root.className || "") + " ").indexOf(" artjsm ") < 0) {
+        root.className = root.className ? (root.className + " artjsm") : "artjsm";
+    }
+    try {
+        var early = localStorage.getItem("artjsm-theme");
+        if (early !== "dark" && early !== "light") {
+            early = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        }
+        root.setAttribute("data-artjsm-theme", early);
+    } catch (e) {
+        if (!root.getAttribute("data-artjsm-theme")) {
+            root.setAttribute("data-artjsm-theme", "light");
+        }
+    }
+    if (window.__artjsmThemeBound) {
+        return;
+    }
+    window.__artjsmThemeBound = true;
+
     var STORAGE_KEY = "artjsm-theme";
     var PROPERTY = "artjsm.theme";
     var generation = 0;
@@ -37,12 +57,16 @@
         if (lang.toLowerCase().indexOf("ru") === 0) {
             return {
                 toDark: "Включить тёмную тему",
-                toLight: "Включить светлую тему"
+                toLight: "Включить светлую тему",
+                dark: "Тёмная тема",
+                light: "Светлая тема"
             };
         }
         return {
             toDark: "Switch to dark theme",
-            toLight: "Switch to light theme"
+            toLight: "Switch to light theme",
+            dark: "Dark theme",
+            light: "Light theme"
         };
     }
 
@@ -69,13 +93,19 @@
             return;
         }
         var dark = currentTheme() === "dark";
-        var label = dark ? texts().toLight : texts().toDark;
+        var copy = texts();
+        var label = dark ? copy.toLight : copy.toDark;
+        var caption = dark ? copy.light : copy.dark;
         button.setAttribute("aria-pressed", dark ? "true" : "false");
         button.setAttribute("aria-label", label);
         button.setAttribute("title", label);
         var icon = button.querySelector(".artjsm-theme-toggle-icon");
         if (icon) {
             icon.innerHTML = dark ? SUN : MOON;
+        }
+        var text = button.querySelector(".artjsm-theme-toggle-label");
+        if (text) {
+            text.textContent = caption;
         }
     }
 
@@ -193,7 +223,8 @@
         button.type = "button";
         button.id = "artjsm-theme-toggle";
         button.className = "artjsm-theme-toggle";
-        button.innerHTML = '<span class="artjsm-theme-toggle-icon" aria-hidden="true"></span>';
+        button.innerHTML = '<span class="artjsm-theme-toggle-icon" aria-hidden="true"></span>'
+            + '<span class="artjsm-theme-toggle-label"></span>';
         button.addEventListener("click", function (event) {
             event.preventDefault();
             var next = currentTheme() === "dark" ? "light" : "dark";
@@ -205,13 +236,23 @@
     }
 
     function removeExisting() {
-        var item = document.getElementById("artjsm-theme-toggle-item");
-        if (item && item.parentNode) {
-            item.parentNode.removeChild(item);
-        }
-        var button = document.getElementById("artjsm-theme-toggle");
-        if (button && button.parentNode) {
-            button.parentNode.removeChild(button);
+        var selectors = ["#artjsm-theme-toggle-item", "#artjsm-theme-toggle"];
+        var s;
+        var i;
+        for (s = 0; s < selectors.length; s++) {
+            var nodes = document.querySelectorAll(selectors[s]);
+            for (i = 0; i < nodes.length; i++) {
+                var node = nodes[i];
+                if (!node.parentNode) {
+                    continue;
+                }
+                var parent = node.parentNode;
+                if (String(parent.tagName).toUpperCase() === "LI") {
+                    parent.parentNode.removeChild(parent);
+                } else {
+                    parent.removeChild(node);
+                }
+            }
         }
     }
 
@@ -221,7 +262,10 @@
         }
         var target = findTarget();
         var existing = document.getElementById("artjsm-theme-toggle");
-        if (existing && document.body.contains(existing)) {
+        var ours = existing
+            && String(existing.tagName).toUpperCase() === "BUTTON"
+            && existing.querySelector(".artjsm-theme-toggle-label");
+        if (ours && document.body.contains(existing)) {
             if (target && target.contains(existing)) {
                 return;
             }
@@ -242,9 +286,23 @@
             li.id = "artjsm-theme-toggle-item";
             li.className = "artjsm-theme-toggle-item";
             li.appendChild(button);
-            var user = document.getElementById("header-details-user-fullname");
-            if (user && user.parentNode === target) {
+            var quick = document.getElementById("quicksearch");
+            if (!quick) {
+                var searchInput = document.getElementById("quickSearchInput");
+                quick = searchInput;
+                while (quick && String(quick.tagName).toUpperCase() !== "LI") {
+                    quick = quick.parentNode;
+                }
+            }
+            var user = document.getElementById("header-details-user-fullname")
+                || document.getElementById("header-details-user")
+                || document.getElementById("user-options");
+            if (quick && quick.parentNode === target) {
+                target.insertBefore(li, quick);
+            } else if (user && user.parentNode === target) {
                 target.insertBefore(li, user);
+            } else if (target.firstChild) {
+                target.insertBefore(li, target.firstChild);
             } else {
                 target.appendChild(li);
             }
@@ -303,7 +361,7 @@
         window.setTimeout(function () {
             allowFallback = true;
             mount();
-        }, 800);
+        }, 300);
         window.setInterval(mount, 2500);
     }
 

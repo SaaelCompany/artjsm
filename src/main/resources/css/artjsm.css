@@ -6,7 +6,7 @@
  */
 
 :root,
-html.artjsm {
+html {
     --artjsm-header: #0747a6;
     --artjsm-header-text: #ffffff;
     --artjsm-bg: #ffffff;
@@ -30,7 +30,7 @@ html.artjsm {
     color-scheme: light;
 }
 
-html.artjsm[data-artjsm-theme="dark"] {
+html[data-artjsm-theme="dark"] {
     --artjsm-header: #08284f;
     --artjsm-header-text: #f3f7fc;
     --artjsm-bg: #14181f;
@@ -53,71 +53,71 @@ html.artjsm[data-artjsm-theme="dark"] {
     color-scheme: dark;
 }
 
-html.artjsm {
+html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
-html.artjsm body,
-html.artjsm #page,
-html.artjsm #content,
-html.artjsm .aui-page-panel,
-html.artjsm .aui-page-panel-inner,
-html.artjsm .aui-page-panel-content {
+html body,
+html #page,
+html #content,
+html .aui-page-panel,
+html .aui-page-panel-inner,
+html .aui-page-panel-content {
     background: var(--artjsm-bg) !important;
     color: var(--artjsm-text) !important;
 }
 
-html.artjsm body {
+html body {
     font-family: var(--artjsm-font) !important;
 }
 
-html.artjsm h1,
-html.artjsm h2,
-html.artjsm h3,
-html.artjsm h4,
-html.artjsm h5,
-html.artjsm .aui-page-header-main h1,
-html.artjsm .aui-page-header-main h2 {
+html h1,
+html h2,
+html h3,
+html h4,
+html h5,
+html .aui-page-header-main h1,
+html .aui-page-header-main h2 {
     color: var(--artjsm-text) !important;
     font-weight: 600;
 }
 
-html.artjsm a {
+html a {
     color: var(--artjsm-link);
 }
 
-html.artjsm a:hover {
+html a:hover {
     color: var(--artjsm-link-hover);
 }
 
-html.artjsm a:visited {
+html a:visited {
     color: var(--artjsm-link);
 }
 
-html.artjsm ::selection {
+html ::selection {
     background: #c6dcff;
     color: #172b4d;
 }
 
-html.artjsm[data-artjsm-theme="dark"] ::selection {
+html[data-artjsm-theme="dark"] ::selection {
     background: #1d4f91;
     color: #ffffff;
 }
 
-html.artjsm code,
-html.artjsm kbd,
-html.artjsm pre,
-html.artjsm .code,
-html.artjsm .preformatted,
-html.artjsm .wiki-content tt {
+html code,
+html kbd,
+html pre,
+html .code,
+html .preformatted,
+html .wiki-content tt {
     font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace !important;
 }
 
-html.artjsm[data-artjsm-theme="dark"] pre,
-html.artjsm[data-artjsm-theme="dark"] .preformatted,
-html.artjsm[data-artjsm-theme="dark"] .code,
-html.artjsm[data-artjsm-theme="dark"] .code-block {
+html[data-artjsm-theme="dark"] pre,
+html[data-artjsm-theme="dark"] .preformatted,
+html[data-artjsm-theme="dark"] .code,
+html[data-artjsm-theme="dark"] .code-block {
     background: var(--artjsm-bg-sunken) !important;
     color: var(--artjsm-text) !important;
     border-color: var(--artjsm-border) !important;
@@ -125,8 +125,8 @@ html.artjsm[data-artjsm-theme="dark"] .code-block {
 
 /* Header */
 
-html.artjsm #header,
-html.artjsm #header .aui-header {
+html #header,
+html #header .aui-header {
     background: var(--artjsm-header) !important;
     background-image: none !important;
     border: 0 !important;
@@ -134,26 +134,25 @@ html.artjsm #header .aui-header {
     color: var(--artjsm-header-text) !important;
 }
 
-html.artjsm #header a,
-html.artjsm #header a:visited,
-html.artjsm #header .aui-nav-link,
-html.artjsm .aui-header a,
-html.artjsm .aui-header a:visited {
+html #header a,
+html #header a:visited,
+html #header .aui-nav-link,
+html .aui-header a,
+html .aui-header a:visited {
     color: var(--artjsm-header-text) !important;
 }
 
-html.artjsm #header .aui-nav > li > a:hover,
-html.artjsm #header .aui-nav > li > a:focus,
-html.artjsm .aui-header .aui-nav > li > a:hover {
+html #header .aui-nav > li > a:hover,
+html #header .aui-nav > li > a:focus,
+html .aui-header .aui-nav > li > a:hover {
     background: rgba(255, 255, 255, 0.14) !important;
     color: #ffffff !important;
     border-radius: 6px;
 }
 
-html.artjsm #header .aui-button,
-html.artjsm #header .aui-button.aui-button-subtle,
-html.artjsm #header .aui-button.aui-button-primary,
-html.artjsm #header .aui-button:visited {
+html #header .aui-button,
+html #header .aui-button.aui-button-subtle,
+html #header .aui-button:visited {
     background: transparent !important;
     background-image: none !important;
     border-color: transparent !important;
@@ -162,16 +161,42 @@ html.artjsm #header .aui-button:visited {
     text-shadow: none !important;
 }
 
-html.artjsm #header .aui-button:hover,
-html.artjsm #header .aui-button:focus {
+html #header .aui-button:hover,
+html #header .aui-button:focus {
     background: rgba(255, 255, 255, 0.14) !important;
     color: #ffffff !important;
 }
 
-html.artjsm #quickSearchInput,
-html.artjsm #header .aui-quicksearch input,
-html.artjsm #header input.search,
-html.artjsm #header input[type="text"] {
+html #header #create_link,
+html #header .aui-button.aui-button-primary,
+html #header a.aui-button-primary {
+    background: #ffffff !important;
+    background-image: none !important;
+    border: 0 !important;
+    border-radius: 999px !important;
+    color: var(--artjsm-primary) !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    font-weight: 600 !important;
+    height: 32px !important;
+    line-height: 32px !important;
+    padding: 0 14px !important;
+}
+
+html #header #create_link:hover,
+html #header #create_link:focus,
+html #header .aui-button.aui-button-primary:hover,
+html #header .aui-button.aui-button-primary:focus,
+html #header a.aui-button-primary:hover,
+html #header a.aui-button-primary:focus {
+    background: #e9f2ff !important;
+    color: var(--artjsm-primary-hover) !important;
+}
+
+html #quickSearchInput,
+html #header .aui-quicksearch input,
+html #header input.search,
+html #header input[type="text"] {
     background: rgba(255, 255, 255, 0.14) !important;
     border: 1px solid rgba(255, 255, 255, 0.22) !important;
     color: #ffffff !important;
@@ -183,58 +208,58 @@ html.artjsm #header input[type="text"] {
     box-sizing: border-box !important;
 }
 
-html.artjsm #quickSearchInput::placeholder,
-html.artjsm #header input::placeholder {
+html #quickSearchInput::placeholder,
+html #header input::placeholder {
     color: rgba(255, 255, 255, 0.78) !important;
 }
 
 /* In-page navigation, the quiet row under the blue bar */
 
-html.artjsm .aui-navgroup-horizontal .aui-nav > li > a,
-html.artjsm .aui-nav-horizontal > li > a,
-html.artjsm .aui-page-header .aui-nav > li > a {
+html .aui-navgroup-horizontal .aui-nav > li > a,
+html .aui-nav-horizontal > li > a,
+html .aui-page-header .aui-nav > li > a {
     color: var(--artjsm-text-subtle) !important;
     background: transparent !important;
     font-weight: 500;
     box-shadow: none !important;
 }
 
-html.artjsm .aui-navgroup-horizontal .aui-nav > li > a:hover,
-html.artjsm .aui-nav-horizontal > li > a:hover,
-html.artjsm .aui-page-header .aui-nav > li > a:hover {
+html .aui-navgroup-horizontal .aui-nav > li > a:hover,
+html .aui-nav-horizontal > li > a:hover,
+html .aui-page-header .aui-nav > li > a:hover {
     color: var(--artjsm-text) !important;
     background: transparent !important;
 }
 
-html.artjsm .aui-navgroup-horizontal .aui-nav > .aui-nav-selected > a,
-html.artjsm .aui-nav-horizontal > .aui-nav-selected > a,
-html.artjsm .aui-page-header .aui-nav > .aui-nav-selected > a,
-html.artjsm .aui-navgroup-horizontal .aui-nav > .aui-nav-selected > a:hover,
-html.artjsm .aui-nav-horizontal > .aui-nav-selected > a:hover {
+html .aui-navgroup-horizontal .aui-nav > .aui-nav-selected > a,
+html .aui-nav-horizontal > .aui-nav-selected > a,
+html .aui-page-header .aui-nav > .aui-nav-selected > a,
+html .aui-navgroup-horizontal .aui-nav > .aui-nav-selected > a:hover,
+html .aui-nav-horizontal > .aui-nav-selected > a:hover {
     color: var(--artjsm-link) !important;
     background: transparent !important;
     box-shadow: inset 0 -2px 0 var(--artjsm-link) !important;
     font-weight: 600;
 }
 
-html.artjsm .aui-page-header {
+html .aui-page-header {
     background: transparent !important;
     border-bottom: 1px solid var(--artjsm-border) !important;
 }
 
-html.artjsm .aui-nav-breadcrumbs > li,
-html.artjsm .aui-nav-breadcrumbs > li > a {
+html .aui-nav-breadcrumbs > li,
+html .aui-nav-breadcrumbs > li > a {
     color: var(--artjsm-text-subtle) !important;
 }
 
-html.artjsm .tabs-menu .menu-item a {
+html .tabs-menu .menu-item a {
     color: var(--artjsm-text-subtle) !important;
     background: transparent !important;
 }
 
-html.artjsm .tabs-menu .menu-item.active-tab a,
-html.artjsm .tabs-menu .menu-item.active-tab a:hover,
-html.artjsm .aui-tabs > .tabs-menu > .active-tab > a {
+html .tabs-menu .menu-item.active-tab a,
+html .tabs-menu .menu-item.active-tab a:hover,
+html .aui-tabs > .tabs-menu > .active-tab > a {
     color: var(--artjsm-link) !important;
     background: transparent !important;
     border-bottom-color: var(--artjsm-link) !important;
@@ -242,43 +267,43 @@ html.artjsm .aui-tabs > .tabs-menu > .active-tab > a {
 
 /* Sidebar */
 
-html.artjsm .aui-sidebar,
-html.artjsm .aui-sidebar-wrapper,
-html.artjsm .aui-sidebar-body,
-html.artjsm #admin-sidebar,
-html.artjsm .admin-menu {
+html .aui-sidebar,
+html .aui-sidebar-wrapper,
+html .aui-sidebar-body,
+html #admin-sidebar,
+html .admin-menu {
     background: var(--artjsm-surface) !important;
     color: var(--artjsm-text) !important;
 }
 
-html.artjsm .aui-sidebar {
+html .aui-sidebar {
     border-right: 1px solid var(--artjsm-border) !important;
     box-shadow: none !important;
 }
 
-html.artjsm .aui-sidebar .aui-nav-heading,
-html.artjsm .aui-nav-heading,
-html.artjsm #admin-nav-heading {
+html .aui-sidebar .aui-nav-heading,
+html .aui-nav-heading,
+html #admin-nav-heading {
     color: var(--artjsm-text-subtle) !important;
     font-weight: 600;
 }
 
-html.artjsm .aui-sidebar .aui-nav-item,
-html.artjsm .admin-menu a {
+html .aui-sidebar .aui-nav-item,
+html .admin-menu a {
     color: var(--artjsm-text) !important;
     border-radius: 6px !important;
 }
 
-html.artjsm .aui-sidebar .aui-nav-item:hover,
-html.artjsm .admin-menu a:hover {
+html .aui-sidebar .aui-nav-item:hover,
+html .admin-menu a:hover {
     background: var(--artjsm-bg-muted) !important;
     color: var(--artjsm-text) !important;
 }
 
-html.artjsm .aui-sidebar .aui-nav-selected .aui-nav-item,
-html.artjsm .aui-sidebar .aui-nav-selected .aui-nav-item:hover,
-html.artjsm .admin-menu .aui-nav-selected a,
-html.artjsm .admin-menu .selected a {
+html .aui-sidebar .aui-nav-selected .aui-nav-item,
+html .aui-sidebar .aui-nav-selected .aui-nav-item:hover,
+html .admin-menu .aui-nav-selected a,
+html .admin-menu .selected a {
     background: var(--artjsm-accent-soft) !important;
     color: var(--artjsm-link) !important;
     font-weight: 600;
@@ -286,8 +311,8 @@ html.artjsm .admin-menu .selected a {
 
 /* Buttons */
 
-html.artjsm .aui-button,
-html.artjsm .aui-button:visited {
+html .aui-button,
+html .aui-button:visited {
     background: var(--artjsm-surface) !important;
     background-image: none !important;
     border: 1px solid var(--artjsm-border-strong) !important;
@@ -298,74 +323,74 @@ html.artjsm .aui-button:visited {
     font-weight: 500;
 }
 
-html.artjsm .aui-button:hover,
-html.artjsm .aui-button:focus {
+html .aui-button:hover,
+html .aui-button:focus {
     background: var(--artjsm-bg-subtle) !important;
     color: var(--artjsm-text) !important;
     border-color: var(--artjsm-border-strong) !important;
 }
 
-html.artjsm .aui-button.aui-button-primary,
-html.artjsm .aui-button.aui-button-primary:visited {
+html .aui-button.aui-button-primary,
+html .aui-button.aui-button-primary:visited {
     background: var(--artjsm-primary) !important;
     border-color: var(--artjsm-primary) !important;
     color: var(--artjsm-primary-text) !important;
 }
 
-html.artjsm .aui-button.aui-button-primary:hover,
-html.artjsm .aui-button.aui-button-primary:focus {
+html .aui-button.aui-button-primary:hover,
+html .aui-button.aui-button-primary:focus {
     background: var(--artjsm-primary-hover) !important;
     border-color: var(--artjsm-primary-hover) !important;
     color: var(--artjsm-primary-text) !important;
 }
 
-html.artjsm .aui-button.aui-button-subtle,
-html.artjsm .aui-button.aui-button-link {
+html .aui-button.aui-button-subtle,
+html .aui-button.aui-button-link {
     background: transparent !important;
     border-color: transparent !important;
     color: var(--artjsm-link) !important;
 }
 
-html.artjsm .aui-button.aui-button-subtle:hover,
-html.artjsm .aui-button.aui-button-link:hover {
+html .aui-button.aui-button-subtle:hover,
+html .aui-button.aui-button-link:hover {
     background: var(--artjsm-accent-soft) !important;
     color: var(--artjsm-link-hover) !important;
 }
 
-html.artjsm .aui-button[disabled],
-html.artjsm .aui-button[aria-disabled="true"] {
+html .aui-button[disabled],
+html .aui-button[aria-disabled="true"] {
     opacity: 0.55;
 }
 
-html.artjsm .aui-buttons {
+html .aui-buttons {
     background: transparent !important;
     border: 0 !important;
 }
 
-html.artjsm .aui-buttons .aui-button,
-html.artjsm .aui-buttons .aui-button:first-child,
-html.artjsm .aui-buttons .aui-button:last-child {
+html .aui-buttons .aui-button,
+html .aui-buttons .aui-button:first-child,
+html .aui-buttons .aui-button:last-child {
     border-radius: 6px !important;
 }
 
-html.artjsm .aui-buttons > .aui-button + .aui-button {
+html .aui-buttons > .aui-button + .aui-button {
     margin-left: 6px !important;
 }
 
 /* Forms */
 
-html.artjsm input[type="text"],
-html.artjsm input[type="password"],
-html.artjsm input[type="email"],
-html.artjsm input[type="search"],
-html.artjsm input[type="number"],
-html.artjsm input[type="url"],
-html.artjsm input[type="tel"],
-html.artjsm textarea,
-html.artjsm select,
-html.artjsm .aui-select,
-html.artjsm .select2-container .select2-choice,
-html.artjsm .select2-search input {
+html input[type="text"],
+html input[type="password"],
+html input[type="email"],
+html input[type="search"],
+html input[type="number"],
+html input[type="url"],
+html input[type="tel"],
+html textarea,
+html select,
+html .aui-select,
+html .select2-container .select2-choice,
+html .select2-search input {
     background: var(--artjsm-surface) !important;
     color: var(--artjsm-text) !important;
     border: 1px solid var(--artjsm-border-strong) !important;
@@ -373,109 +398,109 @@ html.artjsm .select2-search input {
     box-shadow: none !important;
 }
 
-html.artjsm textarea:focus,
-html.artjsm input[type="text"]:focus,
-html.artjsm input[type="password"]:focus,
-html.artjsm input[type="email"]:focus,
-html.artjsm input[type="search"]:focus,
-html.artjsm input[type="number"]:focus,
-html.artjsm select:focus,
-html.artjsm .select2-container-active .select2-choice,
-html.artjsm .select2-drop-active {
+html textarea:focus,
+html input[type="text"]:focus,
+html input[type="password"]:focus,
+html input[type="email"]:focus,
+html input[type="search"]:focus,
+html input[type="number"]:focus,
+html select:focus,
+html .select2-container-active .select2-choice,
+html .select2-drop-active {
     border-color: var(--artjsm-primary) !important;
     box-shadow: 0 0 0 2px var(--artjsm-focus-ring) !important;
 }
 
-html.artjsm input::placeholder,
-html.artjsm textarea::placeholder {
+html input::placeholder,
+html textarea::placeholder {
     color: var(--artjsm-text-subtle) !important;
     opacity: 1;
 }
 
-html.artjsm input[disabled],
-html.artjsm textarea[disabled],
-html.artjsm select[disabled] {
+html input[disabled],
+html textarea[disabled],
+html select[disabled] {
     background: var(--artjsm-bg-muted) !important;
     color: var(--artjsm-text-subtle) !important;
 }
 
-html.artjsm select option {
+html select option {
     background: var(--artjsm-surface);
     color: var(--artjsm-text);
 }
 
-html.artjsm .field-label,
-html.artjsm .form-label,
-html.artjsm legend,
-html.artjsm .field-group > label {
+html .field-label,
+html .form-label,
+html legend,
+html .field-group > label {
     color: var(--artjsm-text) !important;
     font-weight: 600;
 }
 
-html.artjsm .description,
-html.artjsm .field-description {
+html .description,
+html .field-description {
     color: var(--artjsm-text-subtle) !important;
 }
 
 /* Tables */
 
-html.artjsm table.aui,
-html.artjsm #issuetable,
-html.artjsm .aui-restfultable {
+html table.aui,
+html #issuetable,
+html .aui-restfultable {
     background: var(--artjsm-surface) !important;
     border-color: var(--artjsm-border) !important;
 }
 
-html.artjsm table.aui > thead > tr > th,
-html.artjsm #issuetable > thead > tr > th,
-html.artjsm .aui-restfultable thead th,
-html.artjsm table.aui > tbody > tr > td,
-html.artjsm #issuetable > tbody > tr > td,
-html.artjsm .aui-restfultable td {
+html table.aui > thead > tr > th,
+html #issuetable > thead > tr > th,
+html .aui-restfultable thead th,
+html table.aui > tbody > tr > td,
+html #issuetable > tbody > tr > td,
+html .aui-restfultable td {
     border-color: var(--artjsm-border) !important;
     color: var(--artjsm-text);
 }
 
-html.artjsm table.aui > thead > tr > th,
-html.artjsm #issuetable > thead > tr > th,
-html.artjsm .aui-restfultable thead th {
+html table.aui > thead > tr > th,
+html #issuetable > thead > tr > th,
+html .aui-restfultable thead th {
     background: var(--artjsm-bg-subtle) !important;
     color: var(--artjsm-text-subtle) !important;
     font-weight: 600;
 }
 
-html.artjsm table.aui > tbody > tr,
-html.artjsm #issuetable > tbody > tr,
-html.artjsm .aui-restfultable tbody tr {
+html table.aui > tbody > tr,
+html #issuetable > tbody > tr,
+html .aui-restfultable tbody tr {
     background: var(--artjsm-surface) !important;
 }
 
-html.artjsm table.aui > tbody > tr:hover,
-html.artjsm #issuetable > tbody > tr:hover {
+html table.aui > tbody > tr:hover,
+html #issuetable > tbody > tr:hover {
     background: var(--artjsm-bg-subtle) !important;
 }
 
-html.artjsm #issuetable > tbody > tr.focused,
-html.artjsm #issuetable > tbody > tr.focused:hover {
+html #issuetable > tbody > tr.focused,
+html #issuetable > tbody > tr.focused:hover {
     background: var(--artjsm-accent-soft) !important;
 }
 
-html.artjsm .wiki-content,
-html.artjsm .wiki-content table,
-html.artjsm .wiki-content td,
-html.artjsm .wiki-content th {
+html .wiki-content,
+html .wiki-content table,
+html .wiki-content td,
+html .wiki-content th {
     border-color: var(--artjsm-border) !important;
     color: var(--artjsm-text);
 }
 
 /* Popovers, dialogs, flags */
 
-html.artjsm .aui-dropdown2,
-html.artjsm .aui-inline-dialog-contents,
-html.artjsm .aui-datepicker-dialog,
-html.artjsm .select2-drop,
-html.artjsm .select2-results,
-html.artjsm .ajs-layer.box-shadow {
+html .aui-dropdown2,
+html .aui-inline-dialog-contents,
+html .aui-datepicker-dialog,
+html .select2-drop,
+html .select2-results,
+html .ajs-layer.box-shadow {
     background: var(--artjsm-surface) !important;
     color: var(--artjsm-text) !important;
     border: 1px solid var(--artjsm-border) !important;
@@ -483,23 +508,23 @@ html.artjsm .ajs-layer.box-shadow {
     box-shadow: var(--artjsm-shadow) !important;
 }
 
-html.artjsm .select2-results .select2-highlighted,
-html.artjsm .aui-dropdown2 .aui-dropdown2-section li:hover,
-html.artjsm .aui-dropdown2 a:hover,
-html.artjsm .aui-list-item:hover,
-html.artjsm .aui-list-item.active {
+html .select2-results .select2-highlighted,
+html .aui-dropdown2 .aui-dropdown2-section li:hover,
+html .aui-dropdown2 a:hover,
+html .aui-list-item:hover,
+html .aui-list-item.active {
     background: var(--artjsm-accent-soft) !important;
     color: var(--artjsm-text) !important;
 }
 
-html.artjsm .aui-dropdown2 a,
-html.artjsm .select2-result-label {
+html .aui-dropdown2 a,
+html .select2-result-label {
     color: var(--artjsm-text) !important;
 }
 
-html.artjsm .aui-dialog,
-html.artjsm .aui-dialog2,
-html.artjsm .jira-dialog {
+html .aui-dialog,
+html .aui-dialog2,
+html .jira-dialog {
     background: var(--artjsm-surface) !important;
     color: var(--artjsm-text) !important;
     border-radius: 12px !important;
@@ -507,112 +532,112 @@ html.artjsm .jira-dialog {
     box-shadow: var(--artjsm-shadow) !important;
 }
 
-html.artjsm .aui-dialog2-header,
-html.artjsm .aui-dialog .dialog-title,
-html.artjsm .jira-dialog .dialog-title {
+html .aui-dialog2-header,
+html .aui-dialog .dialog-title,
+html .jira-dialog .dialog-title {
     background: transparent !important;
     color: var(--artjsm-text) !important;
     border-bottom: 1px solid var(--artjsm-border) !important;
 }
 
-html.artjsm .aui-dialog2-footer,
-html.artjsm .dialog-button-panel,
-html.artjsm .form-footer {
+html .aui-dialog2-footer,
+html .dialog-button-panel,
+html .form-footer {
     background: var(--artjsm-bg-subtle) !important;
     border-top: 1px solid var(--artjsm-border) !important;
 }
 
-html.artjsm .aui-blanket {
+html .aui-blanket {
     background: rgba(8, 16, 28, 0.54) !important;
 }
 
-html.artjsm .aui-flag {
+html .aui-flag {
     background: var(--artjsm-surface) !important;
     color: var(--artjsm-text) !important;
     border-radius: 10px !important;
     box-shadow: var(--artjsm-shadow) !important;
 }
 
-html.artjsm .aui-flag .title {
+html .aui-flag .title {
     color: var(--artjsm-text) !important;
 }
 
-html.artjsm .aui-message {
+html .aui-message {
     border-radius: 8px !important;
     color: var(--artjsm-text);
 }
 
-html.artjsm .aui-lozenge {
+html .aui-lozenge {
     border-radius: 999px !important;
     font-weight: 600;
     padding: 2px 8px !important;
     border: 0 !important;
 }
 
-html.artjsm .aui-nav-pagination > li > a {
+html .aui-nav-pagination > li > a {
     border-radius: 6px !important;
 }
 
-html.artjsm .aui-nav-pagination > .aui-nav-selected > a {
+html .aui-nav-pagination > .aui-nav-selected > a {
     background: var(--artjsm-primary) !important;
     color: #ffffff !important;
 }
 
 /* Issue view, navigator, dashboard */
 
-html.artjsm #issue-content,
-html.artjsm .issue-body-content,
-html.artjsm .issue-body,
-html.artjsm #details-module,
-html.artjsm .activity-comment,
-html.artjsm .action-body,
-html.artjsm .module,
-html.artjsm .mod-content {
+html #issue-content,
+html .issue-body-content,
+html .issue-body,
+html #details-module,
+html .activity-comment,
+html .action-body,
+html .module,
+html .mod-content {
     background: var(--artjsm-surface) !important;
     color: var(--artjsm-text) !important;
 }
 
-html.artjsm .module,
-html.artjsm .mod-header {
+html .module,
+html .mod-header {
     border-color: var(--artjsm-border) !important;
 }
 
-html.artjsm .mod-header {
+html .mod-header {
     background: transparent !important;
 }
 
-html.artjsm .module {
+html .module {
     border-radius: 10px;
 }
 
-html.artjsm #dashboard,
-html.artjsm .dashboard-tabs {
+html #dashboard,
+html .dashboard-tabs {
     background: var(--artjsm-bg) !important;
 }
 
-html.artjsm .dashboard-item-frame,
-html.artjsm .gadget,
-html.artjsm .gadget-container {
+html .dashboard-item-frame,
+html .gadget,
+html .gadget-container {
     background: var(--artjsm-surface) !important;
     border: 1px solid var(--artjsm-border) !important;
     border-radius: 12px !important;
     box-shadow: none !important;
 }
 
-html.artjsm #footer {
+html #footer {
     background: var(--artjsm-bg) !important;
     color: var(--artjsm-text-subtle) !important;
     border-top: 1px solid var(--artjsm-border) !important;
 }
 
-html.artjsm #footer a,
-html.artjsm #footer a:visited {
+html #footer a,
+html #footer a:visited {
     color: var(--artjsm-text-subtle) !important;
 }
 
-html.artjsm .login-page .aui-page-panel,
-html.artjsm #login-container .aui-page-panel,
-html.artjsm #login-form {
+html .login-page .aui-page-panel,
+html #login-container .aui-page-panel,
+html #login-form {
     border-radius: 12px !important;
     box-shadow: var(--artjsm-shadow) !important;
     border: 1px solid var(--artjsm-border) !important;
@@ -621,46 +646,46 @@ html.artjsm #login-form {
 
 /* Jira Service Management */
 
-html.artjsm .cv-smart-portal,
-html.artjsm .cv-page,
-html.artjsm #jsd-customer-portal,
-html.artjsm .help-center,
-html.artjsm .cp-request-container,
-html.artjsm .sd-customer-portal,
-html.artjsm .sd-queue,
-html.artjsm #sd-queues {
+html .cv-smart-portal,
+html .cv-page,
+html #jsd-customer-portal,
+html .help-center,
+html .cp-request-container,
+html .sd-customer-portal,
+html .sd-queue,
+html #sd-queues {
     background: var(--artjsm-bg) !important;
     color: var(--artjsm-text) !important;
 }
 
-html.artjsm .cv-smart-portal-header {
+html .cv-smart-portal-header {
     background: var(--artjsm-surface) !important;
     color: var(--artjsm-text) !important;
     border-bottom: 1px solid var(--artjsm-border) !important;
 }
 
-html.artjsm .cv-smart-portal-header a,
-html.artjsm .cv-smart-portal-header a:visited {
+html .cv-smart-portal-header a,
+html .cv-smart-portal-header a:visited {
     color: var(--artjsm-text) !important;
 }
 
-html.artjsm #header.cv-smart-portal-header,
-html.artjsm #header.cv-smart-portal-header .aui-header {
+html #header.cv-smart-portal-header,
+html #header.cv-smart-portal-header .aui-header {
     background: var(--artjsm-surface) !important;
     color: var(--artjsm-text) !important;
 }
 
-html.artjsm #header.cv-smart-portal-header a,
-html.artjsm #header.cv-smart-portal-header a:visited {
+html #header.cv-smart-portal-header a,
+html #header.cv-smart-portal-header a:visited {
     color: var(--artjsm-text) !important;
 }
 
-html.artjsm .request-type-card,
-html.artjsm .cv-card,
-html.artjsm .portal-card,
-html.artjsm .category-box,
-html.artjsm .portal-project-card,
-html.artjsm .cv-request-type {
+html .request-type-card,
+html .cv-card,
+html .portal-card,
+html .category-box,
+html .portal-project-card,
+html .cv-request-type {
     background: var(--artjsm-surface) !important;
     border: 1px solid var(--artjsm-border) !important;
     border-radius: 12px !important;
@@ -668,10 +693,10 @@ html.artjsm .cv-request-type {
     color: var(--artjsm-text) !important;
 }
 
-html.artjsm .sd-queue-header,
-html.artjsm .vp-request-summary,
-html.artjsm .cv-request-list,
-html.artjsm .cv-my-requests {
+html .sd-queue-header,
+html .vp-request-summary,
+html .cv-request-list,
+html .cv-my-requests {
     background: var(--artjsm-surface) !important;
     color: var(--artjsm-text) !important;
     border-color: var(--artjsm-border) !important;
@@ -679,153 +704,170 @@ html.artjsm .cv-my-requests {
 
 /* Dark-only semantic colors that AUI paints as light pastels */
 
-html.artjsm[data-artjsm-theme="dark"] .aui-message {
+html[data-artjsm-theme="dark"] .aui-message {
     background: #232a36 !important;
     color: var(--artjsm-text) !important;
     border-color: var(--artjsm-border) !important;
 }
 
-html.artjsm[data-artjsm-theme="dark"] .aui-message-success {
+html[data-artjsm-theme="dark"] .aui-message-success {
     background: #173323 !important;
     border-color: #245c3a !important;
     color: #d8f5e4 !important;
 }
 
-html.artjsm[data-artjsm-theme="dark"] .aui-message-error {
+html[data-artjsm-theme="dark"] .aui-message-error {
     background: #3d2226 !important;
     border-color: #6b3038 !important;
     color: #ffd6d6 !important;
 }
 
-html.artjsm[data-artjsm-theme="dark"] .aui-message-warning {
+html[data-artjsm-theme="dark"] .aui-message-warning {
     background: #3a311c !important;
     border-color: #6b5a2e !important;
     color: #ffe8b8 !important;
 }
 
-html.artjsm[data-artjsm-theme="dark"] .aui-message-info,
-html.artjsm[data-artjsm-theme="dark"] .aui-message-hint {
+html[data-artjsm-theme="dark"] .aui-message-info,
+html[data-artjsm-theme="dark"] .aui-message-hint {
     background: #1a2e48 !important;
     border-color: #2d4f78 !important;
     color: #d6e8ff !important;
 }
 
-html.artjsm[data-artjsm-theme="dark"] .aui-lozenge {
+html[data-artjsm-theme="dark"] .aui-lozenge {
     background: #2a3342 !important;
     color: #d5deea !important;
 }
 
-html.artjsm[data-artjsm-theme="dark"] .aui-lozenge-success,
-html.artjsm[data-artjsm-theme="dark"] .aui-lozenge-complete {
+html[data-artjsm-theme="dark"] .aui-lozenge-success,
+html[data-artjsm-theme="dark"] .aui-lozenge-complete {
     background: #1c3d2e !important;
     color: #9be7b8 !important;
 }
 
-html.artjsm[data-artjsm-theme="dark"] .aui-lozenge-error {
+html[data-artjsm-theme="dark"] .aui-lozenge-error {
     background: #4a2328 !important;
     color: #ffb4b4 !important;
 }
 
-html.artjsm[data-artjsm-theme="dark"] .aui-lozenge-current {
+html[data-artjsm-theme="dark"] .aui-lozenge-current {
     background: #1d3d66 !important;
     color: #b9d6ff !important;
 }
 
-html.artjsm[data-artjsm-theme="dark"] .aui-lozenge-moved {
+html[data-artjsm-theme="dark"] .aui-lozenge-moved {
     background: #3f341c !important;
     color: #f3d48a !important;
 }
 
-html.artjsm[data-artjsm-theme="dark"] .aui-lozenge-new {
+html[data-artjsm-theme="dark"] .aui-lozenge-new {
     background: #3a2a55 !important;
     color: #e0caff !important;
 }
 
 /* Theme toggle */
 
-html.artjsm .artjsm-theme-toggle-item {
+html #header .artjsm-theme-toggle-item,
+html .artjsm-theme-toggle-item {
     display: flex !important;
+    visibility: visible !important;
     align-items: center !important;
-    margin: 0 !important;
+    margin: 0 4px 0 0 !important;
     padding: 0 !important;
     list-style: none !important;
+    float: none !important;
+    opacity: 1 !important;
 }
 
-html.artjsm .artjsm-theme-toggle {
+html .artjsm-theme-toggle {
     appearance: none;
     -webkit-appearance: none;
-    width: 32px;
-    height: 32px;
-    min-width: 32px;
-    margin: 0 2px !important;
-    padding: 0 !important;
+    width: auto !important;
+    height: 32px !important;
+    min-width: 0;
+    margin: 0 !important;
+    padding: 0 12px !important;
     display: inline-flex !important;
     align-items: center;
     justify-content: center;
-    border-radius: 8px !important;
-    border: 0 !important;
-    background: transparent !important;
+    gap: 6px;
+    border-radius: 999px !important;
+    border: 1px solid rgba(255, 255, 255, 0.45) !important;
+    background: rgba(255, 255, 255, 0.16) !important;
     color: #ffffff !important;
     cursor: pointer;
     box-shadow: none !important;
     vertical-align: middle;
+    font: 600 13px/1 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans", Arial, sans-serif !important;
+    text-decoration: none !important;
+    white-space: nowrap;
+    text-shadow: none !important;
 }
 
-html.artjsm .artjsm-theme-toggle:hover,
-html.artjsm .artjsm-theme-toggle:focus {
-    background: rgba(255, 255, 255, 0.16) !important;
+html .artjsm-theme-toggle:hover,
+html .artjsm-theme-toggle:focus {
+    background: rgba(255, 255, 255, 0.28) !important;
     color: #ffffff !important;
+    text-decoration: none !important;
 }
 
-html.artjsm .artjsm-theme-toggle:focus {
+html .artjsm-theme-toggle:focus {
     outline: 2px solid #ffffff;
     outline-offset: 2px;
 }
 
-html.artjsm .artjsm-theme-toggle.artjsm-on-light,
-html.artjsm .artjsm-theme-toggle-fallback {
-    color: var(--artjsm-text) !important;
-    background: var(--artjsm-bg-muted) !important;
+html .artjsm-theme-toggle.artjsm-on-light,
+html .artjsm-theme-toggle-fallback {
+    color: var(--artjsm-primary) !important;
+    background: #ffffff !important;
     border: 1px solid var(--artjsm-border) !important;
 }
 
-html.artjsm .artjsm-theme-toggle.artjsm-on-light:hover,
-html.artjsm .artjsm-theme-toggle.artjsm-on-light:focus,
-html.artjsm .artjsm-theme-toggle-fallback:hover {
-    background: var(--artjsm-bg-sunken) !important;
-    color: var(--artjsm-text) !important;
+html .artjsm-theme-toggle.artjsm-on-light:hover,
+html .artjsm-theme-toggle.artjsm-on-light:focus,
+html .artjsm-theme-toggle-fallback:hover {
+    background: var(--artjsm-accent-soft) !important;
+    color: var(--artjsm-primary-hover) !important;
 }
 
-html.artjsm .artjsm-theme-toggle.artjsm-on-light:focus {
+html .artjsm-theme-toggle.artjsm-on-light:focus {
     outline-color: var(--artjsm-primary);
 }
 
-html.artjsm .artjsm-theme-toggle-fallback {
+html .artjsm-theme-toggle-fallback {
     position: fixed;
+    top: 12px;
     right: 16px;
-    bottom: 16px;
-    z-index: 2600;
-    width: 40px;
-    height: 40px;
+    z-index: 5000;
+    width: auto !important;
+    height: 32px !important;
     border-radius: 999px !important;
-    box-shadow: var(--artjsm-shadow) !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.28) !important;
 }
 
-html.artjsm .artjsm-theme-toggle-icon,
-html.artjsm .artjsm-theme-toggle-icon svg {
+html .artjsm-theme-toggle-icon,
+html .artjsm-theme-toggle-icon svg {
     display: block;
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
+    flex: 0 0 auto;
+}
+
+html .artjsm-theme-toggle-label {
+    display: inline-block;
+    line-height: 1;
+    font-weight: 600;
 }
 
 @media print {
-    html.artjsm .artjsm-theme-toggle,
-    html.artjsm .artjsm-theme-toggle-item,
-    html.artjsm .artjsm-theme-toggle-fallback {
+    html .artjsm-theme-toggle,
+    html .artjsm-theme-toggle-item,
+    html .artjsm-theme-toggle-fallback {
         display: none !important;
     }
 
-    html.artjsm[data-artjsm-theme="dark"] {
+    html[data-artjsm-theme="dark"] {
         --artjsm-header: #0747a6;
         --artjsm-header-text: #ffffff;
         --artjsm-bg: #ffffff;

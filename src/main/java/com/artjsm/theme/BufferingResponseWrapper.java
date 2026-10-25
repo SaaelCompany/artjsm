@@ -1,5 +1,6 @@
 package com.artjsm.theme;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -9,6 +10,8 @@ import java.nio.charset.Charset;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.zip.GZIPInputStream;
+import java.util.zip.GZIPOutputStream;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.WriteListener;
 import javax.servlet.http.HttpServletResponse;
@@ -88,24 +91,81 @@ final class BufferingResponseWrapper extends HttpServletResponseWrapper {
         if (data.length == 0 || status == 204 || status == 304) {
             return;
         }
-        if (compressed || HtmlThemeInjector.isGzip(data) || isRedirect(status) || isAttachment()) {
+        if (isRedirect(status) || isAttachment()) {
             writeThrough(data);
             return;
         }
+        if (HtmlThemeInjector.isGzip(data)) {
+            byte[] plain;
+            try {
+                plain = gunzip(data);
+            } catch (IOException ex) {
+                writeThrough(data);
+                return;
+            }
+            byte[] themed = themeIfHtml(plain);
+            if (themed == plain) {
+                writeThrough(data);
+                return;
+            }
+            try {
+                writeThrough(gzip(themed));
+            } catch (IOException ex) {
+                LOG.log(Level.WARNING, "ArtJSM theme could not recompress the page", ex);
+                writeThrough(data);
+            }
+            return;
+        }
+        if (compressed) {
+            writeThrough(data);
+            return;
+        }
+        writeThrough(themeIfHtml(data));
+    }
+
+    private byte[] themeIfHtml(byte[] data) {
         boolean html = HtmlThemeInjector.isHtmlType(contentType) || HtmlThemeInjector.sniffHtml(data);
         if (!html) {
-            writeThrough(data);
-            return;
+            return data;
         }
         Charset charset = lockedCharset != null ? lockedCharset : HtmlThemeInjector.charsetFrom(contentType);
-        byte[] themed;
         try {
-            themed = HtmlThemeInjector.inject(data, charset, cssUrl, jsUrl);
+            return HtmlThemeInjector.inject(data, charset, cssUrl, jsUrl);
         } catch (RuntimeException ex) {
             LOG.log(Level.WARNING, "ArtJSM theme injection failed", ex);
-            themed = data;
+            return data;
         }
-        writeThrough(themed);
+    }
+
+    private static byte[] gunzip(byte[] data) throws IOException {
+        ByteArrayOutputStream out = new ByteArrayOutputStream(Math.min(data.length * 4, MAX_BYTES));
+        GZIPInputStream in = new GZIPInputStream(new ByteArrayInputStream(data));
+        try {
+            byte[] chunk = new byte[8192];
+            int total = 0;
+            int read;
+            while ((read = in.read(chunk)) >= 0) {
+                total += read;
+                if (total > MAX_BYTES) {
+                    throw new IOException("uncompressed page exceeds " + MAX_BYTES + " bytes");
+                }
+                out.write(chunk, 0, read);
+            }
+        } finally {
+            in.close();
+        }
+        return out.toByteArray();
+    }
+
+    private static byte[] gzip(byte[] data) throws IOException {
+        ByteArrayOutputStream out = new ByteArrayOutputStream(data.length);
+        GZIPOutputStream compressedOut = new GZIPOutputStream(out);
+        try {
+            compressedOut.write(data);
+        } finally {
+            compressedOut.close();
+        }
+        return out.toByteArray();
     }
 
     void discard() {

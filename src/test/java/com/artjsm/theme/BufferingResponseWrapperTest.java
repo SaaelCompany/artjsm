@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,6 +12,8 @@ import java.lang.reflect.Proxy;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.zip.GZIPInputStream;
+import java.util.zip.GZIPOutputStream;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.WriteListener;
 import javax.servlet.http.HttpServletResponse;
@@ -56,6 +59,59 @@ class BufferingResponseWrapperTest {
         assertEquals(5, gzip.bytes.size());
         assertEquals(0x1F, gzip.bytes.toByteArray()[0] & 0xFF);
         assertEquals((byte) 0x8B, gzip.bytes.toByteArray()[1]);
+    }
+
+    @Test
+    void leavesPlainHtmlAloneWhenEncodingClaimsGzipButBodyIsNot() throws Exception {
+        FakeResponse response = new FakeResponse();
+        BufferingResponseWrapper wrapper = new BufferingResponseWrapper(response.http(), "/a.css", "/a.js");
+        wrapper.setContentType("text/html;charset=UTF-8");
+        wrapper.setHeader("Content-Encoding", "gzip");
+        byte[] payload = "<html><head></head><body>plain</body></html>".getBytes(StandardCharsets.UTF_8);
+        wrapper.getOutputStream().write(payload);
+        wrapper.finish();
+        assertEquals(new String(payload, StandardCharsets.UTF_8), response.body());
+        assertFalse(response.body().contains("data-artjsm"));
+    }
+
+    @Test
+    void injectsThemeIntoRealGzipHtml() throws Exception {
+        String html = "<html><head><title>Очереди</title></head><body>Все оборудование</body></html>";
+        ByteArrayOutputStream gz = new ByteArrayOutputStream();
+        GZIPOutputStream gzip = new GZIPOutputStream(gz);
+        gzip.write(html.getBytes(StandardCharsets.UTF_8));
+        gzip.close();
+
+        FakeResponse response = new FakeResponse();
+        BufferingResponseWrapper wrapper = new BufferingResponseWrapper(response.http(), "/theme.css", "/theme.js");
+        wrapper.setContentType("text/html;charset=UTF-8");
+        wrapper.setHeader("Content-Encoding", "gzip");
+        wrapper.getOutputStream().write(gz.toByteArray());
+        wrapper.finish();
+
+        byte[] body = response.bytes.toByteArray();
+        assertTrue(body.length > 2);
+        assertEquals(0x1F, body[0] & 0xFF);
+        assertEquals(0x8B, body[1] & 0xFF);
+        String text = gunzipToString(body);
+        assertTrue(text.contains("data-artjsm=\"boot\""));
+        assertTrue(text.contains("Все оборудование"));
+        assertTrue(text.contains("href=\"/theme.css\""));
+    }
+
+    private static String gunzipToString(byte[] body) throws IOException {
+        GZIPInputStream in = new GZIPInputStream(new ByteArrayInputStream(body));
+        try {
+            ByteArrayOutputStream plain = new ByteArrayOutputStream();
+            byte[] buf = new byte[256];
+            int read;
+            while ((read = in.read(buf)) >= 0) {
+                plain.write(buf, 0, read);
+            }
+            return new String(plain.toByteArray(), StandardCharsets.UTF_8);
+        } finally {
+            in.close();
+        }
     }
 
     private static final class FakeResponse {

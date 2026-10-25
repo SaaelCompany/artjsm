@@ -24,7 +24,24 @@
     </servlet-filter>
 
     <web-resource key="artjsm-resources" name="ArtJSM Theme Resources">
+        <dependency>com.atlassian.auiplugin:ajs</dependency>
+        <context>atl.general</context>
+        <context>atl.admin</context>
+        <context>atl.userprofile</context>
+        <context>jira.general</context>
+        <context>jira.view.issue</context>
+        <context>jira.browse</context>
+        <context>customerportal</context>
+        <context>servicedesk.portal</context>
+        <context>servicedesk.general</context>
         <resource type="download" name="artjsm.css" location="css/artjsm.css"/>
         <resource type="download" name="artjsm.js" location="js/artjsm.js"/>
     </web-resource>
+
+    <web-item key="artjsm-theme-toggle-item" name="Тёмная тема" section="system.top.navigation.bar" weight="90">
+        <description>Переключатель тёмной темы в шапке Jira.</description>
+        <label>Тёмная тема</label>
+        <link linkId="artjsm-theme-toggle">#artjsm-theme</link>
+        <styleClass>artjsm-theme-toggle</styleClass>
+    </web-item>
 </atlassian-plugin>

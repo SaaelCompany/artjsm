@@ -6,7 +6,7 @@
 
     <groupId>com.artjsm</groupId>
     <artifactId>artjsm-theme</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <packaging>bundle</packaging>
 
     <name>ArtJSM Theme</name>
@@ -78,8 +78,9 @@
                         <Bundle-Description>Redesign theme for Jira Service Management 4.21 on Jira 8.21</Bundle-Description>
                         <Bundle-Vendor>ArtJSM</Bundle-Vendor>
                         <Atlassian-Plugin-Key>com.artjsm.theme</Atlassian-Plugin-Key>
-                        <Import-Package>javax.servlet;version="[3.1,5)",javax.servlet.http;version="[3.1,5)"</Import-Package>
+                        <Import-Package>javax.servlet;version="[2.5,5)",javax.servlet.http;version="[2.5,5)"</Import-Package>
                         <Export-Package>!*</Export-Package>
+                        <_noee>true</_noee>
                         <Private-Package>com.artjsm.*</Private-Package>
                     </instructions>
                 </configuration>
