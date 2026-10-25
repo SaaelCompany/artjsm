@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Графики — ArtJSM</title>
+    <script>
+        (function () {
+            var q = window.location.search || "";
+            try {
+                if (q.indexOf("theme=dark") >= 0) localStorage.setItem("artjsm-theme", "dark");
+                if (q.indexOf("theme=light") >= 0) localStorage.setItem("artjsm-theme", "light");
+            } catch (e) {}
+        })();
+    </script>
+    <script data-artjsm="boot">(function(){var d=document.documentElement;try{if((" "+d.className+" ").indexOf(" artjsm ")<0){d.className+=(d.className?" ":"")+"artjsm";}}catch(e){}try{var k="artjsm-theme",t=localStorage.getItem(k);if(t!=="dark"&&t!=="light"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}d.setAttribute("data-artjsm-theme",t);}catch(e){}})();</script>
+    <link rel="stylesheet" href="preview-aui.css">
+    <link rel="stylesheet" href="../../main/resources/css/artjsm.css">
+</head>
+<body>
+<header id="header" role="banner">
+    <nav class="aui-header">
+        <div class="aui-header-inner">
+            <div class="aui-header-primary">
+                <h1 class="aui-header-logo"><a href="#top">Jira</a></h1>
+                <ul class="aui-nav">
+                    <li><a class="aui-nav-link" href="#dash">Дашборды</a></li>
+                    <li><a class="aui-nav-link" href="#proj">Проекты</a></li>
+                    <li><a class="aui-nav-link" href="#issues">Задачи</a></li>
+                </ul>
+            </div>
+            <div class="aui-header-secondary">
+                <ul class="aui-nav">
+                    <li id="quicksearch"><input id="quickSearchInput" class="search" type="search" placeholder="Поиск"></li>
+                    <li><a class="aui-button aui-button-primary" id="create_link" href="#create">Создать</a></li>
+                    <li id="header-details-user-fullname"><a class="aui-nav-link" href="#user">Админ</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+<nav class="subnav aui-navgroup aui-navgroup-horizontal" aria-label="Разделы">
+    <ul class="aui-nav aui-nav-horizontal">
+        <li><a href="#mine">Мои активы</a></li>
+        <li><a href="#assets">Активы</a></li>
+        <li class="aui-nav-selected"><a href="#schedules">Графики</a></li>
+        <li><a href="#reports">Отчёты</a></li>
+        <li><a href="#map">Карта</a></li>
+        <li><a href="#settings">Настройки</a></li>
+    </ul>
+</nav>
+<div id="page">
+    <div class="layout">
+        <aside class="aui-sidebar">
+            <div class="aui-nav-heading">Очереди</div>
+            <ul class="aui-nav">
+                <li class="aui-nav-selected"><a class="aui-nav-item" href="#all">Все открытые</a></li>
+                <li><a class="aui-nav-item" href="#mineq">Назначенные мне</a></li>
+                <li><a class="aui-nav-item" href="#sla">SLA нарушен</a></li>
+            </ul>
+        </aside>
+        <main class="main aui-page-panel">
+            <div class="page-title">
+                <h1>Графики <span class="aui-lozenge aui-lozenge-new beta">BETA</span></h1>
+                <div class="title-actions">
+                    <label class="field-label" for="project">Проект</label>
+                    <select id="project"><option>STP</option><option>IT</option></select>
+                    <a class="aui-button aui-button-primary" href="#new">Новая работа</a>
+                </div>
+            </div>
+            <div class="toolbar">
+                <button class="aui-button" type="button">Сегодня</button>
+                <span class="aui-buttons">
+                    <button class="aui-button" type="button">Календарь</button>
+                    <button class="aui-button aui-button-primary" type="button">Табель</button>
+                </span>
+            </div>
+            <p class="hint description">Первый клик ставит смену, второй снимает. Светлая тема повторяет спокойную сетку со скриншота, луна в шапке включает тёмную.</p>
+            <div class="filters">
+                <span class="filter"><span class="dot" style="background:#5b4b8a"></span> Рабочий день</span>
+                <span class="filter"><span class="dot" style="background:#7b61c9"></span> Ночная работа</span>
+                <span class="filter"><span class="dot" style="background:#1f8f4e"></span> Выезд на филиал</span>
+                <span class="filter"><span class="dot" style="background:#e07a1f"></span> Отпуск</span>
+                <span class="filter"><span class="dot" style="background:#d23b4a"></span> Больничный</span>
+            </div>
+            <table class="aui">
+                <thead>
+                <tr>
+                    <th>Сотрудник</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>Дней</th><th>Часов</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><a href="#anna">Петрова Анна</a></td>
+                    <td><span class="hour">8</span></td><td><span class="hour">8</span></td><td><span class="hour">8</span></td>
+                    <td><span class="hour">8</span></td><td></td><td>4</td><td>32</td>
+                </tr>
+                <tr class="focused">
+                    <td><a href="#sergey">Иванов Сергей</a></td>
+                    <td><span class="hour">12</span></td><td><span class="hour">12</span></td><td></td>
+                    <td><span class="hour">12</span></td><td><span class="hour">12</span></td><td>4</td><td>48</td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="filters">
+                <span class="aui-lozenge aui-lozenge-success">Открыт</span>
+                <span class="aui-lozenge aui-lozenge-current">В работе</span>
+                <span class="aui-lozenge aui-lozenge-complete">Готово</span>
+                <span class="aui-lozenge aui-lozenge-moved">Ожидает</span>
+                <span class="aui-lozenge aui-lozenge-error">Блокер</span>
+            </div>
+            <div class="field-group">
+                <label class="field-label" for="comment">Комментарий</label>
+                <input id="comment" type="text" placeholder="Что изменилось в смене" style="width:320px">
+            </div>
+            <div class="aui-message aui-message-info">Смены на октябрь 2026 опубликованы для проекта STP.</div>
+            <div class="cards">
+                <article class="portal-card">
+                    <h3>Доступ в офис</h3>
+                    <p class="description">Запрос на портале службы поддержки</p>
+                </article>
+                <article class="portal-card">
+                    <h3>Новый ноутбук</h3>
+                    <p class="description">Типовой запрос для сотрудников</p>
+                </article>
+            </div>
+        </main>
+    </div>
+</div>
+<footer id="footer">ArtJSM Theme · Jira 8.21.1 · JSM 4.21.1</footer>
+<script data-artjsm="js" src="../../main/resources/js/artjsm.js" defer></script>
+</body>
+</html>

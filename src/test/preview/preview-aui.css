@@ -1,0 +1,47 @@
+/* Minimal stand-in for AUI layout. Not shipped in the plugin. */
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body { font-size: 14px; line-height: 1.45; }
+#header { min-height: 56px; }
+.aui-header-inner { display: flex; align-items: center; justify-content: space-between; min-height: 56px; padding: 0 16px; }
+.aui-header-primary, .aui-header-secondary, .aui-nav { display: flex; align-items: center; gap: 4px; list-style: none; margin: 0; padding: 0; }
+.aui-header-logo { margin: 0 16px 0 0; font-size: 18px; }
+.aui-header-logo a, .aui-nav-link { text-decoration: none; padding: 6px 10px; }
+.subnav { border-bottom: 1px solid #dfe1e6; padding: 0 24px; }
+.aui-nav-horizontal a { display: inline-block; padding: 12px 12px 10px; text-decoration: none; }
+.aui-page-panel { padding: 20px 24px 40px; }
+.page-title { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 16px; }
+.page-title h1 { margin: 0; font-size: 22px; }
+.title-actions, .toolbar, .chips { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.toolbar, .chips { margin: 12px 0; }
+.hint { color: #5e6c84; font-size: 13px; margin: 8px 0 12px; }
+.aui-button { display: inline-block; padding: 4px 12px; line-height: 20px; text-decoration: none; cursor: pointer; font-size: 14px; }
+select, input[type="text"], input[type="search"] { height: 32px; padding: 0 8px; }
+table.aui { width: 100%; border-collapse: collapse; }
+table.aui th, table.aui td { padding: 8px 10px; text-align: left; border-bottom: 1px solid #dfe1e6; font-size: 13px; }
+.layout { display: flex; gap: 20px; }
+.aui-sidebar { width: 220px; flex: none; padding: 8px; }
+.aui-sidebar .aui-nav { display: block; }
+.aui-sidebar .aui-nav-item { display: block; padding: 8px 10px; text-decoration: none; margin-bottom: 2px; }
+.main { flex: 1; min-width: 0; }
+.aui-lozenge { display: inline-block; font-size: 11px; line-height: 16px; }
+.aui-message { padding: 10px 12px; margin-top: 16px; }
+.cards { display: flex; gap: 12px; margin-top: 16px; }
+.portal-card { padding: 16px; width: 220px; }
+.portal-card h3 { margin: 0 0 6px; font-size: 15px; }
+.field-group { margin-top: 16px; }
+.field-group label { display: block; margin-bottom: 4px; }
+.beta { margin-left: 8px; vertical-align: middle; }
+.hour {
+    display: inline-flex; min-width: 28px; height: 24px; align-items: center; justify-content: center;
+    border-radius: 6px; background: var(--artjsm-bg-muted, #eee); color: var(--artjsm-text, #172b4d);
+    font-weight: 600; font-size: 12px;
+}
+.filters { display: flex; gap: 8px; flex-wrap: wrap; margin: 8px 0 12px; }
+.filter {
+    display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--artjsm-border, #e4e6ea);
+    background: var(--artjsm-surface, #fff); color: var(--artjsm-text, #1d2b3a);
+    border-radius: 999px; padding: 4px 10px; font-size: 13px;
+}
+.dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+#footer { padding: 16px 24px; font-size: 12px; }

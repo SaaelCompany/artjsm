@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<atlassian-plugin key="com.artjsm.theme" name="ArtJSM Theme" plugins-version="1">
+    <plugin-info>
+        <description>Редизайн Jira и Jira Service Management: светлый интерфейс и тёмная тема.</description>
+        <version>${project.version}</version>
+        <vendor name="ArtJSM" url="https://github.com/artjsm"/>
+        <param name="atlassian-data-center-status">compatible</param>
+        <param name="atlassian-data-center-compatible">true</param>
+        <param name="atlassian-licensing-enabled">false</param>
+        <param name="plugin-icon">images/plugin-icon.png</param>
+        <param name="plugin-logo">images/plugin-logo.png</param>
+    </plugin-info>
+
+    <servlet-filter key="artjsm-theme-filter"
+                    name="ArtJSM Theme Filter"
+                    class="com.artjsm.theme.ThemeInjectionFilter"
+                    location="before-decoration"
+                    weight="200">
+        <description>Вставляет стили редизайна и переключатель тёмной темы в HTML-страницы.</description>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+        <dispatcher>ERROR</dispatcher>
+    </servlet-filter>
+
+    <web-resource key="artjsm-resources" name="ArtJSM Theme Resources">
+        <resource type="download" name="artjsm.css" location="css/artjsm.css"/>
+        <resource type="download" name="artjsm.js" location="js/artjsm.js"/>
+    </web-resource>
+</atlassian-plugin>
