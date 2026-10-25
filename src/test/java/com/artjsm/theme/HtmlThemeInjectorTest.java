@@ -116,6 +116,6 @@ class HtmlThemeInjectorTest {
         assertTrue(xml.contains("key=\"com.artjsm.theme\""));
         assertTrue(xml.contains("location=\"before-decoration\""));
         assertTrue(xml.contains("com.artjsm.theme.ThemeInjectionFilter"));
-        assertTrue(xml.contains("plugins-version=\"1\""));
+        assertTrue(xml.contains("plugins-version=\"2\""));
     }
 }

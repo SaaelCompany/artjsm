@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<atlassian-plugin key="com.artjsm.theme" name="ArtJSM Theme" plugins-version="1">
+<atlassian-plugin key="com.artjsm.theme" name="ArtJSM Theme" plugins-version="2">
     <plugin-info>
         <description>Редизайн Jira и Jira Service Management: светлый интерфейс и тёмная тема.</description>
         <version>${project.version}</version>
