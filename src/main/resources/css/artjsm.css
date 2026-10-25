@@ -1557,6 +1557,167 @@ html[data-artjsm-theme="light"] body#jira #header a.aui-button-primary {
     border-color: transparent !important;
 }
 
+/* Project sidebar: one surface. The nav group and the strip under the
+   project name were keeping the page background, so the panel looked split. */
+
+html[data-artjsm-theme] body#jira .aui-sidebar,
+html[data-artjsm-theme] body#jira #sidebar,
+html[data-artjsm-theme] body#jira #sidebar .aui-sidebar,
+html[data-artjsm-theme] body#jira .aui-sidebar-wrapper,
+html[data-artjsm-theme] body#jira .aui-sidebar-body,
+html[data-artjsm-theme] body#jira .aui-sidebar-footer {
+    background-color: var(--artjsm-surface) !important;
+    background-image: none !important;
+    box-shadow: none !important;
+}
+
+html[data-artjsm-theme] body#jira .aui-sidebar .aui-navgroup,
+html[data-artjsm-theme] body#jira .aui-sidebar .aui-navgroup-inner,
+html[data-artjsm-theme] body#jira #sidebar .aui-navgroup,
+html[data-artjsm-theme] body#jira #sidebar .aui-navgroup-inner,
+html[data-artjsm-theme] body#jira .aui-sidebar-subheader,
+html[data-artjsm-theme] body#jira .aui-sidebar-header,
+html[data-artjsm-theme] body#jira .aui-sidebar-header-inner,
+html[data-artjsm-theme] body#jira #project-header,
+html[data-artjsm-theme] body#jira .project-header {
+    background-color: transparent !important;
+    background-image: none !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+    color: var(--artjsm-text) !important;
+}
+
+html[data-artjsm-theme] body#jira .aui-sidebar-header *,
+html[data-artjsm-theme] body#jira .aui-sidebar-subheader *,
+html[data-artjsm-theme] body#jira #project-header *,
+html[data-artjsm-theme] body#jira .project-header * {
+    background-color: transparent !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+    color: var(--artjsm-text) !important;
+}
+
+html[data-artjsm-theme] body#jira .aui-sidebar .aui-avatar,
+html[data-artjsm-theme] body#jira .aui-sidebar .aui-avatar-inner,
+html[data-artjsm-theme] body#jira .aui-sidebar img {
+    background-color: transparent !important;
+    border: 0 !important;
+}
+
+html[data-artjsm-theme="dark"] body#jira .aui-sidebar .aui-nav-selected .aui-nav-item,
+html[data-artjsm-theme="dark"] body#jira .aui-sidebar .aui-nav-selected a,
+html[data-artjsm-theme="dark"] body#jira .aui-sidebar a.aui-nav-selected {
+    background-color: var(--artjsm-accent-soft) !important;
+    color: var(--artjsm-link) !important;
+}
+
+/* Queue counts were #172b4d, which disappears on the dark list. */
+
+html[data-artjsm-theme="dark"] body#jira .queue-count,
+html[data-artjsm-theme="dark"] body#jira .sd-queue-count,
+html[data-artjsm-theme="dark"] body#jira .js-queue-count,
+html[data-artjsm-theme="dark"] body#jira .cv-queue-count,
+html[data-artjsm-theme="dark"] body#jira [class*="queue-count"],
+html[data-artjsm-theme="dark"] body#jira [class*="queueCount"],
+html[data-artjsm-theme="dark"] body#jira [class*="QueueCount"],
+html[data-artjsm-theme="dark"] body#jira [class*="issue-count"],
+html[data-artjsm-theme="dark"] body#jira [class*="issueCount"],
+html[data-artjsm-theme="dark"] body#jira .aui-badge,
+html[data-artjsm-theme="dark"] body#jira .aui-nav-item-count,
+html[data-artjsm-theme="dark"] body#jira [class*="queue"] [class*="count"],
+html[data-artjsm-theme="dark"] body#jira [class*="queue"] [class*="Count"],
+html[data-artjsm-theme="dark"] body#jira [class*="Queue"] [class*="count"],
+html[data-artjsm-theme="dark"] body#jira .aui-sidebar .count,
+html[data-artjsm-theme="dark"] body#jira .aui-sidebar [class*="count"],
+html[data-artjsm-theme="dark"] body#jira .aui-sidebar .aui-lozenge,
+html[data-artjsm-theme="dark"] body#jira [class*="queue"]::after,
+html[data-artjsm-theme="dark"] body#jira [class*="queue"] a::after {
+    color: var(--artjsm-text) !important;
+    opacity: 1 !important;
+    background-color: transparent !important;
+}
+
+/* Issue tables: no boxed cells. A hairline under the row is enough. */
+
+html[data-artjsm-theme] body#jira #issuetable,
+html[data-artjsm-theme] body#jira #issuetable tr,
+html[data-artjsm-theme] body#jira #issuetable th,
+html[data-artjsm-theme] body#jira #issuetable td,
+html[data-artjsm-theme] body#jira table.issue-table,
+html[data-artjsm-theme] body#jira table.issue-table th,
+html[data-artjsm-theme] body#jira table.issue-table td,
+html[data-artjsm-theme] body#jira .issuerow,
+html[data-artjsm-theme] body#jira .issuerow > td,
+html[data-artjsm-theme] body#jira .list-view th,
+html[data-artjsm-theme] body#jira .list-view td,
+html[data-artjsm-theme] body#jira .navigator-content th,
+html[data-artjsm-theme] body#jira .navigator-content td,
+html[data-artjsm-theme] body#jira .sd-queue th,
+html[data-artjsm-theme] body#jira .sd-queue td,
+html[data-artjsm-theme] body#jira #sd-queues th,
+html[data-artjsm-theme] body#jira #sd-queues td {
+    border: 0 !important;
+    outline: 0 !important;
+    box-shadow: none !important;
+    background-image: none !important;
+}
+
+html[data-artjsm-theme] body#jira #issuetable th,
+html[data-artjsm-theme] body#jira #issuetable td,
+html[data-artjsm-theme] body#jira table.issue-table th,
+html[data-artjsm-theme] body#jira table.issue-table td,
+html[data-artjsm-theme] body#jira .list-view th,
+html[data-artjsm-theme] body#jira .list-view td,
+html[data-artjsm-theme] body#jira .sd-queue th,
+html[data-artjsm-theme] body#jira .sd-queue td {
+    border-bottom: 1px solid var(--artjsm-border) !important;
+    background-color: transparent !important;
+}
+
+/* Admin filters: the closed dropdown was still white, and a light rule stayed on the footer. */
+
+html[data-artjsm-theme="dark"] body#jira select,
+html[data-artjsm-theme="dark"] body#jira select.select,
+html[data-artjsm-theme="dark"] body#jira #upm-manage-container select,
+html[data-artjsm-theme="dark"] body#jira #upm-manage-container input,
+html[data-artjsm-theme="dark"] body#jira #upm-manage-container .aui-button,
+html[data-artjsm-theme="dark"] body#jira #upm-manage-container .aui-dropdown2-trigger,
+html[data-artjsm-theme="dark"] body#jira .aui-dropdown2-trigger,
+html[data-artjsm-theme="dark"] body#jira a.aui-dropdown2-trigger,
+html[data-artjsm-theme="dark"] body#jira option {
+    background-color: var(--artjsm-bg-sunken) !important;
+    background-image: none !important;
+    color: var(--artjsm-text) !important;
+    border-color: var(--artjsm-border) !important;
+}
+
+html[data-artjsm-theme] body#jira #header .aui-dropdown2-trigger,
+html[data-artjsm-theme] body#jira #header a.aui-dropdown2-trigger {
+    background-color: transparent !important;
+    background-image: none !important;
+    color: var(--artjsm-header-text) !important;
+    border-color: transparent !important;
+}
+
+html[data-artjsm-theme="dark"] body#jira #footer,
+html[data-artjsm-theme="dark"] body#jira hr,
+html[data-artjsm-theme="dark"] body#jira .aui-page-panel,
+html[data-artjsm-theme="dark"] body#jira .aui-page-panel-inner,
+html[data-artjsm-theme="dark"] body#jira .aui-navgroup,
+html[data-artjsm-theme="dark"] body#jira .aui-navgroup-horizontal,
+html[data-artjsm-theme="dark"] body#jira .aui-tabs,
+html[data-artjsm-theme="dark"] body#jira #admin-nav,
+html[data-artjsm-theme="dark"] body#jira #upm-manage-container,
+html[data-artjsm-theme="dark"] body#jira #upm-manage-container table,
+html[data-artjsm-theme="dark"] body#jira #upm-manage-container tr,
+html[data-artjsm-theme="dark"] body#jira #upm-manage-container td,
+html[data-artjsm-theme="dark"] body#jira #upm-manage-container th,
+html[data-artjsm-theme="dark"] body#jira #upm-manage-container div,
+html[data-artjsm-theme="dark"] body#jira .upm-plugin,
+html[data-artjsm-theme="dark"] body#jira .upm-plugin-list {
+    border-color: var(--artjsm-border) !important;
+}
+
 @media print {
     html .artjsm-theme-toggle,
     html .artjsm-theme-settings,

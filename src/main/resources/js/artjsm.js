@@ -186,7 +186,9 @@
         while (node && node.nodeType === 1 && node !== doc.body) {
             var id = node.id || "";
             var cls = classNameOf(node);
-            if (id === "header" || cls.indexOf("aui-header") >= 0 || cls.indexOf("aui-dropdown") >= 0 || cls.indexOf("aui-inline-dialog") >= 0 || cls.indexOf("ajs-layer") >= 0 || cls.indexOf("artjsm-theme-panel") >= 0 || cls.indexOf("aui-flag") >= 0 || cls.indexOf("aui-message") >= 0 || cls.indexOf("aui-banner") >= 0 || cls.indexOf("aui-lozenge") >= 0 || cls.indexOf("aui-icon") >= 0 || cls.indexOf("aui-avatar") >= 0) {
+            var trigger = cls.indexOf("aui-dropdown2-trigger") >= 0 || cls.indexOf("aui-dd-trigger") >= 0;
+            var popup = !trigger && (cls.indexOf("aui-dropdown") >= 0 || cls.indexOf("aui-inline-dialog") >= 0 || cls.indexOf("ajs-layer") >= 0);
+            if (id === "header" || cls.indexOf("aui-header") >= 0 || popup || cls.indexOf("artjsm-theme-panel") >= 0 || cls.indexOf("aui-flag") >= 0 || cls.indexOf("aui-message") >= 0 || cls.indexOf("aui-banner") >= 0 || cls.indexOf("aui-lozenge") >= 0 || cls.indexOf("aui-icon") >= 0 || cls.indexOf("aui-avatar") >= 0) {
                 return true;
             }
             node = node.parentNode;
@@ -211,15 +213,35 @@
 
     function rgbOf(color) {
         var match = /rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)(?:\s*,\s*([0-9.]+))?/.exec(color || "");
-        if (!match) {
+        if (match) {
+            return {
+                r: +match[1],
+                g: +match[2],
+                b: +match[3],
+                a: match[4] === undefined ? 1 : +match[4]
+            };
+        }
+        var text = String(color || "").replace(/^\s+|\s+$/g, "");
+        var hex = /^#([0-9a-f]{6})$/i.exec(text);
+        if (hex) {
+            var n = parseInt(hex[1], 16);
+            return { r: (n >> 16) & 255, g: (n >> 8) & 255, b: n & 255, a: 1 };
+        }
+        var shortHex = /^#([0-9a-f]{3})$/i.exec(text);
+        if (!shortHex) {
             return null;
         }
+        var s = shortHex[1];
         return {
-            r: +match[1],
-            g: +match[2],
-            b: +match[3],
-            a: match[4] === undefined ? 1 : +match[4]
+            r: parseInt(s.charAt(0) + s.charAt(0), 16),
+            g: parseInt(s.charAt(1) + s.charAt(1), 16),
+            b: parseInt(s.charAt(2) + s.charAt(2), 16),
+            a: 1
         };
+    }
+
+    function closeColor(a, b, tol) {
+        return !!(a && b && Math.abs(a.r - b.r) <= tol && Math.abs(a.g - b.g) <= tol && Math.abs(a.b - b.b) <= tol);
     }
 
     function luminance(c) {
@@ -275,6 +297,48 @@
         return image.indexOf("url(") >= 0;
     }
 
+    function insideSidebarHeader(el) {
+        var doc = el.ownerDocument || document;
+        var walk = el;
+        while (walk && walk.nodeType === 1) {
+            var cls = classNameOf(walk);
+            if (cls.indexOf("aui-sidebar-header") >= 0 || cls.indexOf("aui-sidebar-subheader") >= 0 || cls.indexOf("project-header") >= 0 || walk.id === "project-header") {
+                return true;
+            }
+            if (walk === doc.body) {
+                break;
+            }
+            walk = walk.parentNode;
+        }
+        return false;
+    }
+
+    function sidebarShell(el) {
+        if (!el || el.nodeType !== 1) {
+            return false;
+        }
+        if (el.id === "sidebar" || el.id === "admin-sidebar") {
+            return true;
+        }
+        return (" " + classNameOf(el) + " ").indexOf(" aui-sidebar ") >= 0;
+    }
+
+    function insideIssueTable(el) {
+        var doc = el.ownerDocument || document;
+        var walk = el;
+        while (walk && walk.nodeType === 1) {
+            var cls = classNameOf(walk);
+            if (walk.id === "issuetable" || walk.id === "sd-queues" || cls.indexOf("issue-table") >= 0 || cls.indexOf("issuerow") >= 0 || cls.indexOf("list-view") >= 0) {
+                return true;
+            }
+            if (walk === doc.body) {
+                break;
+            }
+            walk = walk.parentNode;
+        }
+        return false;
+    }
+
     function insideSidebar(el) {
         var doc = el.ownerDocument || document;
         var walk = el;
@@ -297,6 +361,9 @@
         var tag = el.tagName;
         if (cls.indexOf("focused") >= 0 || parentCls.indexOf("focused") >= 0) {
             return "var(--artjsm-accent-soft)";
+        }
+        if (tag === "TH" && insideIssueTable(el)) {
+            return "transparent";
         }
         if (tag === "TH" || cls.indexOf("dashboard-item-header") >= 0 || cls.indexOf("gadget-header") >= 0) {
             return "var(--artjsm-bg-subtle)";
@@ -327,7 +394,7 @@
         if (cls.indexOf("artjsm-") >= 0) {
             return false;
         }
-        if (cls.indexOf("aui-button") >= 0) {
+        if (cls.indexOf("aui-button") >= 0 || cls.indexOf("aui-dropdown2-trigger") >= 0 || cls.indexOf("aui-dd-trigger") >= 0) {
             return true;
         }
         var tag = el.tagName;
@@ -492,10 +559,6 @@
                 paintField(el);
                 continue;
             }
-            var tiny = el.offsetWidth > 0 && el.offsetWidth < 16 && el.offsetHeight > 0 && el.offsetHeight < 16;
-            if (tiny) {
-                continue;
-            }
             var style;
             try {
                 style = view.getComputedStyle(el);
@@ -504,7 +567,33 @@
             }
             var bg = style.backgroundColor;
             var sprite = hasSprite(style);
-            if (neutralLight(bg) && !sprite) {
+            if (insideSidebar(el) && !sprite && tag !== "IMG" && closeColor(rgbOf(bg), rgbOf(cssVar("--artjsm-bg", "#181a1f")), 12)) {
+                el.style.setProperty("background-color", sidebarShell(el) ? "var(--artjsm-surface)" : "transparent", "important");
+                if (insideSidebarHeader(el)) {
+                    el.style.setProperty("border-color", "transparent", "important");
+                    el.style.setProperty("box-shadow", "none", "important");
+                }
+                markPaint(el);
+            } else if (insideSidebarHeader(el) && !sprite && tag !== "IMG") {
+                el.style.setProperty("background-color", "transparent", "important");
+                el.style.setProperty("box-shadow", "none", "important");
+                el.style.setProperty("border-color", "transparent", "important");
+                markPaint(el);
+            }
+            if (!insideSidebarHeader(el) && tag !== "INPUT") {
+                var sides = ["top", "right", "bottom", "left"];
+                var sideIndex;
+                for (sideIndex = 0; sideIndex < sides.length; sideIndex++) {
+                    var sideName = sides[sideIndex];
+                    var borderColor = style["border" + sideName.charAt(0).toUpperCase() + sideName.slice(1) + "Color"];
+                    if (neutralLight(borderColor)) {
+                        el.style.setProperty("border-" + sideName + "-color", "var(--artjsm-border)", "important");
+                        markPaint(el);
+                    }
+                }
+            }
+            var tiny = el.offsetWidth > 0 && el.offsetWidth < 16 && el.offsetHeight > 0 && el.offsetHeight < 16;
+            if (!tiny && neutralLight(bg) && !sprite) {
                 el.style.setProperty("background-color", paintFill(el), "important");
                 if (tag === "TH" || tag === "TD" || tag === "H1" || tag === "H2" || tag === "H3" || tag === "H4" || tag === "HEADER" || tag === "LABEL" || tag === "A" || tag === "P" || tag === "SPAN" || tag === "LI" || tag === "STRONG" || tag === "SMALL") {
                     el.style.setProperty("color", tag === "A" ? "var(--artjsm-link)" : "var(--artjsm-text)", "important");

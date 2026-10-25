@@ -70,6 +70,45 @@ body#jira .dashboard-item-header {
 body#jira #issuetable td.gutter {
     background: #ffffff !important;
 }
+body#jira #issuetable,
+body#jira #issuetable th,
+body#jira #issuetable td,
+body#jira #issuetable tr {
+    border: 1px solid #515866 !important;
+}
+body#jira .aui-sidebar-subheader,
+body#jira #sidebar #project-subheader-strip {
+    display: block;
+    height: 14px;
+    margin: 0 12px;
+    background: #181a1f !important;
+}
+body#jira #sidebar .aui-navgroup,
+body#jira #sidebar .aui-navgroup-inner {
+    background: #181a1f !important;
+}
+body#jira #admin-tabs {
+    border-bottom: 1px solid #ebecf0 !important;
+}
+body#jira #footer {
+    border-top: 1px solid #dfe1e6 !important;
+}
+body#jira #upm-manage-container #upm-box {
+    border: 1px solid #cccccc !important;
+    margin-top: 12px;
+    padding: 8px;
+}
+body#jira .queue-count {
+    color: #172b4d !important;
+    font-size: 11px;
+    margin-left: 8px;
+}
+body#jira #filter-trigger {
+    display: inline-block;
+    background: #ffffff !important;
+    color: #172b4d !important;
+    padding: 4px 12px;
+}
 body#jira input.text,
 body#jira input[type="password"] {
     background: #ffffff !important;

@@ -50,16 +50,26 @@
 </nav>
 <div id="page">
     <div class="layout">
-        <aside class="aui-sidebar">
-            <div class="aui-sidebar-header">
-                <div class="aui-sidebar-header-inner">STP</div>
+        <aside class="aui-sidebar" id="sidebar">
+            <div class="aui-sidebar-wrapper">
+                <div class="aui-sidebar-body">
+                    <header class="aui-sidebar-header">
+                        <div class="aui-sidebar-header-inner">STP</div>
+                        <div id="project-subheader-strip" class="project-subheader-strip"> </div>
+                    </header>
+                    <div class="aui-sidebar-subheader"> </div>
+                    <nav class="aui-navgroup aui-navgroup-vertical">
+                        <div class="aui-navgroup-inner">
+                            <div class="aui-nav-heading">Очереди</div>
+                            <ul class="aui-nav">
+                                <li class="aui-nav-selected"><a class="aui-nav-item" href="#all">Все открытые <span class="queue-count">21</span></a></li>
+                                <li><a class="aui-nav-item" href="#mineq">Назначенные мне <span class="queue-count">20</span></a></li>
+                                <li><a class="aui-nav-item" href="#sla">SLA нарушен <span class="queue-count">18</span></a></li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
             </div>
-            <div class="aui-nav-heading">Очереди</div>
-            <ul class="aui-nav">
-                <li class="aui-nav-selected"><a class="aui-nav-item" href="#all">Все открытые</a></li>
-                <li><a class="aui-nav-item" href="#mineq">Назначенные мне</a></li>
-                <li><a class="aui-nav-item" href="#sla">SLA нарушен</a></li>
-            </ul>
         </aside>
         <main class="main aui-page-panel" id="content">
             <div class="aui-page-header">
@@ -139,8 +149,12 @@
                 <input id="comment" type="text" placeholder="Что изменилось в смене" style="width:320px">
             </div>
             <div class="aui-message aui-message-info">Смены на октябрь 2026 опубликованы для проекта STP.</div>
+            <a class="aui-button aui-dropdown2-trigger" id="filter-trigger" href="#filter">Пользовательские</a>
             <div class="aui-navgroup aui-navgroup-horizontal" id="admin-tabs">
                 <div class="aui-navgroup-inner admin-strip">Приложения</div>
+            </div>
+            <div id="upm-manage-container">
+                <div id="upm-box" class="upm-plugin-list">Приложения, устанавливаемые пользователями</div>
             </div>
             <div id="dashboard">
                 <div class="dashboard-item gadget-container">
