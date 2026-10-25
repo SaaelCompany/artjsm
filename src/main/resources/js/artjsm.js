@@ -78,6 +78,7 @@
                 dark: "Тёмная тема",
                 light: "Светлая тема",
                 settings: "Настройки темы",
+                settingsShort: "Настройки",
                 title: "Оформление",
                 mode: "Режим",
                 lightMode: "Светлая",
@@ -99,6 +100,7 @@
             dark: "Dark theme",
             light: "Light theme",
             settings: "Theme settings",
+            settingsShort: "Settings",
             title: "Appearance",
             mode: "Mode",
             lightMode: "Light",
@@ -163,6 +165,99 @@
         }
         render();
         renderPanel();
+        repaintLightSurfaces();
+    }
+
+    function inSkippedChrome(el) {
+        var node = el;
+        while (node && node !== document.body) {
+            var id = node.id || "";
+            var cls = typeof node.className === "string" ? node.className : "";
+            if (id === "header" || cls.indexOf("aui-header") >= 0 || cls.indexOf("aui-dropdown") >= 0 || cls.indexOf("aui-inline-dialog") >= 0 || cls.indexOf("ajs-layer") >= 0 || cls.indexOf("artjsm-theme-panel") >= 0 || cls.indexOf("aui-flag") >= 0 || cls.indexOf("aui-message") >= 0 || cls.indexOf("aui-banner") >= 0 || cls.indexOf("aui-lozenge") >= 0 || cls.indexOf("aui-icon") >= 0 || cls.indexOf("aui-avatar") >= 0) {
+                return true;
+            }
+            node = node.parentNode;
+        }
+        return false;
+    }
+
+    function nearWhite(color) {
+        var match = /rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)(?:\s*,\s*([0-9.]+))?/.exec(color || "");
+        if (!match) {
+            return false;
+        }
+        if (match[4] !== undefined && +match[4] < 0.2) {
+            return false;
+        }
+        return +match[1] >= 245 && +match[2] >= 245 && +match[3] >= 245;
+    }
+
+    function clearPaint(el) {
+        if (el.getAttribute("data-artjsm-painted") !== "1") {
+            return;
+        }
+        el.style.removeProperty("background-color");
+        el.style.removeProperty("background-image");
+        el.style.removeProperty("color");
+        el.removeAttribute("data-artjsm-painted");
+    }
+
+    function repaintLightSurfaces() {
+        if (!document.body) {
+            return;
+        }
+        var dark = currentTheme() === "dark";
+        var roots = document.querySelectorAll("#content, .aui-sidebar, .aui-page-header, #issuetable, .navigator-content, .list-view, .aui-page-panel");
+        var seen = [];
+        var r;
+        var i;
+        for (r = 0; r < roots.length; r++) {
+            seen.push(roots[r]);
+            var inner = roots[r].querySelectorAll("div, section, header, main, table, thead, tbody, tr, th, td, h1, h2, h3, ul, li");
+            for (i = 0; i < inner.length; i++) {
+                seen.push(inner[i]);
+            }
+        }
+        for (i = 0; i < seen.length; i++) {
+            var el = seen[i];
+            if (!el || el.nodeType !== 1 || inSkippedChrome(el)) {
+                continue;
+            }
+            var tag = el.tagName;
+            if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || tag === "BUTTON" || tag === "IMG" || tag === "SVG" || tag === "A") {
+                continue;
+            }
+            if (el.offsetWidth > 0 && el.offsetWidth < 20 && el.offsetHeight > 0 && el.offsetHeight < 20) {
+                continue;
+            }
+            if (!dark) {
+                clearPaint(el);
+                continue;
+            }
+            var bg = window.getComputedStyle(el).backgroundColor;
+            if (!nearWhite(bg)) {
+                continue;
+            }
+            var cls = typeof el.className === "string" ? el.className : "";
+            var parentCls = el.parentNode && typeof el.parentNode.className === "string" ? el.parentNode.className : "";
+            var focused = cls.indexOf("focused") >= 0 || parentCls.indexOf("focused") >= 0;
+            var inSidebar = false;
+            var walk = el;
+            while (walk && walk !== document.body) {
+                if (typeof walk.className === "string" && walk.className.indexOf("aui-sidebar") >= 0) {
+                    inSidebar = true;
+                    break;
+                }
+                walk = walk.parentNode;
+            }
+            var paint = focused ? "var(--artjsm-accent-soft)" : (inSidebar ? "var(--artjsm-surface)" : "transparent");
+            el.style.setProperty("background-color", paint, "important");
+            el.style.setProperty("background-image", "none", "important");
+            if (tag === "TH" || tag === "TD" || tag === "H1" || tag === "H2" || tag === "H3" || tag === "HEADER") {
+                el.style.setProperty("color", "var(--artjsm-text)", "important");
+            }
+            el.setAttribute("data-artjsm-painted", "1");
+        }
     }
 
     function render() {
@@ -189,7 +284,7 @@
         if (settings) {
             settings.setAttribute("aria-label", copy.settings);
             settings.setAttribute("title", copy.settings);
-            settings.textContent = copy.settings;
+            settings.textContent = copy.settingsShort;
         }
     }
 
@@ -643,11 +738,17 @@
                 }
             }
         });
+        repaintLightSurfaces();
         window.setTimeout(function () {
             allowFallback = true;
             mount();
+            repaintLightSurfaces();
         }, 300);
-        window.setInterval(mount, 2500);
+        window.setTimeout(repaintLightSurfaces, 1200);
+        window.setInterval(function () {
+            mount();
+            repaintLightSurfaces();
+        }, 2500);
     }
 
     if (document.readyState === "loading") {

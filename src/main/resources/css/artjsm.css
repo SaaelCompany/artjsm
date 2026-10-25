@@ -334,19 +334,45 @@ html #header a.aui-button-primary:focus {
     color: var(--artjsm-primary-hover) !important;
 }
 
+html[data-artjsm-theme="dark"] #header #create_link,
+html[data-artjsm-theme="dark"] #header .aui-button.aui-button-primary,
+html[data-artjsm-theme="dark"] #header a.aui-button-primary {
+    background: var(--artjsm-primary) !important;
+    color: #ffffff !important;
+    border: 0 !important;
+}
+
+html[data-artjsm-theme="dark"] #header #create_link:hover,
+html[data-artjsm-theme="dark"] #header #create_link:focus,
+html[data-artjsm-theme="dark"] #header .aui-button.aui-button-primary:hover,
+html[data-artjsm-theme="dark"] #header .aui-button.aui-button-primary:focus,
+html[data-artjsm-theme="dark"] #header a.aui-button-primary:hover,
+html[data-artjsm-theme="dark"] #header a.aui-button-primary:focus {
+    background: var(--artjsm-primary-hover) !important;
+    color: #ffffff !important;
+}
+
+html #header #quicksearch,
+html #header #artjsm-theme-toggle-item {
+    flex-shrink: 0 !important;
+}
+
 html #quickSearchInput,
 html #header .aui-quicksearch input,
-html #header input.search,
-html #header input[type="text"] {
-    background: rgba(255, 255, 255, 0.14) !important;
-    border: 1px solid rgba(255, 255, 255, 0.22) !important;
+html #header input.search {
+    background-color: rgba(255, 255, 255, 0.14) !important;
+    border: 1px solid rgba(255, 255, 255, 0.28) !important;
     color: #ffffff !important;
-    border-radius: 999px !important;
+    border-radius: 4px !important;
     box-shadow: none !important;
-    height: 32px !important;
-    line-height: 30px !important;
-    padding: 0 12px !important;
     box-sizing: border-box !important;
+    width: 168px !important;
+    min-width: 168px !important;
+    height: 28px !important;
+    line-height: 26px !important;
+    padding: 0 22px 0 28px !important;
+    text-overflow: clip !important;
+    overflow: visible !important;
 }
 
 html #quickSearchInput::placeholder,
@@ -1111,6 +1137,52 @@ html[data-artjsm-theme="dark"] body .aui-dropdown2 a,
 html[data-artjsm-theme="dark"] body .aui-dropdown a,
 html[data-artjsm-theme="dark"] body .aui-inline-dialog a {
     background-color: transparent !important;
+    color: var(--artjsm-text) !important;
+}
+
+html[data-artjsm-theme="dark"] body .aui-dropdown2-heading,
+html[data-artjsm-theme="dark"] body .aui-dropdown2 .aui-dropdown2-heading,
+html[data-artjsm-theme="dark"] body strong.aui-dropdown2-heading,
+html[data-artjsm-theme="dark"] body .aui-dropdown-heading,
+html[data-artjsm-theme="dark"] body .aui-dropdown2-section > strong {
+    background-color: transparent !important;
+    background-image: none !important;
+    color: var(--artjsm-text-subtle) !important;
+}
+
+html[data-artjsm-theme="dark"] body .aui-sidebar-header,
+html[data-artjsm-theme="dark"] body .aui-sidebar-header-inner,
+html[data-artjsm-theme="dark"] body .aui-sidebar-footer,
+html[data-artjsm-theme="dark"] body .aui-sidebar .aui-page-header,
+html[data-artjsm-theme="dark"] body .aui-nav-item-logo,
+html[data-artjsm-theme="dark"] body .project-title,
+html[data-artjsm-theme="dark"] body .aui-sidebar-settings {
+    background-color: var(--artjsm-surface) !important;
+    background-image: none !important;
+    color: var(--artjsm-text) !important;
+    box-shadow: none !important;
+}
+
+html[data-artjsm-theme="dark"] body .aui-page-header,
+html[data-artjsm-theme="dark"] body .aui-page-header-inner,
+html[data-artjsm-theme="dark"] body .aui-page-header-main,
+html[data-artjsm-theme="dark"] body .aui-page-header-actions,
+html[data-artjsm-theme="dark"] body#jira .aui-page-header,
+html[data-artjsm-theme="dark"] body#jira .aui-page-header-inner,
+html[data-artjsm-theme="dark"] body#jira #content .aui-page-header,
+html[data-artjsm-theme="dark"] body#jira #content .aui-page-header-inner {
+    background-color: var(--artjsm-bg) !important;
+    background-image: none !important;
+    color: var(--artjsm-text) !important;
+}
+
+html[data-artjsm-theme="dark"] body #issuetable tr.focused,
+html[data-artjsm-theme="dark"] body #issuetable tr.focused > td,
+html[data-artjsm-theme="dark"] body #issuetable tr.issuerow.focused > td,
+html[data-artjsm-theme="dark"] body#jira #issuetable > tbody > tr.focused > td,
+html[data-artjsm-theme="dark"] body#jira #issuetable tbody tr.focused td {
+    background-color: var(--artjsm-accent-soft) !important;
+    background-image: none !important;
     color: var(--artjsm-text) !important;
 }
 
