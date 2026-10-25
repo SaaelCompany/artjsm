@@ -168,11 +168,24 @@
         repaintLightSurfaces();
     }
 
+    function classNameOf(el) {
+        return el && typeof el.className === "string" ? el.className : "";
+    }
+
+    function viewOf(el) {
+        var doc = el.ownerDocument;
+        if (!doc) {
+            return null;
+        }
+        return doc.defaultView || doc.parentWindow || null;
+    }
+
     function inSkippedChrome(el) {
+        var doc = el.ownerDocument || document;
         var node = el;
-        while (node && node !== document.body) {
+        while (node && node.nodeType === 1 && node !== doc.body) {
             var id = node.id || "";
-            var cls = typeof node.className === "string" ? node.className : "";
+            var cls = classNameOf(node);
             if (id === "header" || cls.indexOf("aui-header") >= 0 || cls.indexOf("aui-dropdown") >= 0 || cls.indexOf("aui-inline-dialog") >= 0 || cls.indexOf("ajs-layer") >= 0 || cls.indexOf("artjsm-theme-panel") >= 0 || cls.indexOf("aui-flag") >= 0 || cls.indexOf("aui-message") >= 0 || cls.indexOf("aui-banner") >= 0 || cls.indexOf("aui-lozenge") >= 0 || cls.indexOf("aui-icon") >= 0 || cls.indexOf("aui-avatar") >= 0) {
                 return true;
             }
@@ -181,83 +194,373 @@
         return false;
     }
 
-    function nearWhite(color) {
+    function inTopHeader(el) {
+        var doc = el.ownerDocument || document;
+        var node = el;
+        while (node && node.nodeType === 1) {
+            if (node.id === "header") {
+                return true;
+            }
+            if (node === doc.body) {
+                break;
+            }
+            node = node.parentNode;
+        }
+        return false;
+    }
+
+    function rgbOf(color) {
         var match = /rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)(?:\s*,\s*([0-9.]+))?/.exec(color || "");
         if (!match) {
+            return null;
+        }
+        return {
+            r: +match[1],
+            g: +match[2],
+            b: +match[3],
+            a: match[4] === undefined ? 1 : +match[4]
+        };
+    }
+
+    function luminance(c) {
+        return (0.299 * c.r + 0.587 * c.g + 0.114 * c.b) / 255;
+    }
+
+    /* Jira's page canvas is often #f0f0f0 or #f4f5f7, below a pure-white cutoff. */
+    function neutralLight(color) {
+        var c = rgbOf(color);
+        if (!c || c.a < 0.35) {
             return false;
         }
-        if (match[4] !== undefined && +match[4] < 0.2) {
+        var max = Math.max(c.r, c.g, c.b);
+        var min = Math.min(c.r, c.g, c.b);
+        return max - min <= 36 && min >= 196;
+    }
+
+    function darkNeutralText(color) {
+        var c = rgbOf(color);
+        if (!c || c.a < 0.45) {
             return false;
         }
-        return +match[1] >= 245 && +match[2] >= 245 && +match[3] >= 245;
+        var max = Math.max(c.r, c.g, c.b);
+        var min = Math.min(c.r, c.g, c.b);
+        return max - min <= 72 && luminance(c) < 0.62;
+    }
+
+    function lowLuminance(color) {
+        var c = rgbOf(color);
+        if (!c || c.a < 0.45) {
+            return false;
+        }
+        return luminance(c) < 0.55;
     }
 
     function clearPaint(el) {
-        if (el.getAttribute("data-artjsm-painted") !== "1") {
+        if (!el || el.getAttribute("data-artjsm-painted") !== "1") {
             return;
         }
         el.style.removeProperty("background-color");
         el.style.removeProperty("background-image");
         el.style.removeProperty("color");
+        el.style.removeProperty("border-color");
         el.removeAttribute("data-artjsm-painted");
     }
 
-    function repaintLightSurfaces() {
-        if (!document.body) {
+    function markPaint(el) {
+        el.setAttribute("data-artjsm-painted", "1");
+    }
+
+    function hasSprite(style) {
+        var image = style && style.backgroundImage ? style.backgroundImage : "";
+        return image.indexOf("url(") >= 0;
+    }
+
+    function insideSidebar(el) {
+        var doc = el.ownerDocument || document;
+        var walk = el;
+        while (walk && walk.nodeType === 1) {
+            var cls = classNameOf(walk);
+            if (cls.indexOf("aui-sidebar") >= 0 || walk.id === "sidebar" || walk.id === "admin-sidebar") {
+                return true;
+            }
+            if (walk === doc.body) {
+                break;
+            }
+            walk = walk.parentNode;
+        }
+        return false;
+    }
+
+    function paintFill(el) {
+        var cls = classNameOf(el);
+        var parentCls = el.parentNode ? classNameOf(el.parentNode) : "";
+        var tag = el.tagName;
+        if (cls.indexOf("focused") >= 0 || parentCls.indexOf("focused") >= 0) {
+            return "var(--artjsm-accent-soft)";
+        }
+        if (tag === "TH" || cls.indexOf("dashboard-item-header") >= 0 || cls.indexOf("gadget-header") >= 0) {
+            return "var(--artjsm-bg-subtle)";
+        }
+        if (insideSidebar(el) || cls.indexOf("gadget") >= 0 || cls.indexOf("dashboard-item") >= 0 || cls.indexOf("aui-dialog") >= 0 || cls.indexOf("jira-dialog") >= 0 || cls.indexOf("upm-plugin") >= 0 || cls.indexOf("login-form") >= 0 || el.id === "login-form" || el.id === "login-container") {
+            return "var(--artjsm-surface)";
+        }
+        if (tag === "TD") {
+            return "transparent";
+        }
+        return "var(--artjsm-bg)";
+    }
+
+    function isField(el) {
+        var tag = el.tagName;
+        if (tag === "TEXTAREA" || tag === "SELECT") {
+            return true;
+        }
+        if (tag !== "INPUT") {
+            return false;
+        }
+        var type = (el.getAttribute("type") || "text").toLowerCase();
+        return type !== "checkbox" && type !== "radio" && type !== "submit" && type !== "button" && type !== "hidden" && type !== "image" && type !== "file" && type !== "range" && type !== "color";
+    }
+
+    function isButton(el) {
+        var cls = classNameOf(el);
+        if (cls.indexOf("artjsm-") >= 0) {
+            return false;
+        }
+        if (cls.indexOf("aui-button") >= 0) {
+            return true;
+        }
+        var tag = el.tagName;
+        var type = (el.getAttribute("type") || "").toLowerCase();
+        return (tag === "BUTTON" || tag === "INPUT") && (type === "submit" || type === "button");
+    }
+
+    function paintButton(el) {
+        var cls = classNameOf(el);
+        if (cls.indexOf("aui-button-link") >= 0 || cls.indexOf("cancel") >= 0) {
+            el.style.setProperty("background-color", "transparent", "important");
+            el.style.setProperty("color", "var(--artjsm-link)", "important");
+            el.style.setProperty("border-color", "transparent", "important");
+            markPaint(el);
+            return;
+        }
+        var primary = cls.indexOf("aui-button-primary") >= 0 || cls.indexOf("button-primary") >= 0;
+        var id = el.id || "";
+        var type = (el.getAttribute("type") || "").toLowerCase();
+        if (!primary && (id === "login" || id === "login-form-submit" || id === "websudo-submit" || type === "submit")) {
+            primary = cls.indexOf("cancel") < 0;
+        }
+        if (primary) {
+            el.style.setProperty("background-color", "var(--artjsm-primary)", "important");
+            el.style.setProperty("background-image", "none", "important");
+            el.style.setProperty("color", "#ffffff", "important");
+            el.style.setProperty("border-color", "var(--artjsm-primary)", "important");
+        } else {
+            el.style.setProperty("background-color", "var(--artjsm-surface)", "important");
+            el.style.setProperty("background-image", "none", "important");
+            el.style.setProperty("color", "var(--artjsm-text)", "important");
+            el.style.setProperty("border-color", "var(--artjsm-border-strong)", "important");
+        }
+        markPaint(el);
+    }
+
+    function paintField(el) {
+        el.style.setProperty("background-color", "var(--artjsm-bg-sunken)", "important");
+        el.style.setProperty("background-image", "none", "important");
+        el.style.setProperty("color", "var(--artjsm-text)", "important");
+        el.style.setProperty("border-color", "var(--artjsm-border-strong)", "important");
+        markPaint(el);
+    }
+
+    function stylesheetHref() {
+        var links = document.getElementsByTagName("link");
+        var i;
+        for (i = 0; i < links.length; i++) {
+            var href = links[i].getAttribute("href") || "";
+            if (href.indexOf("artjsm.css") >= 0) {
+                return links[i].href;
+            }
+        }
+        return "";
+    }
+
+    function cssVar(name, fallback) {
+        var value = "";
+        try {
+            value = window.getComputedStyle(document.documentElement).getPropertyValue(name) || "";
+        } catch (e) {
+            value = "";
+        }
+        value = String(value).replace(/^\s+|\s+$/g, "");
+        return value || fallback;
+    }
+
+    function frameCss() {
+        var bg = cssVar("--artjsm-bg", "#181a1f");
+        var text = cssVar("--artjsm-text", "#e8eaed");
+        var link = cssVar("--artjsm-link", "#9ec1ff");
+        var border = cssVar("--artjsm-border", "#3a404b");
+        var subtle = cssVar("--artjsm-bg-subtle", "#21242b");
+        var sunken = cssVar("--artjsm-bg-sunken", "#101216");
+        var subtleText = cssVar("--artjsm-text-subtle", "#b4b9c3");
+        return "html,body{background-color:" + bg + " !important;color:" + text + " !important;}"
+            + "a,a:visited{color:" + link + " !important;}"
+            + "th{background-color:" + subtle + " !important;color:" + subtleText + " !important;}"
+            + "td,p,li,span,div,h1,h2,h3,h4{color:" + text + ";}"
+            + "input,select,textarea{background-color:" + sunken + " !important;color:" + text + " !important;border-color:" + border + " !important;}";
+    }
+
+    function copyThemeAttrs(root) {
+        var src = document.documentElement;
+        var names = ["data-artjsm-theme", "data-artjsm-palette", "data-artjsm-accent", "data-artjsm-header"];
+        var i;
+        for (i = 0; i < names.length; i++) {
+            var value = src.getAttribute(names[i]);
+            if (value) {
+                root.setAttribute(names[i], value);
+            }
+        }
+        var cls = root.className || "";
+        if ((" " + cls + " ").indexOf(" artjsm ") < 0) {
+            root.className = cls + (cls ? " " : "") + "artjsm";
+        }
+    }
+
+    function ensureFrameAssets(child) {
+        copyThemeAttrs(child.documentElement);
+        var head = child.getElementsByTagName("head")[0] || child.documentElement;
+        var href = stylesheetHref();
+        if (href && !child.getElementById("artjsm-frame-css")) {
+            var link = child.createElement("link");
+            link.id = "artjsm-frame-css";
+            link.rel = "stylesheet";
+            link.href = href;
+            head.appendChild(link);
+        }
+        var style = child.getElementById("artjsm-frame-style");
+        if (!style) {
+            style = child.createElement("style");
+            style.id = "artjsm-frame-style";
+            head.appendChild(style);
+        }
+        var next = frameCss();
+        if (style.textContent !== next) {
+            style.textContent = next;
+        }
+    }
+
+    function repaintDocument(doc) {
+        if (!doc || !doc.body) {
             return;
         }
         var dark = currentTheme() === "dark";
-        var roots = document.querySelectorAll("#content, .aui-sidebar, .aui-page-header, #issuetable, .navigator-content, .list-view, .aui-page-panel");
-        var seen = [];
-        var r;
-        var i;
-        for (r = 0; r < roots.length; r++) {
-            seen.push(roots[r]);
-            var inner = roots[r].querySelectorAll("div, section, header, main, table, thead, tbody, tr, th, td, h1, h2, h3, ul, li");
-            for (i = 0; i < inner.length; i++) {
-                seen.push(inner[i]);
-            }
+        var nodes;
+        try {
+            nodes = doc.querySelectorAll("body, div, section, main, article, aside, nav, header, footer, table, thead, tbody, tr, th, td, h1, h2, h3, h4, ul, ol, li, form, fieldset, p, label, a, button, input, textarea, select, span, strong, small");
+        } catch (e) {
+            return;
         }
-        for (i = 0; i < seen.length; i++) {
-            var el = seen[i];
-            if (!el || el.nodeType !== 1 || inSkippedChrome(el)) {
+        var i;
+        for (i = 0; i < nodes.length; i++) {
+            var el = nodes[i];
+            if (!el || el.nodeType !== 1) {
+                continue;
+            }
+            if (inSkippedChrome(el) || inTopHeader(el)) {
+                if (!dark) {
+                    clearPaint(el);
+                }
                 continue;
             }
             var tag = el.tagName;
-            if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || tag === "BUTTON" || tag === "IMG" || tag === "SVG" || tag === "A") {
+            if (tag === "IMG" || tag === "SVG" || tag === "CANVAS" || tag === "VIDEO") {
                 continue;
             }
-            if (el.offsetWidth > 0 && el.offsetWidth < 20 && el.offsetHeight > 0 && el.offsetHeight < 20) {
+            if (isButton(el)) {
+                paintButton(el);
                 continue;
             }
             if (!dark) {
                 clearPaint(el);
                 continue;
             }
-            var bg = window.getComputedStyle(el).backgroundColor;
-            if (!nearWhite(bg)) {
+            var view = viewOf(el);
+            if (!view || !view.getComputedStyle) {
                 continue;
             }
-            var cls = typeof el.className === "string" ? el.className : "";
-            var parentCls = el.parentNode && typeof el.parentNode.className === "string" ? el.parentNode.className : "";
-            var focused = cls.indexOf("focused") >= 0 || parentCls.indexOf("focused") >= 0;
-            var inSidebar = false;
-            var walk = el;
-            while (walk && walk !== document.body) {
-                if (typeof walk.className === "string" && walk.className.indexOf("aui-sidebar") >= 0) {
-                    inSidebar = true;
-                    break;
+            if (isField(el)) {
+                paintField(el);
+                continue;
+            }
+            var tiny = el.offsetWidth > 0 && el.offsetWidth < 16 && el.offsetHeight > 0 && el.offsetHeight < 16;
+            if (tiny) {
+                continue;
+            }
+            var style;
+            try {
+                style = view.getComputedStyle(el);
+            } catch (e2) {
+                continue;
+            }
+            var bg = style.backgroundColor;
+            var sprite = hasSprite(style);
+            if (neutralLight(bg) && !sprite) {
+                el.style.setProperty("background-color", paintFill(el), "important");
+                if (tag === "TH" || tag === "TD" || tag === "H1" || tag === "H2" || tag === "H3" || tag === "H4" || tag === "HEADER" || tag === "LABEL" || tag === "A" || tag === "P" || tag === "SPAN" || tag === "LI" || tag === "STRONG" || tag === "SMALL") {
+                    el.style.setProperty("color", tag === "A" ? "var(--artjsm-link)" : "var(--artjsm-text)", "important");
                 }
-                walk = walk.parentNode;
-            }
-            var paint = focused ? "var(--artjsm-accent-soft)" : (inSidebar ? "var(--artjsm-surface)" : "transparent");
-            el.style.setProperty("background-color", paint, "important");
-            el.style.setProperty("background-image", "none", "important");
-            if (tag === "TH" || tag === "TD" || tag === "H1" || tag === "H2" || tag === "H3" || tag === "HEADER") {
+                markPaint(el);
+            } else if (tag === "A" && lowLuminance(style.color)) {
+                el.style.setProperty("color", "var(--artjsm-link)", "important");
+                markPaint(el);
+            } else if ((tag === "LABEL" || tag === "P" || tag === "H1" || tag === "H2" || tag === "H3" || tag === "H4" || tag === "SPAN" || tag === "LI" || tag === "TD" || tag === "TH" || tag === "SMALL" || tag === "STRONG" || tag === "LEGEND") && darkNeutralText(style.color)) {
                 el.style.setProperty("color", "var(--artjsm-text)", "important");
+                markPaint(el);
             }
-            el.setAttribute("data-artjsm-painted", "1");
         }
+    }
+
+    function themeFrames(doc) {
+        var frames;
+        try {
+            frames = doc.querySelectorAll("iframe");
+        } catch (e) {
+            return;
+        }
+        var i;
+        for (i = 0; i < frames.length; i++) {
+            var frame = frames[i];
+            if (frame.getAttribute("data-artjsm-frame") !== "1") {
+                frame.setAttribute("data-artjsm-frame", "1");
+                frame.addEventListener("load", function () {
+                    repaintLightSurfaces();
+                });
+            }
+            var child = null;
+            try {
+                child = frame.contentDocument;
+            } catch (e2) {
+                child = null;
+            }
+            if (!child || !child.documentElement || !child.body) {
+                continue;
+            }
+            try {
+                ensureFrameAssets(child);
+                repaintDocument(child);
+                themeFrames(child);
+            } catch (e3) {
+                /* cross-origin gadget */
+            }
+        }
+    }
+
+    function repaintLightSurfaces() {
+        if (!document.body) {
+            return;
+        }
+        repaintDocument(document);
+        themeFrames(document);
     }
 
     function render() {

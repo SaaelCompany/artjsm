@@ -45,3 +45,55 @@ table.aui th, table.aui td { padding: 8px 10px; text-align: left; border-bottom:
 }
 .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
 #footer { padding: 16px 24px; font-size: 12px; }
+
+/* Stand-in for Jira 8 rules that beat a plain html selector. */
+body#jira,
+body#jira #content,
+body#jira #dashboard,
+body#jira .aui-page-panel,
+body#jira .aui-page-header,
+body#jira .aui-navgroup-horizontal,
+body#jira .aui-navgroup-inner,
+body#jira .dashboard-item-content {
+    background: #f0f0f0 !important;
+    color: #172b4d !important;
+}
+body#jira .aui-sidebar-header,
+body#jira .aui-sidebar-header-inner {
+    background: #f4f5f7 !important;
+    color: #172b4d !important;
+}
+body#jira .dashboard-item-header {
+    background: #0747a6 !important;
+    color: #ffffff !important;
+}
+body#jira #issuetable td.gutter {
+    background: #ffffff !important;
+}
+body#jira input.text,
+body#jira input[type="password"] {
+    background: #ffffff !important;
+    color: #172b4d !important;
+}
+body#jira .aui-button {
+    background: #f4f5f7 !important;
+    color: #172b4d !important;
+}
+body#jira #login-form .aui-button,
+body#jira #websudo-form .aui-button {
+    background: #2c333d !important;
+    color: #333333 !important;
+}
+body#jira #header #quicksearch,
+body#jira #header #quickSearchInput {
+    width: 72px !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
+}
+body#jira .aui-message-warning {
+    background: #ffffff !important;
+    color: #172b4d !important;
+}
+.gadget-frame { width: 100%; height: 160px; border: 0; background: #ffffff; }
+.login-card, .sudo-card { max-width: 420px; margin: 24px 0; padding: 16px; }
+.admin-strip { height: 14px; }

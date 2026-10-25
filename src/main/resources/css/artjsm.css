@@ -1274,6 +1274,289 @@ html[data-artjsm-theme="dark"] .artjsm-swatch[data-value="purple"] { background:
 html[data-artjsm-theme="dark"] .artjsm-swatch[data-value="green"] { background: #3fb950 !important; }
 html[data-artjsm-theme="dark"] .artjsm-swatch[data-value="orange"] { background: #f0883e !important; }
 
+/* Jira 8 writes body#jira rules with !important. An id beats a later
+   html … selector, so the canvas, gadgets, admin strip, inputs and
+   buttons stay light unless these selectors include body#jira too. */
+
+html[data-artjsm-theme] body#jira,
+html[data-artjsm-theme] body#jira #page,
+html[data-artjsm-theme] body#jira #content,
+html[data-artjsm-theme] body#jira #dashboard,
+html[data-artjsm-theme] body#jira #dashboard-content,
+html[data-artjsm-theme] body#jira .dashboard,
+html[data-artjsm-theme] body#jira .dashboard-content,
+html[data-artjsm-theme] body#jira .layout,
+html[data-artjsm-theme] body#jira .column,
+html[data-artjsm-theme] body#jira .aui-page-panel,
+html[data-artjsm-theme] body#jira .aui-page-panel-inner,
+html[data-artjsm-theme] body#jira .aui-page-panel-content,
+html[data-artjsm-theme] body#jira .aui-page-panel-nav,
+html[data-artjsm-theme] body#jira .aui-page-header,
+html[data-artjsm-theme] body#jira .aui-page-header-inner,
+html[data-artjsm-theme] body#jira .aui-page-header-main,
+html[data-artjsm-theme] body#jira .aui-navgroup,
+html[data-artjsm-theme] body#jira .aui-navgroup-inner,
+html[data-artjsm-theme] body#jira .aui-navgroup-horizontal,
+html[data-artjsm-theme] body#jira .aui-tabs,
+html[data-artjsm-theme] body#jira .tabs-menu,
+html[data-artjsm-theme] body#jira #admin-body,
+html[data-artjsm-theme] body#jira #upm-manage-container,
+html[data-artjsm-theme] body#jira #upm-manage,
+html[data-artjsm-theme] body#jira .upm-manage-addons,
+html[data-artjsm-theme] body#jira .upm-plugin-list,
+html[data-artjsm-theme] body#jira .buttons-container,
+html[data-artjsm-theme] body#jira .form-body {
+    background-color: var(--artjsm-bg) !important;
+    background-image: none !important;
+    color: var(--artjsm-text) !important;
+}
+
+html[data-artjsm-theme] body#jira .dashboard-item,
+html[data-artjsm-theme] body#jira .dashboard-item-frame,
+html[data-artjsm-theme] body#jira .dashboard-item-content,
+html[data-artjsm-theme] body#jira .gadget,
+html[data-artjsm-theme] body#jira .gadget-container,
+html[data-artjsm-theme] body#jira .gadget-inline,
+html[data-artjsm-theme] body#jira .upm-plugin,
+html[data-artjsm-theme] body#jira #login-form,
+html[data-artjsm-theme] body#jira #login-container,
+html[data-artjsm-theme] body#jira .aui-dialog,
+html[data-artjsm-theme] body#jira .aui-dialog2,
+html[data-artjsm-theme] body#jira .aui-dialog2-content,
+html[data-artjsm-theme] body#jira .jira-dialog,
+html[data-artjsm-theme] body#jira .dialog-content {
+    background-color: var(--artjsm-surface) !important;
+    background-image: none !important;
+    color: var(--artjsm-text) !important;
+    border-color: var(--artjsm-border) !important;
+}
+
+html[data-artjsm-theme] body#jira .dashboard-item-header,
+html[data-artjsm-theme] body#jira .dashboard-item-title,
+html[data-artjsm-theme] body#jira .gadget-header,
+html[data-artjsm-theme] body#jira .gadget-menu,
+html[data-artjsm-theme] body#jira .dashboard-item-header h3 {
+    background-color: var(--artjsm-bg-subtle) !important;
+    background-image: none !important;
+    color: var(--artjsm-text) !important;
+    border-color: var(--artjsm-border) !important;
+}
+
+html[data-artjsm-theme="dark"] body#jira iframe,
+html[data-artjsm-theme="dark"] iframe.gadget,
+html[data-artjsm-theme="dark"] .dashboard-item-content iframe {
+    background-color: var(--artjsm-bg) !important;
+    color-scheme: dark;
+}
+
+html[data-artjsm-theme] body#jira .aui-sidebar,
+html[data-artjsm-theme] body#jira #sidebar,
+html[data-artjsm-theme] body#jira .aui-sidebar-wrapper,
+html[data-artjsm-theme] body#jira .aui-sidebar-body,
+html[data-artjsm-theme] body#jira .aui-sidebar-header,
+html[data-artjsm-theme] body#jira .aui-sidebar-header-inner,
+html[data-artjsm-theme] body#jira #sidebar .aui-sidebar-header,
+html[data-artjsm-theme] body#jira .aui-sidebar .aui-sidebar-header,
+html[data-artjsm-theme] body#jira .aui-sidebar-footer,
+html[data-artjsm-theme] body#jira .aui-sidebar-header h1,
+html[data-artjsm-theme] body#jira .aui-sidebar-header a,
+html[data-artjsm-theme] body#jira .aui-sidebar-header .aui-nav-item,
+html[data-artjsm-theme] body#jira .project-title,
+html[data-artjsm-theme] body#jira .aui-nav-item-logo {
+    background-color: var(--artjsm-surface) !important;
+    background-image: none !important;
+    color: var(--artjsm-text) !important;
+    box-shadow: none !important;
+}
+
+html[data-artjsm-theme] body#jira #issuetable,
+html[data-artjsm-theme] body#jira table.aui,
+html[data-artjsm-theme] body#jira .issue-table,
+html[data-artjsm-theme] body#jira .issue-table-container,
+html[data-artjsm-theme] body#jira .list-view,
+html[data-artjsm-theme] body#jira .navigator-content,
+html[data-artjsm-theme] body#jira .navigator-body {
+    background-color: var(--artjsm-bg) !important;
+    background-image: none !important;
+    box-shadow: none !important;
+    border-color: var(--artjsm-border) !important;
+}
+
+html[data-artjsm-theme] body#jira #issuetable td,
+html[data-artjsm-theme] body#jira #issuetable tr td,
+html[data-artjsm-theme] body#jira table.aui > tbody > tr > td,
+html[data-artjsm-theme] body#jira td.issuetype,
+html[data-artjsm-theme] body#jira td.issue_type {
+    background-color: transparent !important;
+    color: var(--artjsm-text) !important;
+    box-shadow: none !important;
+    border-color: var(--artjsm-border) !important;
+}
+
+html[data-artjsm-theme="dark"] body#jira #issuetable tr.focused td,
+html[data-artjsm-theme="dark"] body#jira #issuetable tr.issuerow.focused td,
+html[data-artjsm-theme="dark"] body#jira #issuetable tbody tr.focused td {
+    background-color: var(--artjsm-accent-soft) !important;
+    color: var(--artjsm-text) !important;
+}
+
+html[data-artjsm-theme] body#jira input.text,
+html[data-artjsm-theme] body#jira input.password,
+html[data-artjsm-theme] body#jira input[type="text"],
+html[data-artjsm-theme] body#jira input[type="password"],
+html[data-artjsm-theme] body#jira input[type="email"],
+html[data-artjsm-theme] body#jira input[type="search"],
+html[data-artjsm-theme] body#jira textarea,
+html[data-artjsm-theme] body#jira select,
+html[data-artjsm-theme] body#jira #login-form input,
+html[data-artjsm-theme] body#jira .aui-dialog input,
+html[data-artjsm-theme] body#jira .aui-dialog2 input,
+html[data-artjsm-theme] body#jira .jira-dialog input,
+html[data-artjsm-theme] body#jira .dialog-content input {
+    background-color: var(--artjsm-bg-sunken) !important;
+    background-image: none !important;
+    color: var(--artjsm-text) !important;
+    border-color: var(--artjsm-border-strong) !important;
+}
+
+html[data-artjsm-theme] body#jira .aui-button,
+html[data-artjsm-theme] body#jira a.aui-button,
+html[data-artjsm-theme] body#jira button.aui-button,
+html[data-artjsm-theme] body#jira input.aui-button,
+html[data-artjsm-theme] body#jira #login-form .aui-button,
+html[data-artjsm-theme] body#jira .buttons-container .aui-button,
+html[data-artjsm-theme] body#jira .dialog-button-panel .aui-button,
+html[data-artjsm-theme] body#jira .aui-dialog2-footer .aui-button {
+    background-color: var(--artjsm-surface) !important;
+    background-image: none !important;
+    color: var(--artjsm-text) !important;
+    border-color: var(--artjsm-border-strong) !important;
+    text-shadow: none !important;
+}
+
+html[data-artjsm-theme] body#jira .aui-button.aui-button-link,
+html[data-artjsm-theme] body#jira a.aui-button-link,
+html[data-artjsm-theme] body#jira a.cancel,
+html[data-artjsm-theme] body#jira .cancel,
+html[data-artjsm-theme] body#jira #login-form a,
+html[data-artjsm-theme] body#jira #login-form .aui-button-link {
+    background-color: transparent !important;
+    color: var(--artjsm-link) !important;
+    border-color: transparent !important;
+}
+
+html[data-artjsm-theme] body#jira .aui-button.aui-button-primary,
+html[data-artjsm-theme] body#jira input.aui-button-primary,
+html[data-artjsm-theme] body#jira button.aui-button-primary,
+html[data-artjsm-theme] body#jira a.aui-button-primary,
+html[data-artjsm-theme] body#jira #login,
+html[data-artjsm-theme] body#jira #login-form-submit,
+html[data-artjsm-theme] body#jira #login-form .aui-button.aui-button-primary,
+html[data-artjsm-theme] body#jira #websudo-form .aui-button.aui-button-primary,
+html[data-artjsm-theme] body#jira #websudo-submit,
+html[data-artjsm-theme] body#jira .buttons-container .aui-button.aui-button-primary,
+html[data-artjsm-theme] body#jira .aui-dialog2 .aui-button.aui-button-primary,
+html[data-artjsm-theme] body#jira .aui-dialog2-footer .aui-button.aui-button-primary {
+    background-color: var(--artjsm-primary) !important;
+    color: #ffffff !important;
+    border-color: var(--artjsm-primary) !important;
+}
+
+html[data-artjsm-theme="dark"] body#jira label,
+html[data-artjsm-theme="dark"] body#jira .field-group > label,
+html[data-artjsm-theme="dark"] body#jira #footer,
+html[data-artjsm-theme="dark"] body#jira #footer a,
+html[data-artjsm-theme="dark"] body#jira #footer a:visited {
+    color: var(--artjsm-text-subtle) !important;
+}
+
+html[data-artjsm-theme="dark"] body#jira .aui-message-warning {
+    background: #3a311c !important;
+    border-color: #6b5a2e !important;
+    color: #ffe8b8 !important;
+}
+
+html[data-artjsm-theme="dark"] body#jira .aui-message-error {
+    background: #3d2226 !important;
+    border-color: #6b3038 !important;
+    color: #ffd6d6 !important;
+}
+
+html[data-artjsm-theme="dark"] body#jira .aui-message-success {
+    background: #173323 !important;
+    border-color: #245c3a !important;
+    color: #d8f5e4 !important;
+}
+
+html[data-artjsm-theme="dark"] body#jira .aui-message-info,
+html[data-artjsm-theme="dark"] body#jira .aui-message-hint {
+    background: #1a2e48 !important;
+    border-color: #2d4f78 !important;
+    color: #d6e8ff !important;
+}
+
+html[data-artjsm-theme] body#jira #header #quicksearch,
+html[data-artjsm-theme] body#jira #header .aui-quicksearch,
+html[data-artjsm-theme] body#jira #header #quicksearch form,
+html[data-artjsm-theme] body#jira #header #quicksearch > div,
+html[data-artjsm-theme] body#jira #header #quickSearchInput,
+html[data-artjsm-theme] body#jira #header .aui-quicksearch input,
+html[data-artjsm-theme] body#jira #header input.search {
+    width: 200px !important;
+    min-width: 200px !important;
+    max-width: 240px !important;
+    flex: 0 0 200px !important;
+    overflow: visible !important;
+    box-sizing: border-box !important;
+}
+
+html[data-artjsm-theme] body#jira #header #quickSearchInput,
+html[data-artjsm-theme] body#jira #header .aui-quicksearch input,
+html[data-artjsm-theme] body#jira #header input.search,
+html[data-artjsm-theme] body#jira #header input[type="text"].search,
+html[data-artjsm-theme] body#jira #header input[type="search"] {
+    background-color: rgba(255, 255, 255, 0.14) !important;
+    background-image: none !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(255, 255, 255, 0.28) !important;
+    border-radius: 4px !important;
+    height: 28px !important;
+    line-height: 26px !important;
+    padding: 0 28px 0 30px !important;
+    text-overflow: clip !important;
+}
+
+html[data-artjsm-theme] body#jira #header #quickSearchInput::placeholder,
+html[data-artjsm-theme] body#jira #header input.search::placeholder {
+    color: rgba(255, 255, 255, 0.82) !important;
+    opacity: 1 !important;
+}
+
+html[data-artjsm-theme] body#jira #header .aui-button,
+html[data-artjsm-theme] body#jira #header .aui-button.aui-button-subtle,
+html[data-artjsm-theme] body#jira #header a.aui-button {
+    background-color: transparent !important;
+    background-image: none !important;
+    color: var(--artjsm-header-text) !important;
+    border-color: transparent !important;
+}
+
+html[data-artjsm-theme="dark"] body#jira #header #create_link,
+html[data-artjsm-theme="dark"] body#jira #header .aui-button.aui-button-primary,
+html[data-artjsm-theme="dark"] body#jira #header a.aui-button-primary {
+    background-color: var(--artjsm-primary) !important;
+    color: #ffffff !important;
+    border-color: var(--artjsm-primary) !important;
+}
+
+html[data-artjsm-theme="light"] body#jira #header #create_link,
+html[data-artjsm-theme="light"] body#jira #header .aui-button.aui-button-primary,
+html[data-artjsm-theme="light"] body#jira #header a.aui-button-primary {
+    background-color: #ffffff !important;
+    color: var(--artjsm-primary) !important;
+    border-color: transparent !important;
+}
+
 @media print {
     html .artjsm-theme-toggle,
     html .artjsm-theme-settings,

@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="preview-aui.css">
     <link rel="stylesheet" href="../../main/resources/css/artjsm.css">
 </head>
-<body>
+<body id="jira">
 <header id="header" role="banner">
     <nav class="aui-header">
         <div class="aui-header-inner">
@@ -51,6 +51,9 @@
 <div id="page">
     <div class="layout">
         <aside class="aui-sidebar">
+            <div class="aui-sidebar-header">
+                <div class="aui-sidebar-header-inner">STP</div>
+            </div>
             <div class="aui-nav-heading">Очереди</div>
             <ul class="aui-nav">
                 <li class="aui-nav-selected"><a class="aui-nav-item" href="#all">Все открытые</a></li>
@@ -68,13 +71,14 @@
             <table id="issuetable">
                 <thead>
                 <tr class="rowHeader">
+                    <th style="background:#ffffff;color:#172b4d"></th>
                     <th style="background:#ffffff;color:#172b4d">Тема</th>
                     <th style="background:#ffffff;color:#172b4d">Статус</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr class="issuerow focused"><td style="background:#ffffff;color:#172b4d"><a href="#stp">STP-2</a></td><td style="background:#ffffff">ожидание поддержки</td></tr>
-                <tr class="issuerow"><td>STP-3</td><td>открыто</td></tr>
+                <tr class="issuerow focused"><td class="gutter" style="background:#ffffff"></td><td style="background:#ffffff;color:#172b4d"><a href="#stp">STP-2</a></td><td style="background:#ffffff">ожидание поддержки</td></tr>
+                <tr class="issuerow"><td class="gutter" style="background:#ffffff"></td><td>STP-3</td><td>открыто</td></tr>
                 </tbody>
             </table>
             <div class="aui-dropdown2" id="sample-menu">
@@ -135,6 +139,35 @@
                 <input id="comment" type="text" placeholder="Что изменилось в смене" style="width:320px">
             </div>
             <div class="aui-message aui-message-info">Смены на октябрь 2026 опубликованы для проекта STP.</div>
+            <div class="aui-navgroup aui-navgroup-horizontal" id="admin-tabs">
+                <div class="aui-navgroup-inner admin-strip">Приложения</div>
+            </div>
+            <div id="dashboard">
+                <div class="dashboard-item gadget-container">
+                    <div class="dashboard-item-header">Назначенные мне</div>
+                    <div class="dashboard-item-content">
+                        <iframe class="gadget gadget-frame" id="gadget-frame" title="Назначенные мне" src="gadget.html"></iframe>
+                    </div>
+                </div>
+            </div>
+            <form id="login-form" class="login-card">
+                <label for="login-password">Пароль</label>
+                <input id="login-password" class="text" type="password" value="secret">
+                <a href="#show">Показать пароль</a>
+                <div class="buttons-container">
+                    <input id="login" class="aui-button aui-button-primary" type="submit" value="Вход">
+                    <a class="aui-button aui-button-link cancel" href="#cancel">Отмена</a>
+                </div>
+            </form>
+            <form id="websudo-form" class="sudo-card aui-dialog2">
+                <div class="aui-message aui-message-warning">Если вы попали на эту страницу по ссылке, проверьте её.</div>
+                <label for="websudo-password">Пароль</label>
+                <input id="websudo-password" class="text" type="password" value="secret">
+                <div class="buttons-container">
+                    <input id="websudo-submit" class="aui-button aui-button-primary" type="submit" value="Подтвердить">
+                    <a class="aui-button aui-button-link cancel" href="#cancel">Отмена</a>
+                </div>
+            </form>
             <div class="cards">
                 <article class="portal-card">
                     <h3>Доступ в офис</h3>
