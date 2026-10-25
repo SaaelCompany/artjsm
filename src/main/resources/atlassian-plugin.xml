@@ -34,6 +34,7 @@
         <context>customerportal</context>
         <context>servicedesk.portal</context>
         <context>servicedesk.general</context>
+        <context>sd.project.view</context>
         <resource type="download" name="artjsm.css" location="css/artjsm.css"/>
         <resource type="download" name="artjsm.js" location="js/artjsm.js"/>
     </web-resource>

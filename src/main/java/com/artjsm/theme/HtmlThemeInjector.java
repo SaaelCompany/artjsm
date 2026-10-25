@@ -84,9 +84,16 @@ final class HtmlThemeInjector {
                 + "(function(){var d=document.documentElement;"
                 + "try{if((\" \"+d.className+\" \").indexOf(\" artjsm \")<0)"
                 + "{d.className+=(d.className?\" \":\"\")+\"artjsm\";}}catch(e){}"
-                + "try{var k=\"artjsm-theme\",t=localStorage.getItem(k);"
+                + "try{var t=localStorage.getItem(\"artjsm-theme\");"
                 + "if(t!==\"dark\"&&t!==\"light\"){t=window.matchMedia&&matchMedia(\"(prefers-color-scheme: dark)\").matches?\"dark\":\"light\";}"
-                + "d.setAttribute(\"data-artjsm-theme\",t);}catch(e){}"
+                + "d.setAttribute(\"data-artjsm-theme\",t);"
+                + "var raw=localStorage.getItem(\"artjsm-appearance\");"
+                + "if(raw){var o=JSON.parse(raw);"
+                + "if(o.mode===\"dark\"||o.mode===\"light\"){d.setAttribute(\"data-artjsm-theme\",o.mode);}"
+                + "if(o.palette){d.setAttribute(\"data-artjsm-palette\",o.palette);}"
+                + "if(o.accent){d.setAttribute(\"data-artjsm-accent\",o.accent);}"
+                + "if(o.header){d.setAttribute(\"data-artjsm-header\",o.header);}}"
+                + "}catch(e){}"
                 + "})();"
                 + "</script>";
     }

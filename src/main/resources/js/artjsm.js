@@ -9,6 +9,22 @@
             early = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
         }
         root.setAttribute("data-artjsm-theme", early);
+        var rawAppearance = localStorage.getItem("artjsm-appearance");
+        if (rawAppearance) {
+            var earlySettings = JSON.parse(rawAppearance);
+            if (earlySettings.mode === "dark" || earlySettings.mode === "light") {
+                root.setAttribute("data-artjsm-theme", earlySettings.mode);
+            }
+            if (earlySettings.palette) {
+                root.setAttribute("data-artjsm-palette", earlySettings.palette);
+            }
+            if (earlySettings.accent) {
+                root.setAttribute("data-artjsm-accent", earlySettings.accent);
+            }
+            if (earlySettings.header) {
+                root.setAttribute("data-artjsm-header", earlySettings.header);
+            }
+        }
     } catch (e) {
         if (!root.getAttribute("data-artjsm-theme")) {
             root.setAttribute("data-artjsm-theme", "light");
@@ -20,6 +36,7 @@
     window.__artjsmThemeBound = true;
 
     var STORAGE_KEY = "artjsm-theme";
+    var SETTINGS_KEY = "artjsm-appearance";
     var PROPERTY = "artjsm.theme";
     var generation = 0;
     var allowFallback = false;
@@ -59,14 +76,42 @@
                 toDark: "Включить тёмную тему",
                 toLight: "Включить светлую тему",
                 dark: "Тёмная тема",
-                light: "Светлая тема"
+                light: "Светлая тема",
+                settings: "Настройки темы",
+                title: "Оформление",
+                mode: "Режим",
+                lightMode: "Светлая",
+                darkMode: "Тёмная",
+                palette: "Палитра",
+                accent: "Акцент",
+                header: "Шапка",
+                neutral: "Нейтральная",
+                blue: "Синяя",
+                graphite: "Графит",
+                soft: "Мягкая",
+                brand: "Фирменная синяя",
+                match: "В цвет темы"
             };
         }
         return {
             toDark: "Switch to dark theme",
             toLight: "Switch to light theme",
             dark: "Dark theme",
-            light: "Light theme"
+            light: "Light theme",
+            settings: "Theme settings",
+            title: "Appearance",
+            mode: "Mode",
+            lightMode: "Light",
+            darkMode: "Dark",
+            palette: "Palette",
+            accent: "Accent",
+            header: "Header",
+            neutral: "Neutral",
+            blue: "Blue",
+            graphite: "Graphite",
+            soft: "Soft",
+            brand: "Brand blue",
+            match: "Match theme"
         };
     }
 
@@ -74,17 +119,50 @@
         return document.documentElement.getAttribute("data-artjsm-theme") === "dark" ? "dark" : "light";
     }
 
+    function currentSettings() {
+        var node = document.documentElement;
+        var mode = node.getAttribute("data-artjsm-theme") === "dark" ? "dark" : "light";
+        return {
+            mode: mode,
+            palette: node.getAttribute("data-artjsm-palette") || "neutral",
+            accent: node.getAttribute("data-artjsm-accent") || "blue",
+            header: node.getAttribute("data-artjsm-header") || "match"
+        };
+    }
+
     function apply(theme, persistLocal) {
-        var next = theme === "dark" ? "dark" : "light";
-        document.documentElement.setAttribute("data-artjsm-theme", next);
+        applySettings({ mode: theme === "dark" ? "dark" : "light" }, persistLocal);
+    }
+
+    function applySettings(partial, persistLocal) {
+        var next = currentSettings();
+        if (partial.mode === "dark" || partial.mode === "light") {
+            next.mode = partial.mode;
+        }
+        if (partial.palette) {
+            next.palette = partial.palette;
+        }
+        if (partial.accent) {
+            next.accent = partial.accent;
+        }
+        if (partial.header) {
+            next.header = partial.header;
+        }
+        var node = document.documentElement;
+        node.setAttribute("data-artjsm-theme", next.mode);
+        node.setAttribute("data-artjsm-palette", next.palette);
+        node.setAttribute("data-artjsm-accent", next.accent);
+        node.setAttribute("data-artjsm-header", next.header);
         if (persistLocal) {
             try {
-                localStorage.setItem(STORAGE_KEY, next);
+                localStorage.setItem(STORAGE_KEY, next.mode);
+                localStorage.setItem(SETTINGS_KEY, JSON.stringify(next));
             } catch (e) {
                 /* private mode */
             }
         }
         render();
+        renderPanel();
     }
 
     function render() {
@@ -106,6 +184,12 @@
         var text = button.querySelector(".artjsm-theme-toggle-label");
         if (text) {
             text.textContent = caption;
+        }
+        var settings = document.getElementById("artjsm-theme-settings");
+        if (settings) {
+            settings.setAttribute("aria-label", copy.settings);
+            settings.setAttribute("title", copy.settings);
+            settings.textContent = copy.settings;
         }
     }
 
@@ -169,18 +253,36 @@
             } catch (e) {
                 return;
             }
-            if (value === "dark" || value === "light") {
-                apply(value, true);
+            var stored = value;
+            if (typeof stored === "string") {
+                if (stored === "dark" || stored === "light") {
+                    apply(stored, true);
+                    return;
+                }
+                try {
+                    stored = JSON.parse(stored);
+                } catch (e2) {
+                    return;
+                }
             }
+            if (!stored || typeof stored !== "object") {
+                return;
+            }
+            applySettings({
+                mode: stored.mode || stored.theme,
+                palette: stored.palette,
+                accent: stored.accent,
+                header: stored.header
+            }, true);
         });
     }
 
-    function saveServer(theme, gen) {
+    function saveServer(gen) {
         var key = userKey();
         if (!key) {
             return;
         }
-        xhr("PUT", propertyUrl(key), JSON.stringify(theme), function () {
+        xhr("PUT", propertyUrl(key), JSON.stringify(currentSettings()), function () {
             if (gen !== generation) {
                 return;
             }
@@ -230,9 +332,171 @@
             var next = currentTheme() === "dark" ? "light" : "dark";
             var gen = ++generation;
             apply(next, true);
-            saveServer(next, gen);
+            saveServer(gen);
         });
         return button;
+    }
+
+    function buildSettingsButton() {
+        var button = document.createElement("button");
+        button.type = "button";
+        button.id = "artjsm-theme-settings";
+        button.className = "artjsm-theme-settings";
+        button.addEventListener("click", function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+            togglePanel(button);
+        });
+        return button;
+    }
+
+    function choiceRow(setting, values) {
+        var row = document.createElement("div");
+        row.className = "artjsm-choice";
+        row.setAttribute("data-setting", setting);
+        var copy = texts();
+        var i;
+        for (i = 0; i < values.length; i++) {
+            var button = document.createElement("button");
+            button.type = "button";
+            button.setAttribute("data-value", values[i]);
+            var caption = copy[values[i]] || values[i];
+            if (setting === "mode" && values[i] === "light") {
+                caption = copy.lightMode;
+            }
+            if (setting === "mode" && values[i] === "dark") {
+                caption = copy.darkMode;
+            }
+            button.textContent = caption;
+            if (setting === "accent") {
+                button.className = "artjsm-swatch";
+                button.textContent = "";
+                button.setAttribute("aria-label", copy[values[i]] || values[i]);
+                button.setAttribute("title", copy[values[i]] || values[i]);
+            }
+            row.appendChild(button);
+        }
+        return row;
+    }
+
+    function ensurePanel() {
+        var panel = document.getElementById("artjsm-theme-panel");
+        if (panel) {
+            return panel;
+        }
+        panel = document.createElement("div");
+        panel.id = "artjsm-theme-panel";
+        panel.className = "artjsm-theme-panel";
+        panel.setAttribute("role", "dialog");
+        panel.setAttribute("aria-label", texts().title);
+        panel.hidden = true;
+        var title = document.createElement("div");
+        title.className = "artjsm-theme-panel-title";
+        title.textContent = texts().title;
+        panel.appendChild(title);
+        panel.appendChild(label(texts().mode));
+        panel.appendChild(choiceRow("mode", ["light", "dark"]));
+        panel.appendChild(label(texts().palette));
+        panel.appendChild(choiceRow("palette", ["neutral", "blue", "graphite", "soft"]));
+        panel.appendChild(label(texts().accent));
+        panel.appendChild(choiceRow("accent", ["blue", "teal", "purple", "green", "orange"]));
+        panel.appendChild(label(texts().header));
+        panel.appendChild(choiceRow("header", ["brand", "match"]));
+        panel.addEventListener("click", function (event) {
+            var button = event.target;
+            while (button && button.tagName && String(button.tagName).toUpperCase() !== "BUTTON") {
+                button = button.parentNode;
+            }
+            if (!button || !panel.contains(button)) {
+                return;
+            }
+            var row = button.parentNode;
+            var setting = row && row.getAttribute("data-setting");
+            var value = button.getAttribute("data-value");
+            if (!setting || !value) {
+                return;
+            }
+            var partial = {};
+            partial[setting] = value === "light" ? "light" : value === "dark" ? "dark" : value;
+            if (setting === "mode") {
+                partial.mode = value;
+            }
+            var gen = ++generation;
+            applySettings(partial, true);
+            saveServer(gen);
+        });
+        document.body.appendChild(panel);
+        document.addEventListener("mousedown", function (event) {
+            if (panel.hidden) {
+                return;
+            }
+            var target = event.target;
+            if (panel.contains(target)) {
+                return;
+            }
+            if (target && target.closest && target.closest("#artjsm-theme-settings")) {
+                return;
+            }
+            var settings = document.getElementById("artjsm-theme-settings");
+            if (settings && (target === settings || settings.contains(target))) {
+                return;
+            }
+            panel.hidden = true;
+        });
+        document.addEventListener("keydown", function (event) {
+            if (event.key === "Escape") {
+                panel.hidden = true;
+            }
+        });
+        return panel;
+    }
+
+    function label(text) {
+        var node = document.createElement("div");
+        node.className = "artjsm-theme-panel-label";
+        node.textContent = text;
+        return node;
+    }
+
+    function renderPanel() {
+        var panel = document.getElementById("artjsm-theme-panel");
+        if (!panel) {
+            return;
+        }
+        var settings = currentSettings();
+        var rows = panel.querySelectorAll(".artjsm-choice");
+        var i;
+        for (i = 0; i < rows.length; i++) {
+            var setting = rows[i].getAttribute("data-setting");
+            var buttons = rows[i].querySelectorAll("button");
+            var j;
+            for (j = 0; j < buttons.length; j++) {
+                var selected = buttons[j].getAttribute("data-value") === settings[setting];
+                if (selected) {
+                    buttons[j].className += buttons[j].className.indexOf("is-selected") >= 0 ? "" : " is-selected";
+                } else {
+                    buttons[j].className = buttons[j].className.replace(" is-selected", "").replace("is-selected", "");
+                }
+                buttons[j].setAttribute("aria-pressed", selected ? "true" : "false");
+            }
+        }
+    }
+
+    function togglePanel(anchor) {
+        var panel = ensurePanel();
+        renderPanel();
+        if (!panel.hidden) {
+            panel.hidden = true;
+            return;
+        }
+        panel.hidden = false;
+        var rect = anchor.getBoundingClientRect();
+        panel.style.top = (rect.bottom + 8) + "px";
+        panel.style.left = Math.max(8, rect.left) + "px";
+        var width = panel.offsetWidth || 280;
+        if (rect.left + width > window.innerWidth - 8) {
+            panel.style.left = Math.max(8, window.innerWidth - width - 8) + "px";
+        }
     }
 
     function removeExisting() {
@@ -265,11 +529,12 @@
         var ours = existing
             && String(existing.tagName).toUpperCase() === "BUTTON"
             && existing.querySelector(".artjsm-theme-toggle-label");
-        if (ours && document.body.contains(existing)) {
+        if (ours && document.getElementById("artjsm-theme-settings") && document.body.contains(existing)) {
             if (target && target.contains(existing)) {
                 return;
             }
-            if (!target && existing.className.indexOf("artjsm-theme-toggle-fallback") >= 0) {
+            var fallbackHost = existing.parentNode;
+            if (!target && fallbackHost && fallbackHost.className.indexOf("artjsm-theme-toggle-fallback") >= 0) {
                 return;
             }
             if (!target && !allowFallback) {
@@ -281,11 +546,13 @@
         }
         removeExisting();
         var button = buildButton();
+        var settingsButton = buildSettingsButton();
         if (target && String(target.tagName).toUpperCase() === "UL") {
             var li = document.createElement("li");
             li.id = "artjsm-theme-toggle-item";
             li.className = "artjsm-theme-toggle-item";
             li.appendChild(button);
+            li.appendChild(settingsButton);
             var quick = document.getElementById("quicksearch");
             if (!quick) {
                 var searchInput = document.getElementById("quickSearchInput");
@@ -312,13 +579,23 @@
             holder.id = "artjsm-theme-toggle-item";
             holder.className = "artjsm-theme-toggle-item";
             holder.appendChild(button);
+            holder.appendChild(settingsButton);
             target.appendChild(holder);
         } else {
-            button.className += " artjsm-theme-toggle-fallback";
-            document.body.appendChild(button);
+            var fallback = document.createElement("span");
+            fallback.id = "artjsm-theme-toggle-item";
+            fallback.className = "artjsm-theme-toggle-item artjsm-theme-toggle-fallback";
+            fallback.appendChild(button);
+            fallback.appendChild(settingsButton);
+            document.body.appendChild(fallback);
         }
-        if (button.className.indexOf("artjsm-theme-toggle-fallback") >= 0 || (target && isLightBackground(target))) {
+        var lightChrome = button.className.indexOf("artjsm-theme-toggle-fallback") >= 0 || (target && isLightBackground(target));
+        if (lightChrome) {
             button.className += " artjsm-on-light";
+            settingsButton.className += " artjsm-on-light";
+            if (button.parentNode) {
+                button.parentNode.className += " artjsm-on-light";
+            }
         }
         render();
     }
@@ -356,6 +633,14 @@
             if (event.key === STORAGE_KEY && (event.newValue === "dark" || event.newValue === "light")) {
                 generation++;
                 apply(event.newValue, false);
+            }
+            if (event.key === SETTINGS_KEY && event.newValue) {
+                try {
+                    generation++;
+                    applySettings(JSON.parse(event.newValue), false);
+                } catch (e) {
+                    /* ignore foreign values */
+                }
             }
         });
         window.setTimeout(function () {

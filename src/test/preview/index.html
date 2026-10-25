@@ -58,7 +58,23 @@
                 <li><a class="aui-nav-item" href="#sla">SLA нарушен</a></li>
             </ul>
         </aside>
-        <main class="main aui-page-panel">
+        <main class="main aui-page-panel" id="content">
+            <div class="aui-page-header">
+                <div class="aui-page-header-inner" style="background:#ffffff">
+                    <div class="aui-page-header-main"><h1 style="color:#172b4d">Все оборудование</h1></div>
+                </div>
+            </div>
+            <table id="issuetable">
+                <thead>
+                <tr class="rowHeader">
+                    <th style="background:#ffffff;color:#172b4d">Тема</th>
+                    <th style="background:#ffffff;color:#172b4d">Статус</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr><td><a href="#stp">STP-2</a></td><td>ожидание поддержки</td></tr>
+                </tbody>
+            </table>
             <div class="page-title">
                 <h1>Графики <span class="aui-lozenge aui-lozenge-new beta">BETA</span></h1>
                 <div class="title-actions">
@@ -127,6 +143,9 @@
     </div>
 </div>
 <footer id="footer">ArtJSM Theme · Jira 8.21.1 · JSM 4.21.1</footer>
+<div class="aui-dropdown2" id="sample-menu" style="background:#ffffff;color:#172b4d">
+    <ul><li><a href="#projects">Проекты</a></li><li><a href="#issues">Задачи</a></li></ul>
+</div>
 <script data-artjsm="js" src="../../main/resources/js/artjsm.js" defer></script>
 </body>
 </html>
