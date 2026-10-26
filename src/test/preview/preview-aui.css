@@ -133,6 +133,17 @@ body#jira .aui-message-warning {
     background: #ffffff !important;
     color: #172b4d !important;
 }
+body#jira #sidebar-toggle,
+body#jira #col-key,
+body#jira #col-type,
+body#jira #col-group,
+body#jira #queue-gear {
+    border: 2px solid #172b4d !important;
+    outline: 2px solid #172b4d !important;
+    box-shadow: 0 0 0 2px #172b4d !important;
+    background: #ffffff !important;
+    border-radius: 0 !important;
+}
 .gadget-frame { width: 100%; height: 160px; border: 0; background: #ffffff; }
 .login-card, .sudo-card { max-width: 420px; margin: 24px 0; padding: 16px; }
 .admin-strip { height: 14px; }

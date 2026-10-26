@@ -85,7 +85,7 @@ final class HtmlThemeInjector {
                 + "try{if((\" \"+d.className+\" \").indexOf(\" artjsm \")<0)"
                 + "{d.className+=(d.className?\" \":\"\")+\"artjsm\";}}catch(e){}"
                 + "try{var t=localStorage.getItem(\"artjsm-theme\");"
-                + "if(t!==\"dark\"&&t!==\"light\"){t=window.matchMedia&&matchMedia(\"(prefers-color-scheme: dark)\").matches?\"dark\":\"light\";}"
+                + "if(t!==\"dark\"&&t!==\"light\"){t=\"light\";}"
                 + "d.setAttribute(\"data-artjsm-theme\",t);"
                 + "var raw=localStorage.getItem(\"artjsm-appearance\");"
                 + "if(raw){var o=JSON.parse(raw);"

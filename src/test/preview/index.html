@@ -12,7 +12,7 @@
             } catch (e) {}
         })();
     </script>
-    <script data-artjsm="boot">(function(){var d=document.documentElement;try{if((" "+d.className+" ").indexOf(" artjsm ")<0){d.className+=(d.className?" ":"")+"artjsm";}}catch(e){}try{var k="artjsm-theme",t=localStorage.getItem(k);if(t!=="dark"&&t!=="light"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}d.setAttribute("data-artjsm-theme",t);}catch(e){}})();</script>
+    <script data-artjsm="boot">(function(){var d=document.documentElement;try{if((" "+d.className+" ").indexOf(" artjsm ")<0){d.className+=(d.className?" ":"")+"artjsm";}}catch(e){}try{var t=localStorage.getItem("artjsm-theme");if(t!=="dark"&&t!=="light"){t="light";}d.setAttribute("data-artjsm-theme",t);}catch(e){}})();</script>
     <link rel="stylesheet" href="preview-aui.css">
     <link rel="stylesheet" href="../../main/resources/css/artjsm.css">
 </head>
@@ -32,7 +32,17 @@
                 <ul class="aui-nav">
                     <li id="quicksearch"><input id="quickSearchInput" class="search" type="search" placeholder="Поиск"></li>
                     <li><a class="aui-button aui-button-primary" id="create_link" href="#create">Создать</a></li>
-                    <li id="header-details-user-fullname"><a class="aui-nav-link" href="#user">Админ</a></li>
+                    <li id="user-options">
+                        <a id="header-details-user-fullname" class="aui-dropdown2-trigger aui-nav-link" aria-controls="user-options-content" href="#user">Админ</a>
+                        <div id="user-options-content" class="aui-dropdown2 aui-style-default">
+                            <div class="aui-dropdown2-section">
+                                <ul>
+                                    <li><a id="view_profile" href="#profile">Профиль</a></li>
+                                    <li><a id="log_out" href="#logout">Выйти</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -53,6 +63,7 @@
         <aside class="aui-sidebar" id="sidebar">
             <div class="aui-sidebar-wrapper">
                 <div class="aui-sidebar-body">
+                    <button type="button" class="aui-button aui-button-subtle aui-sidebar-toggle" id="sidebar-toggle"><span class="aui-icon">×</span></button>
                     <header class="aui-sidebar-header">
                         <div class="aui-sidebar-header-inner">STP</div>
                         <div id="project-subheader-strip" class="project-subheader-strip"> </div>
@@ -81,9 +92,9 @@
             <table id="issuetable">
                 <thead>
                 <tr class="rowHeader">
-                    <th style="background:#ffffff;color:#172b4d"></th>
-                    <th style="background:#ffffff;color:#172b4d">Тема</th>
-                    <th style="background:#ffffff;color:#172b4d">Статус</th>
+                    <th style="background:#ffffff;color:#172b4d"><button type="button" id="col-key">Код</button></th>
+                    <th style="background:#ffffff;color:#172b4d"><button type="button" id="col-type">Тип</button></th>
+                    <th style="background:#ffffff;color:#172b4d"><button type="button" id="col-group">Группа</button></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -110,7 +121,8 @@
                     <button class="aui-button aui-button-primary" type="button">Табель</button>
                 </span>
             </div>
-            <p class="hint description">Первый клик ставит смену, второй снимает. Кнопка «Тёмная тема» в шапке, слева от поиска, переключает оформление.</p>
+            <p class="hint description">Первый клик ставит смену, второй снимает. Тема и настройки открываются из меню пользователя.</p>
+            <button type="button" class="aui-button aui-button-subtle" id="queue-gear"><span class="aui-icon aui-iconfont-configure"></span></button>
             <div class="filters">
                 <span class="filter"><span class="dot" style="background:#5b4b8a"></span> Рабочий день</span>
                 <span class="filter"><span class="dot" style="background:#7b61c9"></span> Ночная работа</span>

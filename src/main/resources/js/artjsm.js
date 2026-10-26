@@ -6,7 +6,7 @@
     try {
         var early = localStorage.getItem("artjsm-theme");
         if (early !== "dark" && early !== "light") {
-            early = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+            early = "light";
         }
         root.setAttribute("data-artjsm-theme", early);
         var rawAppearance = localStorage.getItem("artjsm-appearance");
@@ -39,7 +39,6 @@
     var SETTINGS_KEY = "artjsm-appearance";
     var PROPERTY = "artjsm.theme";
     var generation = 0;
-    var allowFallback = false;
     var contextPath = detectContext();
 
     var MOON = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">'
@@ -398,15 +397,81 @@
             return true;
         }
         var tag = el.tagName;
+        if (tag === "BUTTON") {
+            return true;
+        }
         var type = (el.getAttribute("type") || "").toLowerCase();
-        return (tag === "BUTTON" || tag === "INPUT") && (type === "submit" || type === "button");
+        return tag === "INPUT" && (type === "submit" || type === "button");
+    }
+
+    function insideColumnHeader(el) {
+        var node = el;
+        while (node && node.nodeType === 1) {
+            var tag = node.tagName;
+            if (tag === "TH" || tag === "THEAD") {
+                return true;
+            }
+            var role = node.getAttribute ? (node.getAttribute("role") || "") : "";
+            if (role === "columnheader" || role === "rowheader") {
+                return true;
+            }
+            var cls = classNameOf(node);
+            if (cls.indexOf("column-header") >= 0 || cls.indexOf("columnHeader") >= 0 || cls.indexOf("colHeader") >= 0 || cls.indexOf("headerrow") >= 0) {
+                return true;
+            }
+            if (tag === "TABLE" || tag === "BODY") {
+                break;
+            }
+            node = node.parentNode;
+        }
+        return false;
+    }
+
+    function quietButton(el) {
+        var cls = classNameOf(el);
+        if (cls.indexOf("aui-button-primary") >= 0 || cls.indexOf("button-primary") >= 0) {
+            return false;
+        }
+        var id = el.id || "";
+        if (id === "login" || id === "login-form-submit" || id === "websudo-submit" || id === "create_link") {
+            return false;
+        }
+        if (cls.indexOf("aui-button-subtle") >= 0 || cls.indexOf("aui-button-link") >= 0 || cls.indexOf("aui-button-compact") >= 0 || cls.indexOf("aui-sidebar-toggle") >= 0 || cls.indexOf("sidebar-toggle") >= 0) {
+            return true;
+        }
+        if (insideColumnHeader(el)) {
+            return true;
+        }
+        if (el.tagName === "INPUT") {
+            return false;
+        }
+        var type = (el.getAttribute("type") || "").toLowerCase();
+        if (type === "submit") {
+            return false;
+        }
+        var text = "";
+        try {
+            text = (el.textContent || "").replace(/\s+/g, "");
+        } catch (e) {
+            text = "";
+        }
+        var icon = false;
+        try {
+            icon = !!(el.querySelector && el.querySelector(".aui-icon, .aui-iconfont, svg"));
+        } catch (e2) {
+            icon = false;
+        }
+        return (icon && text.length < 3) || text.length === 0;
     }
 
     function paintButton(el) {
         var cls = classNameOf(el);
-        if (cls.indexOf("aui-button-link") >= 0 || cls.indexOf("cancel") >= 0) {
+        el.style.setProperty("outline", "none", "important");
+        el.style.setProperty("box-shadow", "none", "important");
+        if (quietButton(el) || cls.indexOf("aui-button-link") >= 0 || cls.indexOf("cancel") >= 0) {
             el.style.setProperty("background-color", "transparent", "important");
-            el.style.setProperty("color", "var(--artjsm-link)", "important");
+            el.style.setProperty("color", cls.indexOf("cancel") >= 0 || cls.indexOf("aui-button-link") >= 0 ? "var(--artjsm-link)" : "var(--artjsm-text)", "important");
+            el.style.setProperty("border", "0", "important");
             el.style.setProperty("border-color", "transparent", "important");
             markPaint(el);
             return;
@@ -828,35 +893,34 @@
         });
     }
 
-    function isLightBackground(el) {
-        var node = el;
-        var steps = 0;
-        while (node && node.nodeType === 1 && steps < 8) {
-            var bg = window.getComputedStyle(node).backgroundColor;
-            var match = /rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/.exec(bg || "");
-            if (match && bg.indexOf("rgba(0, 0, 0, 0)") !== 0 && bg !== "transparent") {
-                var r = +match[1];
-                var g = +match[2];
-                var b = +match[3];
-                if (bg.indexOf("rgba") === 0 && /rgba\(\s*\d+\s*,\s*\d+\s*,\s*\d+\s*,\s*0\s*\)/.test(bg)) {
-                    node = node.parentNode;
-                    steps++;
-                    continue;
-                }
-                return (0.299 * r + 0.587 * g + 0.114 * b) / 255 > 0.72;
+    function findUserMenuList() {
+        var trigger = document.getElementById("header-details-user-fullname");
+        if (trigger && String(trigger.tagName).toUpperCase() !== "A") {
+            var inner = trigger.querySelector("a[aria-controls], a.aui-dropdown2-trigger");
+            if (inner) {
+                trigger = inner;
             }
-            node = node.parentNode;
-            steps++;
         }
-        return false;
-    }
-
-    function findTarget() {
-        return document.querySelector("#header .aui-header-secondary .aui-nav")
-            || document.querySelector(".aui-header-secondary .aui-nav")
-            || document.querySelector(".cv-smart-portal-header-actions")
-            || document.querySelector(".cv-smart-portal-header-inner")
-            || document.querySelector("#header .aui-header-inner");
+        if (!trigger) {
+            trigger = document.querySelector("#user-options a.aui-dropdown2-trigger, a[aria-controls='user-options-content']");
+        }
+        var menu = null;
+        if (trigger && trigger.getAttribute) {
+            var controls = trigger.getAttribute("aria-controls") || trigger.getAttribute("aria-owns");
+            if (controls) {
+                menu = document.getElementById(controls);
+            }
+        }
+        if (!menu) {
+            menu = document.getElementById("user-options-content");
+        }
+        if (!menu) {
+            menu = document.querySelector(".cv-smart-portal-header .aui-dropdown2, #cv-user-menu, .cv-user-menu");
+        }
+        if (!menu) {
+            return null;
+        }
+        return menu.querySelector("ul");
     }
 
     function buildButton() {
@@ -1039,22 +1103,18 @@
     }
 
     function removeExisting() {
-        var selectors = ["#artjsm-theme-toggle-item", "#artjsm-theme-toggle"];
-        var s;
+        var ids = ["artjsm-theme-toggle", "artjsm-theme-settings", "artjsm-theme-toggle-item", "artjsm-theme-settings-item"];
         var i;
-        for (s = 0; s < selectors.length; s++) {
-            var nodes = document.querySelectorAll(selectors[s]);
-            for (i = 0; i < nodes.length; i++) {
-                var node = nodes[i];
-                if (!node.parentNode) {
-                    continue;
-                }
-                var parent = node.parentNode;
-                if (String(parent.tagName).toUpperCase() === "LI") {
-                    parent.parentNode.removeChild(parent);
-                } else {
-                    parent.removeChild(node);
-                }
+        for (i = 0; i < ids.length; i++) {
+            var node = document.getElementById(ids[i]);
+            if (!node || !node.parentNode) {
+                continue;
+            }
+            var parent = node.parentNode;
+            if (String(parent.tagName).toUpperCase() === "LI" && parent.parentNode) {
+                parent.parentNode.removeChild(parent);
+            } else {
+                node.parentNode.removeChild(node);
             }
         }
     }
@@ -1063,111 +1123,43 @@
         if (!document.body) {
             return;
         }
-        var target = findTarget();
+        var target = findUserMenuList();
+        if (!target) {
+            return;
+        }
         var existing = document.getElementById("artjsm-theme-toggle");
+        var settings = document.getElementById("artjsm-theme-settings");
         var ours = existing
             && String(existing.tagName).toUpperCase() === "BUTTON"
             && existing.querySelector(".artjsm-theme-toggle-label");
-        if (ours && document.getElementById("artjsm-theme-settings") && document.body.contains(existing)) {
-            if (target && target.contains(existing)) {
-                return;
-            }
-            var fallbackHost = existing.parentNode;
-            if (!target && fallbackHost && fallbackHost.className.indexOf("artjsm-theme-toggle-fallback") >= 0) {
-                return;
-            }
-            if (!target && !allowFallback) {
-                return;
-            }
-        }
-        if (!target && !allowFallback) {
+        if (ours && settings && String(settings.tagName).toUpperCase() === "BUTTON" && target.contains(existing) && target.contains(settings)) {
+            render();
             return;
         }
         removeExisting();
         var button = buildButton();
         var settingsButton = buildSettingsButton();
-        if (target && String(target.tagName).toUpperCase() === "UL") {
-            var li = document.createElement("li");
-            li.id = "artjsm-theme-toggle-item";
-            li.className = "artjsm-theme-toggle-item";
-            li.appendChild(button);
-            li.appendChild(settingsButton);
-            var quick = document.getElementById("quicksearch");
-            if (!quick) {
-                var searchInput = document.getElementById("quickSearchInput");
-                quick = searchInput;
-                while (quick && String(quick.tagName).toUpperCase() !== "LI") {
-                    quick = quick.parentNode;
-                }
-            }
-            var user = document.getElementById("header-details-user-fullname")
-                || document.getElementById("header-details-user")
-                || document.getElementById("user-options");
-            if (quick && quick.parentNode === target) {
-                target.insertBefore(li, quick);
-            } else if (user && user.parentNode === target) {
-                target.insertBefore(li, user);
-            } else if (target.firstChild) {
-                target.insertBefore(li, target.firstChild);
-            } else {
-                target.appendChild(li);
-            }
-        } else if (target) {
-            button.id = "artjsm-theme-toggle";
-            var holder = document.createElement("span");
-            holder.id = "artjsm-theme-toggle-item";
-            holder.className = "artjsm-theme-toggle-item";
-            holder.appendChild(button);
-            holder.appendChild(settingsButton);
-            target.appendChild(holder);
+        var themeItem = document.createElement("li");
+        themeItem.id = "artjsm-theme-toggle-item";
+        themeItem.className = "artjsm-theme-menu-item";
+        themeItem.appendChild(button);
+        var settingsItem = document.createElement("li");
+        settingsItem.id = "artjsm-theme-settings-item";
+        settingsItem.className = "artjsm-theme-menu-item";
+        settingsItem.appendChild(settingsButton);
+        if (target.firstChild) {
+            target.insertBefore(settingsItem, target.firstChild);
+            target.insertBefore(themeItem, settingsItem);
         } else {
-            var fallback = document.createElement("span");
-            fallback.id = "artjsm-theme-toggle-item";
-            fallback.className = "artjsm-theme-toggle-item artjsm-theme-toggle-fallback";
-            fallback.appendChild(button);
-            fallback.appendChild(settingsButton);
-            document.body.appendChild(fallback);
-        }
-        var lightChrome = button.className.indexOf("artjsm-theme-toggle-fallback") >= 0 || (target && isLightBackground(target));
-        if (lightChrome) {
-            button.className += " artjsm-on-light";
-            settingsButton.className += " artjsm-on-light";
-            if (button.parentNode) {
-                button.parentNode.className += " artjsm-on-light";
-            }
+            target.appendChild(themeItem);
+            target.appendChild(settingsItem);
         }
         render();
-    }
-
-    function watchSystemTheme() {
-        if (!window.matchMedia) {
-            return;
-        }
-        var query = window.matchMedia("(prefers-color-scheme: dark)");
-        var onChange = function () {
-            var stored = null;
-            try {
-                stored = localStorage.getItem(STORAGE_KEY);
-            } catch (e) {
-                stored = "set";
-            }
-            if (stored === "dark" || stored === "light") {
-                return;
-            }
-            generation++;
-            apply(query.matches ? "dark" : "light", false);
-        };
-        if (query.addEventListener) {
-            query.addEventListener("change", onChange);
-        } else if (query.addListener) {
-            query.addListener(onChange);
-        }
     }
 
     function start() {
         mount();
         loadServer();
-        watchSystemTheme();
         window.addEventListener("storage", function (event) {
             if (event.key === STORAGE_KEY && (event.newValue === "dark" || event.newValue === "light")) {
                 generation++;
@@ -1184,7 +1176,6 @@
         });
         repaintLightSurfaces();
         window.setTimeout(function () {
-            allowFallback = true;
             mount();
             repaintLightSurfaces();
         }, 300);

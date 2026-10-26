@@ -79,6 +79,8 @@ class HtmlThemeInjectorTest {
         String inner = boot.substring(0, boot.length() - "</script>".length());
         assertFalse(inner.toLowerCase().contains("</script"));
         assertTrue(boot.endsWith("</script>"));
+        assertTrue(boot.contains("t=\"light\""));
+        assertFalse(boot.contains("prefers-color-scheme"));
     }
 
     @Test
