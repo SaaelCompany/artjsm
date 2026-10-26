@@ -1,0 +1,1976 @@
+/*
+ * ArtJSM Theme for Jira 8.21.1 / Jira Service Management 4.21.1.
+ *
+ * The active theme is html[data-artjsm-theme="light"|"dark"].
+ * Other plugins can read that attribute and the --artjsm-* variables.
+ */
+
+:root,
+html {
+    --artjsm-header: #0747a6;
+    --artjsm-header-text: #ffffff;
+    --artjsm-bg: #ffffff;
+    --artjsm-bg-subtle: #f7f8fa;
+    --artjsm-bg-muted: #f1f2f4;
+    --artjsm-bg-sunken: #ebedf0;
+    --artjsm-surface: #ffffff;
+    --artjsm-border: #e4e6ea;
+    --artjsm-border-strong: #cfd4dc;
+    --artjsm-text: #1d2b3a;
+    --artjsm-text-subtle: #5e6c84;
+    --artjsm-link: #0b57d0;
+    --artjsm-link-hover: #0842a0;
+    --artjsm-primary: #0052cc;
+    --artjsm-primary-hover: #0747a6;
+    --artjsm-primary-text: #ffffff;
+    --artjsm-accent-soft: #e9f2ff;
+    --artjsm-focus-ring: rgba(0, 82, 204, 0.28);
+    --artjsm-shadow: 0 8px 24px rgba(16, 24, 40, 0.12), 0 2px 6px rgba(16, 24, 40, 0.06);
+    --artjsm-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans", "Liberation Sans", "Helvetica Neue", Arial, sans-serif;
+    color-scheme: light;
+}
+
+html[data-artjsm-theme="dark"] {
+    --artjsm-header: #121418;
+    --artjsm-header-text: #f4f6f8;
+    --artjsm-bg: #181a1f;
+    --artjsm-bg-subtle: #21242b;
+    --artjsm-bg-muted: #2a2e37;
+    --artjsm-bg-sunken: #101216;
+    --artjsm-surface: #23262e;
+    --artjsm-border: #3a404b;
+    --artjsm-border-strong: #515866;
+    --artjsm-text: #e8eaed;
+    --artjsm-text-subtle: #b4b9c3;
+    --artjsm-link: #9ec1ff;
+    --artjsm-link-hover: #d3e4ff;
+    --artjsm-primary: #4c8dff;
+    --artjsm-primary-hover: #78a7ff;
+    --artjsm-primary-text: #ffffff;
+    --artjsm-accent-soft: #243044;
+    --artjsm-focus-ring: rgba(76, 141, 255, 0.35);
+    --artjsm-shadow: 0 12px 32px rgba(0, 0, 0, 0.45), 0 2px 6px rgba(0, 0, 0, 0.35);
+    color-scheme: dark;
+}
+
+html[data-artjsm-theme="dark"][data-artjsm-palette="blue"] {
+    --artjsm-header: #0c2344;
+    --artjsm-bg: #14181f;
+    --artjsm-bg-subtle: #1b212b;
+    --artjsm-bg-muted: #232a36;
+    --artjsm-bg-sunken: #0e1218;
+    --artjsm-surface: #1b212b;
+    --artjsm-border: #313a48;
+    --artjsm-border-strong: #455062;
+    --artjsm-accent-soft: #1c334f;
+}
+
+html[data-artjsm-theme="dark"][data-artjsm-palette="graphite"] {
+    --artjsm-header: #0c0d0f;
+    --artjsm-bg: #101113;
+    --artjsm-bg-subtle: #181a1d;
+    --artjsm-bg-muted: #222428;
+    --artjsm-bg-sunken: #090a0b;
+    --artjsm-surface: #1c1e22;
+    --artjsm-border: #32353b;
+    --artjsm-border-strong: #4a4e57;
+    --artjsm-text: #f2f3f5;
+    --artjsm-text-subtle: #b8bcc4;
+    --artjsm-accent-soft: #262a31;
+}
+
+html[data-artjsm-theme="dark"][data-artjsm-palette="soft"] {
+    --artjsm-header: #2a3140;
+    --artjsm-bg: #2c3340;
+    --artjsm-bg-subtle: #343c4b;
+    --artjsm-bg-muted: #3d4658;
+    --artjsm-bg-sunken: #242b36;
+    --artjsm-surface: #384155;
+    --artjsm-border: #516079;
+    --artjsm-border-strong: #6b7b96;
+    --artjsm-text: #f4f7fb;
+    --artjsm-text-subtle: #c9d2e0;
+    --artjsm-accent-soft: #3d4d68;
+}
+
+html[data-artjsm-accent="teal"] {
+    --artjsm-primary: #0d7f7b;
+    --artjsm-primary-hover: #0a615e;
+    --artjsm-link: #0c746f;
+    --artjsm-link-hover: #084e4b;
+    --artjsm-accent-soft: #e5f6f5;
+    --artjsm-focus-ring: rgba(13, 127, 123, 0.28);
+}
+
+html[data-artjsm-accent="purple"] {
+    --artjsm-primary: #5e4db2;
+    --artjsm-primary-hover: #493b93;
+    --artjsm-link: #5b47b8;
+    --artjsm-link-hover: #3e2f86;
+    --artjsm-accent-soft: #efecfb;
+    --artjsm-focus-ring: rgba(94, 77, 178, 0.28);
+}
+
+html[data-artjsm-accent="green"] {
+    --artjsm-primary: #1f7a45;
+    --artjsm-primary-hover: #165b33;
+    --artjsm-link: #1b6e3e;
+    --artjsm-link-hover: #124c2b;
+    --artjsm-accent-soft: #e6f6ec;
+    --artjsm-focus-ring: rgba(31, 122, 69, 0.28);
+}
+
+html[data-artjsm-accent="orange"] {
+    --artjsm-primary: #c2510c;
+    --artjsm-primary-hover: #8f3b08;
+    --artjsm-link: #b4480a;
+    --artjsm-link-hover: #7d3307;
+    --artjsm-accent-soft: #fff1e6;
+    --artjsm-focus-ring: rgba(194, 81, 12, 0.28);
+}
+
+html[data-artjsm-theme="dark"][data-artjsm-accent="blue"] {
+    --artjsm-primary: #4c8dff;
+    --artjsm-primary-hover: #78a7ff;
+    --artjsm-link: #9ec1ff;
+    --artjsm-link-hover: #d3e4ff;
+    --artjsm-accent-soft: #243044;
+    --artjsm-focus-ring: rgba(76, 141, 255, 0.35);
+}
+
+html[data-artjsm-theme="dark"][data-artjsm-accent="teal"] {
+    --artjsm-primary: #2bbbad;
+    --artjsm-primary-hover: #5ed0c4;
+    --artjsm-link: #7ee0d6;
+    --artjsm-link-hover: #d5f7f3;
+    --artjsm-accent-soft: #163632;
+    --artjsm-focus-ring: rgba(43, 187, 173, 0.35);
+}
+
+html[data-artjsm-theme="dark"][data-artjsm-accent="purple"] {
+    --artjsm-primary: #a78bfa;
+    --artjsm-primary-hover: #c4b5fd;
+    --artjsm-link: #c4b5fd;
+    --artjsm-link-hover: #e9e3ff;
+    --artjsm-accent-soft: #2c2642;
+    --artjsm-focus-ring: rgba(167, 139, 250, 0.35);
+}
+
+html[data-artjsm-theme="dark"][data-artjsm-accent="green"] {
+    --artjsm-primary: #3fb950;
+    --artjsm-primary-hover: #67d474;
+    --artjsm-link: #7ee787;
+    --artjsm-link-hover: #d2f8d6;
+    --artjsm-accent-soft: #1a3322;
+    --artjsm-focus-ring: rgba(63, 185, 80, 0.35);
+}
+
+html[data-artjsm-theme="dark"][data-artjsm-accent="orange"] {
+    --artjsm-primary: #f0883e;
+    --artjsm-primary-hover: #f5a66a;
+    --artjsm-link: #f5b07a;
+    --artjsm-link-hover: #ffe3cc;
+    --artjsm-accent-soft: #3a2a1c;
+    --artjsm-focus-ring: rgba(240, 136, 62, 0.35);
+}
+
+html[data-artjsm-theme="dark"][data-artjsm-header="brand"] {
+    --artjsm-header: #0747a6;
+    --artjsm-header-text: #ffffff;
+}
+
+html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+html body,
+html #page,
+html #content,
+html .aui-page-panel,
+html .aui-page-panel-inner,
+html .aui-page-panel-content {
+    background: var(--artjsm-bg) !important;
+    color: var(--artjsm-text) !important;
+}
+
+html body {
+    font-family: var(--artjsm-font) !important;
+}
+
+html h1,
+html h2,
+html h3,
+html h4,
+html h5,
+html .aui-page-header-main h1,
+html .aui-page-header-main h2 {
+    color: var(--artjsm-text) !important;
+    font-weight: 600;
+}
+
+html a {
+    color: var(--artjsm-link);
+}
+
+html a:hover {
+    color: var(--artjsm-link-hover);
+}
+
+html a:visited {
+    color: var(--artjsm-link);
+}
+
+html ::selection {
+    background: #c6dcff;
+    color: #172b4d;
+}
+
+html[data-artjsm-theme="dark"] ::selection {
+    background: #1d4f91;
+    color: #ffffff;
+}
+
+html code,
+html kbd,
+html pre,
+html .code,
+html .preformatted,
+html .wiki-content tt {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace !important;
+}
+
+html[data-artjsm-theme="dark"] pre,
+html[data-artjsm-theme="dark"] .preformatted,
+html[data-artjsm-theme="dark"] .code,
+html[data-artjsm-theme="dark"] .code-block {
+    background: var(--artjsm-bg-sunken) !important;
+    color: var(--artjsm-text) !important;
+    border-color: var(--artjsm-border) !important;
+}
+
+/* Header */
+
+html #header,
+html #header .aui-header {
+    background: var(--artjsm-header) !important;
+    background-image: none !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    color: var(--artjsm-header-text) !important;
+}
+
+html #header a,
+html #header a:visited,
+html #header .aui-nav-link,
+html .aui-header a,
+html .aui-header a:visited {
+    color: var(--artjsm-header-text) !important;
+}
+
+html #header .aui-dropdown2 a,
+html #header .aui-dropdown2 a:visited,
+html #header .aui-dropdown a,
+html #header .aui-dropdown a:visited,
+html #header .aui-inline-dialog a,
+html #header .aui-inline-dialog a:visited,
+html #header .ajs-layer a,
+html #header .ajs-layer a:visited,
+html .aui-dropdown2 a,
+html .aui-dropdown2 a:visited,
+html .aui-dropdown a,
+html .aui-dropdown a:visited {
+    color: var(--artjsm-text) !important;
+}
+
+html #header .aui-nav > li > a:hover,
+html #header .aui-nav > li > a:focus,
+html .aui-header .aui-nav > li > a:hover {
+    background: rgba(255, 255, 255, 0.14) !important;
+    color: #ffffff !important;
+    border-radius: 6px;
+}
+
+html #header .aui-button,
+html #header .aui-button.aui-button-subtle,
+html #header .aui-button:visited {
+    background: transparent !important;
+    background-image: none !important;
+    border-color: transparent !important;
+    color: var(--artjsm-header-text) !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+}
+
+html #header .aui-button:hover,
+html #header .aui-button:focus {
+    background: rgba(255, 255, 255, 0.14) !important;
+    color: #ffffff !important;
+}
+
+html #header #create_link,
+html #header .aui-button.aui-button-primary,
+html #header a.aui-button-primary {
+    background: #ffffff !important;
+    background-image: none !important;
+    border: 0 !important;
+    border-radius: 999px !important;
+    color: var(--artjsm-primary) !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    font-weight: 600 !important;
+    height: 32px !important;
+    line-height: 32px !important;
+    padding: 0 14px !important;
+}
+
+html #header #create_link:hover,
+html #header #create_link:focus,
+html #header .aui-button.aui-button-primary:hover,
+html #header .aui-button.aui-button-primary:focus,
+html #header a.aui-button-primary:hover,
+html #header a.aui-button-primary:focus {
+    background: #e9f2ff !important;
+    color: var(--artjsm-primary-hover) !important;
+}
+
+html[data-artjsm-theme="dark"] #header #create_link,
+html[data-artjsm-theme="dark"] #header .aui-button.aui-button-primary,
+html[data-artjsm-theme="dark"] #header a.aui-button-primary {
+    background: var(--artjsm-primary) !important;
+    color: #ffffff !important;
+    border: 0 !important;
+}
+
+html[data-artjsm-theme="dark"] #header #create_link:hover,
+html[data-artjsm-theme="dark"] #header #create_link:focus,
+html[data-artjsm-theme="dark"] #header .aui-button.aui-button-primary:hover,
+html[data-artjsm-theme="dark"] #header .aui-button.aui-button-primary:focus,
+html[data-artjsm-theme="dark"] #header a.aui-button-primary:hover,
+html[data-artjsm-theme="dark"] #header a.aui-button-primary:focus {
+    background: var(--artjsm-primary-hover) !important;
+    color: #ffffff !important;
+}
+
+html #header #quicksearch,
+html #header #artjsm-theme-toggle-item {
+    flex-shrink: 0 !important;
+}
+
+html #quickSearchInput,
+html #header .aui-quicksearch input,
+html #header input.search {
+    background-color: rgba(255, 255, 255, 0.14) !important;
+    border: 1px solid rgba(255, 255, 255, 0.28) !important;
+    color: #ffffff !important;
+    border-radius: 4px !important;
+    box-shadow: none !important;
+    box-sizing: border-box !important;
+    width: 168px !important;
+    min-width: 168px !important;
+    height: 28px !important;
+    line-height: 26px !important;
+    padding: 0 22px 0 28px !important;
+    text-overflow: clip !important;
+    overflow: visible !important;
+}
+
+html #quickSearchInput::placeholder,
+html #header input::placeholder {
+    color: rgba(255, 255, 255, 0.78) !important;
+}
+
+/* In-page navigation, the quiet row under the blue bar */
+
+html .aui-navgroup-horizontal .aui-nav > li > a,
+html .aui-nav-horizontal > li > a,
+html .aui-page-header .aui-nav > li > a {
+    color: var(--artjsm-text-subtle) !important;
+    background: transparent !important;
+    font-weight: 500;
+    box-shadow: none !important;
+}
+
+html .aui-navgroup-horizontal .aui-nav > li > a:hover,
+html .aui-nav-horizontal > li > a:hover,
+html .aui-page-header .aui-nav > li > a:hover {
+    color: var(--artjsm-text) !important;
+    background: transparent !important;
+}
+
+html .aui-navgroup-horizontal .aui-nav > .aui-nav-selected > a,
+html .aui-nav-horizontal > .aui-nav-selected > a,
+html .aui-page-header .aui-nav > .aui-nav-selected > a,
+html .aui-navgroup-horizontal .aui-nav > .aui-nav-selected > a:hover,
+html .aui-nav-horizontal > .aui-nav-selected > a:hover {
+    color: var(--artjsm-link) !important;
+    background: transparent !important;
+    box-shadow: inset 0 -2px 0 var(--artjsm-link) !important;
+    font-weight: 600;
+}
+
+html .aui-page-header {
+    background: transparent !important;
+    border-bottom: 1px solid var(--artjsm-border) !important;
+}
+
+html .aui-nav-breadcrumbs > li,
+html .aui-nav-breadcrumbs > li > a {
+    color: var(--artjsm-text-subtle) !important;
+}
+
+html .tabs-menu .menu-item a {
+    color: var(--artjsm-text-subtle) !important;
+    background: transparent !important;
+}
+
+html .tabs-menu .menu-item.active-tab a,
+html .tabs-menu .menu-item.active-tab a:hover,
+html .aui-tabs > .tabs-menu > .active-tab > a {
+    color: var(--artjsm-link) !important;
+    background: transparent !important;
+    border-bottom-color: var(--artjsm-link) !important;
+}
+
+/* Sidebar */
+
+html .aui-sidebar,
+html .aui-sidebar-wrapper,
+html .aui-sidebar-body,
+html #admin-sidebar,
+html .admin-menu {
+    background: var(--artjsm-surface) !important;
+    color: var(--artjsm-text) !important;
+}
+
+html .aui-sidebar {
+    border-right: 1px solid var(--artjsm-border) !important;
+    box-shadow: none !important;
+}
+
+html .aui-sidebar .aui-nav-heading,
+html .aui-nav-heading,
+html #admin-nav-heading {
+    color: var(--artjsm-text-subtle) !important;
+    font-weight: 600;
+}
+
+html .aui-sidebar .aui-nav-item,
+html .admin-menu a {
+    color: var(--artjsm-text) !important;
+    border-radius: 6px !important;
+}
+
+html .aui-sidebar .aui-nav-item:hover,
+html .admin-menu a:hover {
+    background: var(--artjsm-bg-muted) !important;
+    color: var(--artjsm-text) !important;
+}
+
+html .aui-sidebar .aui-nav-selected .aui-nav-item,
+html .aui-sidebar .aui-nav-selected .aui-nav-item:hover,
+html .admin-menu .aui-nav-selected a,
+html .admin-menu .selected a {
+    background: var(--artjsm-accent-soft) !important;
+    color: var(--artjsm-link) !important;
+    font-weight: 600;
+}
+
+/* Buttons */
+
+html .aui-button,
+html .aui-button:visited {
+    background: var(--artjsm-surface) !important;
+    background-image: none !important;
+    border: 1px solid var(--artjsm-border-strong) !important;
+    color: var(--artjsm-text) !important;
+    border-radius: 6px !important;
+    text-shadow: none !important;
+    box-shadow: none !important;
+    font-weight: 500;
+}
+
+html .aui-button:hover,
+html .aui-button:focus {
+    background: var(--artjsm-bg-subtle) !important;
+    color: var(--artjsm-text) !important;
+    border-color: var(--artjsm-border-strong) !important;
+}
+
+html .aui-button.aui-button-primary,
+html .aui-button.aui-button-primary:visited {
+    background: var(--artjsm-primary) !important;
+    border-color: var(--artjsm-primary) !important;
+    color: var(--artjsm-primary-text) !important;
+}
+
+html .aui-button.aui-button-primary:hover,
+html .aui-button.aui-button-primary:focus {
+    background: var(--artjsm-primary-hover) !important;
+    border-color: var(--artjsm-primary-hover) !important;
+    color: var(--artjsm-primary-text) !important;
+}
+
+html .aui-button.aui-button-subtle,
+html .aui-button.aui-button-link {
+    background: transparent !important;
+    border-color: transparent !important;
+    color: var(--artjsm-link) !important;
+}
+
+html .aui-button.aui-button-subtle:hover,
+html .aui-button.aui-button-link:hover {
+    background: var(--artjsm-accent-soft) !important;
+    color: var(--artjsm-link-hover) !important;
+}
+
+html .aui-button[disabled],
+html .aui-button[aria-disabled="true"] {
+    opacity: 0.55;
+}
+
+html .aui-buttons {
+    background: transparent !important;
+    border: 0 !important;
+}
+
+html .aui-buttons .aui-button,
+html .aui-buttons .aui-button:first-child,
+html .aui-buttons .aui-button:last-child {
+    border-radius: 6px !important;
+}
+
+html .aui-buttons > .aui-button + .aui-button {
+    margin-left: 6px !important;
+}
+
+/* Forms */
+
+html input[type="text"],
+html input[type="password"],
+html input[type="email"],
+html input[type="search"],
+html input[type="number"],
+html input[type="url"],
+html input[type="tel"],
+html textarea,
+html select,
+html .aui-select,
+html .select2-search input {
+    background-color: var(--artjsm-surface) !important;
+    color: var(--artjsm-text) !important;
+    border: 1px solid var(--artjsm-border-strong) !important;
+    border-radius: 6px !important;
+    box-shadow: none !important;
+}
+
+html .select2-container .select2-choice {
+    background-color: var(--artjsm-surface) !important;
+    color: var(--artjsm-text) !important;
+    border: 1px solid var(--artjsm-border-strong) !important;
+    border-radius: 6px !important;
+    box-shadow: none !important;
+}
+
+html[data-artjsm-theme="dark"] body#jira .select2-container .select2-choice,
+html[data-artjsm-theme="dark"] body#jira .select2-container .select2-choice span,
+html[data-artjsm-theme="dark"] body#jira .select2-search input {
+    background-color: var(--artjsm-bg-sunken) !important;
+    color: var(--artjsm-text) !important;
+}
+
+html textarea:focus,
+html input[type="text"]:focus,
+html input[type="password"]:focus,
+html input[type="email"]:focus,
+html input[type="search"]:focus,
+html input[type="number"]:focus,
+html select:focus,
+html .select2-container-active .select2-choice,
+html .select2-drop-active {
+    border-color: var(--artjsm-primary) !important;
+    box-shadow: 0 0 0 2px var(--artjsm-focus-ring) !important;
+}
+
+html input::placeholder,
+html textarea::placeholder {
+    color: var(--artjsm-text-subtle) !important;
+    opacity: 1;
+}
+
+html input[disabled],
+html textarea[disabled],
+html select[disabled] {
+    background: var(--artjsm-bg-muted) !important;
+    color: var(--artjsm-text-subtle) !important;
+}
+
+html select option {
+    background: var(--artjsm-surface);
+    color: var(--artjsm-text);
+}
+
+html .field-label,
+html .form-label,
+html legend,
+html .field-group > label {
+    color: var(--artjsm-text) !important;
+    font-weight: 600;
+}
+
+html .description,
+html .field-description {
+    color: var(--artjsm-text-subtle) !important;
+}
+
+/* Tables */
+
+html table.aui,
+html #issuetable,
+html .aui-restfultable {
+    background: var(--artjsm-surface) !important;
+    border-color: var(--artjsm-border) !important;
+}
+
+html table.aui > thead > tr > th,
+html #issuetable > thead > tr > th,
+html .aui-restfultable thead th,
+html table.aui > tbody > tr > td,
+html #issuetable > tbody > tr > td,
+html .aui-restfultable td {
+    border-color: var(--artjsm-border) !important;
+    color: var(--artjsm-text);
+}
+
+html table.aui > thead > tr > th,
+html #issuetable > thead > tr > th,
+html .aui-restfultable thead th {
+    background: var(--artjsm-bg-subtle) !important;
+    color: var(--artjsm-text-subtle) !important;
+    font-weight: 600;
+}
+
+html table.aui > tbody > tr,
+html #issuetable > tbody > tr,
+html .aui-restfultable tbody tr {
+    background: var(--artjsm-surface) !important;
+}
+
+html table.aui > tbody > tr:hover,
+html #issuetable > tbody > tr:hover {
+    background: var(--artjsm-bg-subtle) !important;
+}
+
+html #issuetable > tbody > tr.focused,
+html #issuetable > tbody > tr.focused:hover {
+    background: var(--artjsm-accent-soft) !important;
+}
+
+html .wiki-content,
+html .wiki-content table,
+html .wiki-content td,
+html .wiki-content th {
+    border-color: var(--artjsm-border) !important;
+    color: var(--artjsm-text);
+}
+
+/* Popovers, dialogs, flags */
+
+html .aui-dropdown2,
+html .aui-inline-dialog-contents,
+html .aui-datepicker-dialog,
+html .select2-drop,
+html .select2-results,
+html .ajs-layer.box-shadow {
+    background: var(--artjsm-surface) !important;
+    color: var(--artjsm-text) !important;
+    border: 1px solid var(--artjsm-border) !important;
+    border-radius: 10px !important;
+    box-shadow: var(--artjsm-shadow) !important;
+}
+
+html .select2-results .select2-highlighted,
+html .aui-dropdown2 .aui-dropdown2-section li:hover,
+html .aui-dropdown2 a:hover,
+html .aui-list-item:hover,
+html .aui-list-item.active {
+    background: var(--artjsm-accent-soft) !important;
+    color: var(--artjsm-text) !important;
+}
+
+html .aui-dropdown2 a,
+html .select2-result-label {
+    color: var(--artjsm-text) !important;
+}
+
+html .aui-dialog,
+html .aui-dialog2,
+html .jira-dialog {
+    background: var(--artjsm-surface) !important;
+    color: var(--artjsm-text) !important;
+    border-radius: 12px !important;
+    border: 1px solid var(--artjsm-border) !important;
+    box-shadow: var(--artjsm-shadow) !important;
+}
+
+html .aui-dialog2-header,
+html .aui-dialog .dialog-title,
+html .jira-dialog .dialog-title {
+    background: transparent !important;
+    color: var(--artjsm-text) !important;
+    border-bottom: 1px solid var(--artjsm-border) !important;
+}
+
+html .aui-dialog2-footer,
+html .dialog-button-panel,
+html .form-footer {
+    background: var(--artjsm-bg-subtle) !important;
+    border-top: 1px solid var(--artjsm-border) !important;
+}
+
+html .aui-blanket {
+    background: rgba(8, 16, 28, 0.54) !important;
+}
+
+html .aui-flag {
+    background: var(--artjsm-surface) !important;
+    color: var(--artjsm-text) !important;
+    border-radius: 10px !important;
+    box-shadow: var(--artjsm-shadow) !important;
+}
+
+html .aui-flag .title {
+    color: var(--artjsm-text) !important;
+}
+
+html .aui-message {
+    border-radius: 8px !important;
+    color: var(--artjsm-text);
+}
+
+html .aui-lozenge {
+    border-radius: 999px !important;
+    font-weight: 600;
+    padding: 2px 8px !important;
+    border: 0 !important;
+}
+
+html .aui-nav-pagination > li > a {
+    border-radius: 6px !important;
+}
+
+html .aui-nav-pagination > .aui-nav-selected > a {
+    background: var(--artjsm-primary) !important;
+    color: #ffffff !important;
+}
+
+/* Issue view, navigator, dashboard */
+
+html #issue-content,
+html .issue-body-content,
+html .issue-body,
+html #details-module,
+html .activity-comment,
+html .action-body,
+html .module,
+html .mod-content {
+    background: var(--artjsm-surface) !important;
+    color: var(--artjsm-text) !important;
+}
+
+html .module,
+html .mod-header {
+    border-color: var(--artjsm-border) !important;
+}
+
+html .mod-header {
+    background: transparent !important;
+}
+
+html #dashboard,
+html .dashboard-tabs {
+    background: var(--artjsm-bg) !important;
+}
+
+html .dashboard-item-frame,
+html .gadget,
+html .gadget-container {
+    background: var(--artjsm-surface) !important;
+    border: 1px solid var(--artjsm-border) !important;
+    border-radius: 12px !important;
+    box-shadow: none !important;
+}
+
+html #footer {
+    background: var(--artjsm-bg) !important;
+    color: var(--artjsm-text-subtle) !important;
+    border-top: 1px solid var(--artjsm-border) !important;
+}
+
+html #footer a,
+html #footer a:visited {
+    color: var(--artjsm-text-subtle) !important;
+}
+
+html .login-page .aui-page-panel,
+html #login-container .aui-page-panel,
+html #login-form {
+    border-radius: 12px !important;
+    box-shadow: var(--artjsm-shadow) !important;
+    border: 1px solid var(--artjsm-border) !important;
+    background: var(--artjsm-surface) !important;
+}
+
+/* Jira Service Management */
+
+html .cv-smart-portal,
+html .cv-page,
+html #jsd-customer-portal,
+html .help-center,
+html .cp-request-container,
+html .sd-customer-portal,
+html .sd-queue,
+html #sd-queues {
+    background: var(--artjsm-bg) !important;
+    color: var(--artjsm-text) !important;
+}
+
+html .cv-smart-portal-header {
+    background: var(--artjsm-surface) !important;
+    color: var(--artjsm-text) !important;
+    border-bottom: 1px solid var(--artjsm-border) !important;
+}
+
+html .cv-smart-portal-header a,
+html .cv-smart-portal-header a:visited {
+    color: var(--artjsm-text) !important;
+}
+
+html #header.cv-smart-portal-header,
+html #header.cv-smart-portal-header .aui-header {
+    background: var(--artjsm-surface) !important;
+    color: var(--artjsm-text) !important;
+}
+
+html #header.cv-smart-portal-header a,
+html #header.cv-smart-portal-header a:visited {
+    color: var(--artjsm-text) !important;
+}
+
+html .request-type-card,
+html .cv-card,
+html .portal-card,
+html .category-box,
+html .portal-project-card,
+html .cv-request-type {
+    background: var(--artjsm-surface) !important;
+    border: 1px solid var(--artjsm-border) !important;
+    border-radius: 12px !important;
+    box-shadow: var(--artjsm-shadow);
+    color: var(--artjsm-text) !important;
+}
+
+html .sd-queue-header,
+html .vp-request-summary,
+html .cv-request-list,
+html .cv-my-requests {
+    background: var(--artjsm-surface) !important;
+    color: var(--artjsm-text) !important;
+    border-color: var(--artjsm-border) !important;
+}
+
+/* Dark-only semantic colors that AUI paints as light pastels */
+
+html[data-artjsm-theme="dark"] .aui-message {
+    background: #232a36 !important;
+    color: var(--artjsm-text) !important;
+    border-color: var(--artjsm-border) !important;
+}
+
+html[data-artjsm-theme="dark"] .aui-message-success {
+    background: #173323 !important;
+    border-color: #245c3a !important;
+    color: #d8f5e4 !important;
+}
+
+html[data-artjsm-theme="dark"] .aui-message-error {
+    background: #3d2226 !important;
+    border-color: #6b3038 !important;
+    color: #ffd6d6 !important;
+}
+
+html[data-artjsm-theme="dark"] .aui-message-warning {
+    background: #3a311c !important;
+    border-color: #6b5a2e !important;
+    color: #ffe8b8 !important;
+}
+
+html[data-artjsm-theme="dark"] .aui-message-info,
+html[data-artjsm-theme="dark"] .aui-message-hint {
+    background: #1a2e48 !important;
+    border-color: #2d4f78 !important;
+    color: #d6e8ff !important;
+}
+
+html[data-artjsm-theme="dark"] .aui-lozenge {
+    background: #2a3342 !important;
+    color: #d5deea !important;
+}
+
+html[data-artjsm-theme="dark"] .aui-lozenge-success,
+html[data-artjsm-theme="dark"] .aui-lozenge-complete {
+    background: #1c3d2e !important;
+    color: #9be7b8 !important;
+}
+
+html[data-artjsm-theme="dark"] .aui-lozenge-error {
+    background: #4a2328 !important;
+    color: #ffb4b4 !important;
+}
+
+html[data-artjsm-theme="dark"] .aui-lozenge-current {
+    background: #1d3d66 !important;
+    color: #b9d6ff !important;
+}
+
+html[data-artjsm-theme="dark"] .aui-lozenge-moved {
+    background: #3f341c !important;
+    color: #f3d48a !important;
+}
+
+html[data-artjsm-theme="dark"] .aui-lozenge-new {
+    background: #3a2a55 !important;
+    color: #e0caff !important;
+}
+
+/* Theme controls live in the user menu, as plain rows. */
+
+html[data-artjsm-theme] #user-options-content,
+html[data-artjsm-theme] #user-options-content .aui-dropdown2-section,
+html[data-artjsm-theme] #user-options-content ul {
+    background-color: var(--artjsm-surface) !important;
+    color: var(--artjsm-text) !important;
+    border-color: var(--artjsm-border) !important;
+}
+
+html .artjsm-theme-menu-item,
+html #user-options-content .artjsm-theme-menu-item,
+html .aui-dropdown2 .artjsm-theme-menu-item {
+    display: block !important;
+    visibility: visible !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+    float: none !important;
+    width: auto !important;
+    height: auto !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    overflow: visible;
+}
+
+html .artjsm-theme-toggle,
+html .artjsm-theme-settings,
+html #user-options-content .artjsm-theme-toggle,
+html #user-options-content .artjsm-theme-settings,
+html .aui-dropdown2 .artjsm-theme-toggle,
+html .aui-dropdown2 .artjsm-theme-settings {
+    appearance: none;
+    -webkit-appearance: none;
+    display: flex !important;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+    width: 100% !important;
+    height: auto !important;
+    min-width: 0;
+    margin: 0 !important;
+    padding: 8px 12px !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    background-image: none !important;
+    color: var(--artjsm-text) !important;
+    cursor: pointer;
+    box-shadow: none !important;
+    outline: none !important;
+    font: 400 14px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans", Arial, sans-serif !important;
+    text-align: left;
+    text-decoration: none !important;
+    white-space: nowrap;
+    text-shadow: none !important;
+}
+
+html .artjsm-theme-toggle:hover,
+html .artjsm-theme-toggle:focus,
+html .artjsm-theme-settings:hover,
+html .artjsm-theme-settings:focus,
+html #user-options-content .artjsm-theme-toggle:hover,
+html #user-options-content .artjsm-theme-settings:hover {
+    background: var(--artjsm-accent-soft) !important;
+    color: var(--artjsm-text) !important;
+    text-decoration: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+html .artjsm-theme-toggle-icon,
+html .artjsm-theme-toggle-icon svg {
+    display: block;
+    width: 16px;
+    height: 16px;
+    flex: 0 0 auto;
+}
+
+html .artjsm-theme-toggle-label {
+    display: inline-block;
+    line-height: 1.4;
+    font-weight: 400;
+}
+
+/* Queues, issue navigator and menus.
+   Jira paints the queue title and column header white after the base rules,
+   so dark text color lands on a white strip. These selectors win on that chrome. */
+
+html[data-artjsm-theme] body #content,
+html[data-artjsm-theme] body #content > *,
+html[data-artjsm-theme] body #content .aui-page-panel,
+html[data-artjsm-theme] body #content .aui-page-panel-inner,
+html[data-artjsm-theme] body #content .aui-page-panel-content,
+html[data-artjsm-theme] body #content .aui-page-header,
+html[data-artjsm-theme] body #content .aui-page-header-inner,
+html[data-artjsm-theme] body #content .aui-page-header-main,
+html[data-artjsm-theme] body #content .aui-page-header-actions,
+html[data-artjsm-theme] body #content .navigator-content,
+html[data-artjsm-theme] body #content .navigator-body,
+html[data-artjsm-theme] body #content .list-view,
+html[data-artjsm-theme] body #content .results-panel,
+html[data-artjsm-theme] body #content .issue-table,
+html[data-artjsm-theme] body #content .issue-table-container,
+html[data-artjsm-theme] body .sd-queue-header,
+html[data-artjsm-theme] body .sd-queue-header-container,
+html[data-artjsm-theme] body .queue-header,
+html[data-artjsm-theme] body .queue-heading,
+html[data-artjsm-theme] body .queue-title {
+    background-color: var(--artjsm-bg) !important;
+    background-image: none !important;
+    color: var(--artjsm-text) !important;
+}
+
+html[data-artjsm-theme] body #content .aui-sidebar,
+html[data-artjsm-theme] body #content .aui-sidebar-wrapper,
+html[data-artjsm-theme] body #content .aui-sidebar-body,
+html[data-artjsm-theme] body .aui-sidebar,
+html[data-artjsm-theme] body .aui-sidebar-wrapper,
+html[data-artjsm-theme] body .aui-sidebar-body {
+    background-color: var(--artjsm-surface) !important;
+    background-image: none !important;
+    color: var(--artjsm-text) !important;
+}
+
+html[data-artjsm-theme] body #content th,
+html[data-artjsm-theme] body #content thead,
+html[data-artjsm-theme] body #content thead tr,
+html[data-artjsm-theme] body #content table th,
+html[data-artjsm-theme] body #issuetable th,
+html[data-artjsm-theme] body #issuetable thead th,
+html[data-artjsm-theme] body #issuetable tr.rowHeader th,
+html[data-artjsm-theme] body table.aui th {
+    background-color: var(--artjsm-bg-subtle) !important;
+    background-image: none !important;
+    color: var(--artjsm-text-subtle) !important;
+    border-color: var(--artjsm-border) !important;
+}
+
+html[data-artjsm-theme] body #content td,
+html[data-artjsm-theme] body #issuetable td {
+    background-color: transparent !important;
+    border-color: var(--artjsm-border) !important;
+    color: var(--artjsm-text);
+}
+
+html[data-artjsm-theme] body #content h1,
+html[data-artjsm-theme] body #content h2,
+html[data-artjsm-theme] body #content h3,
+html[data-artjsm-theme] body .queue-title {
+    color: var(--artjsm-text) !important;
+    background-color: transparent !important;
+}
+
+html[data-artjsm-theme="dark"] body .aui-dropdown2,
+html[data-artjsm-theme="dark"] body .aui-dropdown2-section,
+html[data-artjsm-theme="dark"] body .aui-dropdown2 ul,
+html[data-artjsm-theme="dark"] body .aui-dropdown2 li,
+html[data-artjsm-theme="dark"] body .aui-dropdown,
+html[data-artjsm-theme="dark"] body .aui-dropdown-menu,
+html[data-artjsm-theme="dark"] body .aui-inline-dialog,
+html[data-artjsm-theme="dark"] body .aui-inline-dialog-contents,
+html[data-artjsm-theme="dark"] body .ajs-layer,
+html[data-artjsm-theme="dark"] body #app-switcher,
+html[data-artjsm-theme="dark"] body #inline-dialog-app-switcher {
+    background-color: var(--artjsm-surface) !important;
+    background-image: none !important;
+    color: var(--artjsm-text) !important;
+    border-color: var(--artjsm-border) !important;
+}
+
+html[data-artjsm-theme="dark"] body .aui-dropdown2 a,
+html[data-artjsm-theme="dark"] body .aui-dropdown a,
+html[data-artjsm-theme="dark"] body .aui-inline-dialog a {
+    background-color: transparent !important;
+    color: var(--artjsm-text) !important;
+}
+
+html[data-artjsm-theme="dark"] body .aui-dropdown2-heading,
+html[data-artjsm-theme="dark"] body .aui-dropdown2 .aui-dropdown2-heading,
+html[data-artjsm-theme="dark"] body strong.aui-dropdown2-heading,
+html[data-artjsm-theme="dark"] body .aui-dropdown-heading,
+html[data-artjsm-theme="dark"] body .aui-dropdown2-section > strong {
+    background-color: transparent !important;
+    background-image: none !important;
+    color: var(--artjsm-text-subtle) !important;
+}
+
+html[data-artjsm-theme="dark"] body .aui-sidebar-header,
+html[data-artjsm-theme="dark"] body .aui-sidebar-header-inner,
+html[data-artjsm-theme="dark"] body .aui-sidebar-footer,
+html[data-artjsm-theme="dark"] body .aui-sidebar .aui-page-header,
+html[data-artjsm-theme="dark"] body .aui-nav-item-logo,
+html[data-artjsm-theme="dark"] body .project-title,
+html[data-artjsm-theme="dark"] body .aui-sidebar-settings {
+    background-color: var(--artjsm-surface) !important;
+    background-image: none !important;
+    color: var(--artjsm-text) !important;
+    box-shadow: none !important;
+}
+
+html[data-artjsm-theme="dark"] body .aui-page-header,
+html[data-artjsm-theme="dark"] body .aui-page-header-inner,
+html[data-artjsm-theme="dark"] body .aui-page-header-main,
+html[data-artjsm-theme="dark"] body .aui-page-header-actions,
+html[data-artjsm-theme="dark"] body#jira .aui-page-header,
+html[data-artjsm-theme="dark"] body#jira .aui-page-header-inner,
+html[data-artjsm-theme="dark"] body#jira #content .aui-page-header,
+html[data-artjsm-theme="dark"] body#jira #content .aui-page-header-inner {
+    background-color: var(--artjsm-bg) !important;
+    background-image: none !important;
+    color: var(--artjsm-text) !important;
+}
+
+html[data-artjsm-theme="dark"] body #issuetable tr.focused,
+html[data-artjsm-theme="dark"] body #issuetable tr.focused > td,
+html[data-artjsm-theme="dark"] body #issuetable tr.issuerow.focused > td,
+html[data-artjsm-theme="dark"] body#jira #issuetable > tbody > tr.focused > td,
+html[data-artjsm-theme="dark"] body#jira #issuetable tbody tr.focused td {
+    background-color: var(--artjsm-accent-soft) !important;
+    background-image: none !important;
+    color: var(--artjsm-text) !important;
+}
+
+html[data-artjsm-theme="dark"] body #content input:not([type="checkbox"]):not([type="radio"]),
+html[data-artjsm-theme="dark"] body #content textarea,
+html[data-artjsm-theme="dark"] body #content select {
+    background-color: var(--artjsm-bg-sunken) !important;
+    color: var(--artjsm-text) !important;
+    border-color: var(--artjsm-border) !important;
+}
+
+html .artjsm-theme-panel {
+    position: fixed;
+    z-index: 6000;
+    width: 280px;
+    max-width: calc(100vw - 16px);
+    padding: 12px;
+    background: var(--artjsm-surface) !important;
+    color: var(--artjsm-text) !important;
+    border: 1px solid var(--artjsm-border) !important;
+    border-radius: 12px;
+    box-shadow: var(--artjsm-shadow);
+    font: 13px/1.3 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans", Arial, sans-serif;
+}
+
+html .artjsm-theme-panel[hidden] {
+    display: none !important;
+}
+
+html .artjsm-theme-panel-title {
+    margin: 0 0 10px;
+    font-size: 14px;
+    font-weight: 650;
+}
+
+html .artjsm-theme-panel-label {
+    margin: 10px 0 6px;
+    color: var(--artjsm-text-subtle);
+    font-size: 11px;
+    font-weight: 650;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+
+html .artjsm-choice {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+html .artjsm-choice button {
+    appearance: none;
+    border: 1px solid var(--artjsm-border) !important;
+    background: var(--artjsm-bg) !important;
+    color: var(--artjsm-text) !important;
+    border-radius: 999px !important;
+    padding: 4px 10px !important;
+    font: 600 12px/1.2 inherit !important;
+    cursor: pointer;
+}
+
+html .artjsm-choice button.is-selected {
+    background: var(--artjsm-accent-soft) !important;
+    color: var(--artjsm-link) !important;
+    border-color: var(--artjsm-primary) !important;
+}
+
+html .artjsm-swatch {
+    width: 22px;
+    height: 22px;
+    padding: 0 !important;
+    border-radius: 999px !important;
+}
+
+html .artjsm-swatch.is-selected {
+    outline: 2px solid var(--artjsm-text);
+    outline-offset: 2px;
+}
+
+html .artjsm-swatch[data-value="blue"] { background: #0052cc !important; }
+html .artjsm-swatch[data-value="teal"] { background: #0d7f7b !important; }
+html .artjsm-swatch[data-value="purple"] { background: #5e4db2 !important; }
+html .artjsm-swatch[data-value="green"] { background: #1f7a45 !important; }
+html .artjsm-swatch[data-value="orange"] { background: #c2510c !important; }
+
+html[data-artjsm-theme="dark"] .artjsm-swatch[data-value="blue"] { background: #4c8dff !important; }
+html[data-artjsm-theme="dark"] .artjsm-swatch[data-value="teal"] { background: #2bbbad !important; }
+html[data-artjsm-theme="dark"] .artjsm-swatch[data-value="purple"] { background: #a78bfa !important; }
+html[data-artjsm-theme="dark"] .artjsm-swatch[data-value="green"] { background: #3fb950 !important; }
+html[data-artjsm-theme="dark"] .artjsm-swatch[data-value="orange"] { background: #f0883e !important; }
+
+/* Jira 8 writes body#jira rules with !important. An id beats a later
+   html … selector, so the canvas, gadgets, admin strip, inputs and
+   buttons stay light unless these selectors include body#jira too. */
+
+html[data-artjsm-theme] body#jira,
+html[data-artjsm-theme] body#jira #page,
+html[data-artjsm-theme] body#jira #content,
+html[data-artjsm-theme] body#jira #dashboard,
+html[data-artjsm-theme] body#jira #dashboard-content,
+html[data-artjsm-theme] body#jira .dashboard,
+html[data-artjsm-theme] body#jira .dashboard-content,
+html[data-artjsm-theme] body#jira .layout,
+html[data-artjsm-theme] body#jira .column,
+html[data-artjsm-theme] body#jira .aui-page-panel,
+html[data-artjsm-theme] body#jira .aui-page-panel-inner,
+html[data-artjsm-theme] body#jira .aui-page-panel-content,
+html[data-artjsm-theme] body#jira .aui-page-panel-nav,
+html[data-artjsm-theme] body#jira .aui-page-header,
+html[data-artjsm-theme] body#jira .aui-page-header-inner,
+html[data-artjsm-theme] body#jira .aui-page-header-main,
+html[data-artjsm-theme] body#jira .aui-navgroup,
+html[data-artjsm-theme] body#jira .aui-navgroup-inner,
+html[data-artjsm-theme] body#jira .aui-navgroup-horizontal,
+html[data-artjsm-theme] body#jira .aui-tabs,
+html[data-artjsm-theme] body#jira .tabs-menu,
+html[data-artjsm-theme] body#jira #admin-body,
+html[data-artjsm-theme] body#jira #upm-manage-container,
+html[data-artjsm-theme] body#jira #upm-manage,
+html[data-artjsm-theme] body#jira .upm-manage-addons,
+html[data-artjsm-theme] body#jira .upm-plugin-list,
+html[data-artjsm-theme] body#jira .buttons-container,
+html[data-artjsm-theme] body#jira .form-body {
+    background-color: var(--artjsm-bg) !important;
+    background-image: none !important;
+    color: var(--artjsm-text) !important;
+}
+
+html[data-artjsm-theme] body#jira .dashboard-item,
+html[data-artjsm-theme] body#jira .dashboard-item-frame,
+html[data-artjsm-theme] body#jira .dashboard-item-content,
+html[data-artjsm-theme] body#jira .gadget,
+html[data-artjsm-theme] body#jira .gadget-container,
+html[data-artjsm-theme] body#jira .gadget-inline,
+html[data-artjsm-theme] body#jira .upm-plugin,
+html[data-artjsm-theme] body#jira #login-form,
+html[data-artjsm-theme] body#jira #login-container,
+html[data-artjsm-theme] body#jira .aui-dialog,
+html[data-artjsm-theme] body#jira .aui-dialog2,
+html[data-artjsm-theme] body#jira .aui-dialog2-content,
+html[data-artjsm-theme] body#jira .jira-dialog,
+html[data-artjsm-theme] body#jira .dialog-content {
+    background-color: var(--artjsm-surface) !important;
+    background-image: none !important;
+    color: var(--artjsm-text) !important;
+    border-color: var(--artjsm-border) !important;
+}
+
+html[data-artjsm-theme] body#jira .dashboard-item-header,
+html[data-artjsm-theme] body#jira .dashboard-item-title,
+html[data-artjsm-theme] body#jira .gadget-header,
+html[data-artjsm-theme] body#jira .gadget-menu,
+html[data-artjsm-theme] body#jira .dashboard-item-header h3 {
+    background-color: var(--artjsm-bg-subtle) !important;
+    background-image: none !important;
+    color: var(--artjsm-text) !important;
+    border-color: var(--artjsm-border) !important;
+}
+
+html[data-artjsm-theme="dark"] body#jira iframe,
+html[data-artjsm-theme="dark"] iframe.gadget,
+html[data-artjsm-theme="dark"] .dashboard-item-content iframe {
+    background-color: var(--artjsm-bg) !important;
+    color-scheme: dark;
+}
+
+html[data-artjsm-theme] body#jira .aui-sidebar,
+html[data-artjsm-theme] body#jira #sidebar,
+html[data-artjsm-theme] body#jira .aui-sidebar-wrapper,
+html[data-artjsm-theme] body#jira .aui-sidebar-body,
+html[data-artjsm-theme] body#jira .aui-sidebar-header,
+html[data-artjsm-theme] body#jira .aui-sidebar-header-inner,
+html[data-artjsm-theme] body#jira #sidebar .aui-sidebar-header,
+html[data-artjsm-theme] body#jira .aui-sidebar .aui-sidebar-header,
+html[data-artjsm-theme] body#jira .aui-sidebar-footer,
+html[data-artjsm-theme] body#jira .aui-sidebar-header h1,
+html[data-artjsm-theme] body#jira .aui-sidebar-header a,
+html[data-artjsm-theme] body#jira .aui-sidebar-header .aui-nav-item,
+html[data-artjsm-theme] body#jira .project-title,
+html[data-artjsm-theme] body#jira .aui-nav-item-logo {
+    background-color: var(--artjsm-surface) !important;
+    background-image: none !important;
+    color: var(--artjsm-text) !important;
+    box-shadow: none !important;
+}
+
+html[data-artjsm-theme] body#jira #issuetable,
+html[data-artjsm-theme] body#jira table.aui,
+html[data-artjsm-theme] body#jira .issue-table,
+html[data-artjsm-theme] body#jira .issue-table-container,
+html[data-artjsm-theme] body#jira .list-view,
+html[data-artjsm-theme] body#jira .navigator-content,
+html[data-artjsm-theme] body#jira .navigator-body {
+    background-color: var(--artjsm-bg) !important;
+    background-image: none !important;
+    box-shadow: none !important;
+    border-color: var(--artjsm-border) !important;
+}
+
+html[data-artjsm-theme] body#jira #issuetable td,
+html[data-artjsm-theme] body#jira #issuetable tr td,
+html[data-artjsm-theme] body#jira table.aui > tbody > tr > td,
+html[data-artjsm-theme] body#jira td.issuetype,
+html[data-artjsm-theme] body#jira td.issue_type {
+    background-color: transparent !important;
+    color: var(--artjsm-text) !important;
+    box-shadow: none !important;
+    border-color: var(--artjsm-border) !important;
+}
+
+html[data-artjsm-theme="dark"] body#jira #issuetable tr.focused td,
+html[data-artjsm-theme="dark"] body#jira #issuetable tr.issuerow.focused td,
+html[data-artjsm-theme="dark"] body#jira #issuetable tbody tr.focused td {
+    background-color: var(--artjsm-accent-soft) !important;
+    color: var(--artjsm-text) !important;
+}
+
+html[data-artjsm-theme] body#jira input.text,
+html[data-artjsm-theme] body#jira input.password,
+html[data-artjsm-theme] body#jira input[type="text"],
+html[data-artjsm-theme] body#jira input[type="password"],
+html[data-artjsm-theme] body#jira input[type="email"],
+html[data-artjsm-theme] body#jira input[type="search"],
+html[data-artjsm-theme] body#jira textarea,
+html[data-artjsm-theme] body#jira select,
+html[data-artjsm-theme] body#jira #login-form input,
+html[data-artjsm-theme] body#jira .aui-dialog input,
+html[data-artjsm-theme] body#jira .aui-dialog2 input,
+html[data-artjsm-theme] body#jira .jira-dialog input,
+html[data-artjsm-theme] body#jira .dialog-content input {
+    background-color: var(--artjsm-bg-sunken) !important;
+    background-image: none !important;
+    color: var(--artjsm-text) !important;
+    border-color: var(--artjsm-border-strong) !important;
+}
+
+html[data-artjsm-theme] body#jira .aui-button,
+html[data-artjsm-theme] body#jira a.aui-button,
+html[data-artjsm-theme] body#jira button.aui-button,
+html[data-artjsm-theme] body#jira input.aui-button,
+html[data-artjsm-theme] body#jira #login-form .aui-button,
+html[data-artjsm-theme] body#jira .buttons-container .aui-button,
+html[data-artjsm-theme] body#jira .dialog-button-panel .aui-button,
+html[data-artjsm-theme] body#jira .aui-dialog2-footer .aui-button {
+    background-color: var(--artjsm-surface) !important;
+    background-image: none !important;
+    color: var(--artjsm-text) !important;
+    border-color: var(--artjsm-border-strong) !important;
+    text-shadow: none !important;
+}
+
+html[data-artjsm-theme] body#jira .aui-button.aui-button-link,
+html[data-artjsm-theme] body#jira a.aui-button-link,
+html[data-artjsm-theme] body#jira a.cancel,
+html[data-artjsm-theme] body#jira .cancel,
+html[data-artjsm-theme] body#jira #login-form a,
+html[data-artjsm-theme] body#jira #login-form .aui-button-link {
+    background-color: transparent !important;
+    color: var(--artjsm-link) !important;
+    border-color: transparent !important;
+}
+
+html[data-artjsm-theme] body#jira .aui-button.aui-button-primary,
+html[data-artjsm-theme] body#jira input.aui-button-primary,
+html[data-artjsm-theme] body#jira button.aui-button-primary,
+html[data-artjsm-theme] body#jira a.aui-button-primary,
+html[data-artjsm-theme] body#jira #login,
+html[data-artjsm-theme] body#jira #login-form-submit,
+html[data-artjsm-theme] body#jira #login-form .aui-button.aui-button-primary,
+html[data-artjsm-theme] body#jira #websudo-form .aui-button.aui-button-primary,
+html[data-artjsm-theme] body#jira #websudo-submit,
+html[data-artjsm-theme] body#jira .buttons-container .aui-button.aui-button-primary,
+html[data-artjsm-theme] body#jira .aui-dialog2 .aui-button.aui-button-primary,
+html[data-artjsm-theme] body#jira .aui-dialog2-footer .aui-button.aui-button-primary {
+    background-color: var(--artjsm-primary) !important;
+    color: #ffffff !important;
+    border-color: var(--artjsm-primary) !important;
+}
+
+html[data-artjsm-theme="dark"] body#jira label,
+html[data-artjsm-theme="dark"] body#jira .field-group > label,
+html[data-artjsm-theme="dark"] body#jira #footer,
+html[data-artjsm-theme="dark"] body#jira #footer a,
+html[data-artjsm-theme="dark"] body#jira #footer a:visited {
+    color: var(--artjsm-text-subtle) !important;
+}
+
+html[data-artjsm-theme="dark"] body#jira .aui-message-warning {
+    background: #3a311c !important;
+    border-color: #6b5a2e !important;
+    color: #ffe8b8 !important;
+}
+
+html[data-artjsm-theme="dark"] body#jira .aui-message-error {
+    background: #3d2226 !important;
+    border-color: #6b3038 !important;
+    color: #ffd6d6 !important;
+}
+
+html[data-artjsm-theme="dark"] body#jira .aui-message-success {
+    background: #173323 !important;
+    border-color: #245c3a !important;
+    color: #d8f5e4 !important;
+}
+
+html[data-artjsm-theme="dark"] body#jira .aui-message-info,
+html[data-artjsm-theme="dark"] body#jira .aui-message-hint {
+    background: #1a2e48 !important;
+    border-color: #2d4f78 !important;
+    color: #d6e8ff !important;
+}
+
+html[data-artjsm-theme] body#jira #header #quicksearch,
+html[data-artjsm-theme] body#jira #header .aui-quicksearch,
+html[data-artjsm-theme] body#jira #header #quicksearch form,
+html[data-artjsm-theme] body#jira #header #quicksearch > div,
+html[data-artjsm-theme] body#jira #header #quickSearchInput,
+html[data-artjsm-theme] body#jira #header .aui-quicksearch input,
+html[data-artjsm-theme] body#jira #header input.search {
+    width: 200px !important;
+    min-width: 200px !important;
+    max-width: 240px !important;
+    flex: 0 0 200px !important;
+    overflow: visible !important;
+    box-sizing: border-box !important;
+}
+
+html[data-artjsm-theme] body#jira #header #quickSearchInput,
+html[data-artjsm-theme] body#jira #header .aui-quicksearch input,
+html[data-artjsm-theme] body#jira #header input.search,
+html[data-artjsm-theme] body#jira #header input[type="text"].search,
+html[data-artjsm-theme] body#jira #header input[type="search"] {
+    background-color: rgba(255, 255, 255, 0.14) !important;
+    background-image: none !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(255, 255, 255, 0.28) !important;
+    border-radius: 4px !important;
+    height: 28px !important;
+    line-height: 26px !important;
+    padding: 0 28px 0 30px !important;
+    text-overflow: clip !important;
+}
+
+html[data-artjsm-theme] body#jira #header #quickSearchInput::placeholder,
+html[data-artjsm-theme] body#jira #header input.search::placeholder {
+    color: rgba(255, 255, 255, 0.82) !important;
+    opacity: 1 !important;
+}
+
+html[data-artjsm-theme] body#jira #header .aui-button,
+html[data-artjsm-theme] body#jira #header .aui-button.aui-button-subtle,
+html[data-artjsm-theme] body#jira #header a.aui-button {
+    background-color: transparent !important;
+    background-image: none !important;
+    color: var(--artjsm-header-text) !important;
+    border-color: transparent !important;
+}
+
+html[data-artjsm-theme="dark"] body#jira #header #create_link,
+html[data-artjsm-theme="dark"] body#jira #header .aui-button.aui-button-primary,
+html[data-artjsm-theme="dark"] body#jira #header a.aui-button-primary {
+    background-color: var(--artjsm-primary) !important;
+    color: #ffffff !important;
+    border-color: var(--artjsm-primary) !important;
+}
+
+html[data-artjsm-theme="light"] body#jira #header #create_link,
+html[data-artjsm-theme="light"] body#jira #header .aui-button.aui-button-primary,
+html[data-artjsm-theme="light"] body#jira #header a.aui-button-primary {
+    background-color: #ffffff !important;
+    color: var(--artjsm-primary) !important;
+    border-color: transparent !important;
+}
+
+/* Project sidebar: one surface. The nav group and the strip under the
+   project name were keeping the page background, so the panel looked split. */
+
+html[data-artjsm-theme] body#jira .aui-sidebar,
+html[data-artjsm-theme] body#jira #sidebar,
+html[data-artjsm-theme] body#jira #sidebar .aui-sidebar,
+html[data-artjsm-theme] body#jira .aui-sidebar-wrapper,
+html[data-artjsm-theme] body#jira .aui-sidebar-body,
+html[data-artjsm-theme] body#jira .aui-sidebar-footer {
+    background-color: var(--artjsm-surface) !important;
+    background-image: none !important;
+    box-shadow: none !important;
+}
+
+html[data-artjsm-theme] body#jira .aui-sidebar .aui-navgroup,
+html[data-artjsm-theme] body#jira .aui-sidebar .aui-navgroup-inner,
+html[data-artjsm-theme] body#jira #sidebar .aui-navgroup,
+html[data-artjsm-theme] body#jira #sidebar .aui-navgroup-inner,
+html[data-artjsm-theme] body#jira .aui-sidebar-subheader,
+html[data-artjsm-theme] body#jira .aui-sidebar-header,
+html[data-artjsm-theme] body#jira .aui-sidebar-header-inner,
+html[data-artjsm-theme] body#jira #project-header,
+html[data-artjsm-theme] body#jira .project-header {
+    background-color: transparent !important;
+    background-image: none !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+    color: var(--artjsm-text) !important;
+}
+
+html[data-artjsm-theme] body#jira .aui-sidebar-header *,
+html[data-artjsm-theme] body#jira .aui-sidebar-subheader *,
+html[data-artjsm-theme] body#jira #project-header *,
+html[data-artjsm-theme] body#jira .project-header *,
+html[data-artjsm-theme] body#jira #sidebar .aui-sidebar-header,
+html[data-artjsm-theme] body#jira #sidebar .aui-sidebar-header *,
+html[data-artjsm-theme] body#jira #sidebar .aui-sidebar-subheader,
+html[data-artjsm-theme] body#jira #sidebar .aui-sidebar-subheader *,
+html[data-artjsm-theme] body#jira #sidebar #project-subheader-strip {
+    background-color: transparent !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+}
+
+html[data-artjsm-theme] body#jira .aui-sidebar .aui-avatar,
+html[data-artjsm-theme] body#jira .aui-sidebar .aui-avatar-inner,
+html[data-artjsm-theme] body#jira .aui-sidebar img {
+    background-color: transparent !important;
+    border: 0 !important;
+}
+
+html[data-artjsm-theme="dark"] body#jira .aui-sidebar .aui-nav-selected .aui-nav-item,
+html[data-artjsm-theme="dark"] body#jira .aui-sidebar .aui-nav-selected a,
+html[data-artjsm-theme="dark"] body#jira .aui-sidebar a.aui-nav-selected {
+    background-color: var(--artjsm-accent-soft) !important;
+    color: var(--artjsm-link) !important;
+}
+
+/* Queue counts were #172b4d, which disappears on the dark list. */
+
+html[data-artjsm-theme="dark"] body#jira .queue-count,
+html[data-artjsm-theme="dark"] body#jira .sd-queue-count,
+html[data-artjsm-theme="dark"] body#jira .js-queue-count,
+html[data-artjsm-theme="dark"] body#jira .cv-queue-count,
+html[data-artjsm-theme="dark"] body#jira [class*="queue-count"],
+html[data-artjsm-theme="dark"] body#jira [class*="queueCount"],
+html[data-artjsm-theme="dark"] body#jira [class*="QueueCount"],
+html[data-artjsm-theme="dark"] body#jira [class*="issue-count"],
+html[data-artjsm-theme="dark"] body#jira [class*="issueCount"],
+html[data-artjsm-theme="dark"] body#jira .aui-badge,
+html[data-artjsm-theme="dark"] body#jira .aui-nav-item-count,
+html[data-artjsm-theme="dark"] body#jira [class*="-count"],
+html[data-artjsm-theme="dark"] body#jira [class*="-Count"] {
+    color: var(--artjsm-text) !important;
+    opacity: 1 !important;
+    background-color: transparent !important;
+}
+
+/* Issue tables: no boxed cells. A hairline under the row is enough. */
+
+html[data-artjsm-theme] body#jira #issuetable,
+html[data-artjsm-theme] body#jira #issuetable tr,
+html[data-artjsm-theme] body#jira #issuetable th,
+html[data-artjsm-theme] body#jira #issuetable td,
+html[data-artjsm-theme] body#jira table.issue-table,
+html[data-artjsm-theme] body#jira table.issue-table th,
+html[data-artjsm-theme] body#jira table.issue-table td,
+html[data-artjsm-theme] body#jira .issuerow,
+html[data-artjsm-theme] body#jira .issuerow > td,
+html[data-artjsm-theme] body#jira .list-view th,
+html[data-artjsm-theme] body#jira .list-view td,
+html[data-artjsm-theme] body#jira .navigator-content th,
+html[data-artjsm-theme] body#jira .navigator-content td,
+html[data-artjsm-theme] body#jira .sd-queue th,
+html[data-artjsm-theme] body#jira .sd-queue td,
+html[data-artjsm-theme] body#jira #sd-queues th,
+html[data-artjsm-theme] body#jira #sd-queues td {
+    border: 0 !important;
+    outline: 0 !important;
+    box-shadow: none !important;
+    background-image: none !important;
+}
+
+html[data-artjsm-theme] body#jira #issuetable th,
+html[data-artjsm-theme] body#jira #issuetable td,
+html[data-artjsm-theme] body#jira table.issue-table th,
+html[data-artjsm-theme] body#jira table.issue-table td,
+html[data-artjsm-theme] body#jira .list-view th,
+html[data-artjsm-theme] body#jira .list-view td {
+    border-bottom: 1px solid var(--artjsm-border) !important;
+    background-color: transparent !important;
+}
+
+html[data-artjsm-theme] body#jira .sd-queue th,
+html[data-artjsm-theme] body#jira .sd-queue td,
+html[data-artjsm-theme] body#jira #sd-queues th,
+html[data-artjsm-theme] body#jira #sd-queues td {
+    border-bottom: 1px solid var(--artjsm-border) !important;
+}
+
+/* Admin filters: the closed dropdown was still white, and a light rule stayed on the footer. */
+
+html[data-artjsm-theme="dark"] body#jira select,
+html[data-artjsm-theme="dark"] body#jira select.select,
+html[data-artjsm-theme="dark"] body#jira #upm-manage-container select,
+html[data-artjsm-theme="dark"] body#jira #upm-manage-container input,
+html[data-artjsm-theme="dark"] body#jira #upm-manage-container .aui-button,
+html[data-artjsm-theme="dark"] body#jira #upm-manage-container .aui-dropdown2-trigger,
+html[data-artjsm-theme="dark"] body#jira .aui-dropdown2-trigger,
+html[data-artjsm-theme="dark"] body#jira a.aui-dropdown2-trigger,
+html[data-artjsm-theme="dark"] body#jira option {
+    background-color: var(--artjsm-bg-sunken) !important;
+    color: var(--artjsm-text) !important;
+    border-color: var(--artjsm-border) !important;
+}
+
+html[data-artjsm-theme] body#jira #header .aui-dropdown2-trigger,
+html[data-artjsm-theme] body#jira #header a.aui-dropdown2-trigger {
+    background-color: transparent !important;
+    background-image: none !important;
+    color: var(--artjsm-header-text) !important;
+    border-color: transparent !important;
+}
+
+html[data-artjsm-theme="dark"] body#jira #footer,
+html[data-artjsm-theme="dark"] body#jira hr,
+html[data-artjsm-theme="dark"] body#jira .aui-page-panel,
+html[data-artjsm-theme="dark"] body#jira .aui-page-panel-inner,
+html[data-artjsm-theme="dark"] body#jira .aui-navgroup,
+html[data-artjsm-theme="dark"] body#jira .aui-navgroup-horizontal,
+html[data-artjsm-theme="dark"] body#jira .aui-tabs,
+html[data-artjsm-theme="dark"] body#jira #admin-nav,
+html[data-artjsm-theme="dark"] body#jira #upm-manage-container,
+html[data-artjsm-theme="dark"] body#jira #upm-manage-container table,
+html[data-artjsm-theme="dark"] body#jira #upm-manage-container tr,
+html[data-artjsm-theme="dark"] body#jira #upm-manage-container td,
+html[data-artjsm-theme="dark"] body#jira #upm-manage-container th,
+html[data-artjsm-theme="dark"] body#jira #upm-manage-container div:not(.aui-message):not(.aui-lozenge),
+html[data-artjsm-theme="dark"] body#jira .upm-plugin,
+html[data-artjsm-theme="dark"] body#jira .upm-plugin-list {
+    border-color: var(--artjsm-border) !important;
+}
+
+/* Pages whose own rules use body#jira and would otherwise stay on the stock palette. */
+
+html[data-artjsm-theme] body#jira #issue-content,
+html[data-artjsm-theme] body#jira #details-module,
+html[data-artjsm-theme] body#jira #activitymodule,
+html[data-artjsm-theme] body#jira .activity-comment,
+html[data-artjsm-theme] body#jira .action-body,
+html[data-artjsm-theme] body#jira .issue-body,
+html[data-artjsm-theme] body#jira .issue-data-block,
+html[data-artjsm-theme] body#jira .people-details,
+html[data-artjsm-theme] body#jira .user-content-block,
+html[data-artjsm-theme] body#jira .profile-header,
+html[data-artjsm-theme] body#jira #up-user-title,
+html[data-artjsm-theme] body#jira .module,
+html[data-artjsm-theme] body#jira .mod-content,
+html[data-artjsm-theme] body#jira .search-container,
+html[data-artjsm-theme] body#jira #jqlform,
+html[data-artjsm-theme] body#jira .navigator-filter,
+html[data-artjsm-theme] body#jira .cv-card,
+html[data-artjsm-theme] body#jira .request-type-card,
+html[data-artjsm-theme] body#jira .portal-card,
+html[data-artjsm-theme] body#jira .ghx-issue,
+html[data-artjsm-theme] body#jira .gh-issue,
+html[data-artjsm-theme] body#jira .js-issue {
+    background-color: var(--artjsm-surface) !important;
+    background-image: none !important;
+    color: var(--artjsm-text) !important;
+    border-color: var(--artjsm-border) !important;
+}
+
+html[data-artjsm-theme] body#jira .ghx-column,
+html[data-artjsm-theme] body#jira .gh-column,
+html[data-artjsm-theme] body#jira .ghx-column-header,
+html[data-artjsm-theme] body#jira .aui-page-panel-nav {
+    background-color: var(--artjsm-surface) !important;
+    color: var(--artjsm-text) !important;
+    border-color: var(--artjsm-border) !important;
+}
+
+html[data-artjsm-theme="dark"] body#jira .aui-dropdown2,
+html[data-artjsm-theme="dark"] body#jira .aui-dropdown2-section,
+html[data-artjsm-theme="dark"] body#jira .aui-inline-dialog,
+html[data-artjsm-theme="dark"] body#jira .aui-inline-dialog-contents,
+html[data-artjsm-theme="dark"] body#jira .ajs-layer,
+html[data-artjsm-theme="dark"] body#jira .select2-drop,
+html[data-artjsm-theme="dark"] body#jira .select2-results,
+html[data-artjsm-theme="dark"] body#jira .aui-datepicker-dialog,
+html[data-artjsm-theme="dark"] body#jira #quicksearch-menu {
+    background-color: var(--artjsm-surface) !important;
+    color: var(--artjsm-text) !important;
+    border-color: var(--artjsm-border) !important;
+}
+
+html[data-artjsm-theme="dark"] body#jira .aui-dropdown2 a,
+html[data-artjsm-theme="dark"] body#jira .ajs-layer a,
+html[data-artjsm-theme="dark"] body#jira .select2-result-label {
+    color: var(--artjsm-text) !important;
+    background-color: transparent !important;
+}
+
+html[data-artjsm-theme="dark"] body#jira .aui-lozenge {
+    background-color: #2a3342 !important;
+    color: #d5deea !important;
+}
+
+html[data-artjsm-theme="dark"] body#jira .aui-lozenge-success,
+html[data-artjsm-theme="dark"] body#jira .aui-lozenge-complete {
+    background-color: #1c3d2e !important;
+    color: #9be7b8 !important;
+}
+
+html[data-artjsm-theme="dark"] body#jira .aui-lozenge-error {
+    background-color: #4a2328 !important;
+    color: #ffb4b4 !important;
+}
+
+html[data-artjsm-theme="dark"] body#jira .aui-lozenge-current {
+    background-color: #1d3d66 !important;
+    color: #b9d6ff !important;
+}
+
+html[data-artjsm-theme="dark"] body#jira .aui-lozenge-moved {
+    background-color: #3f341c !important;
+    color: #f3d48a !important;
+}
+
+html[data-artjsm-theme="dark"] body#jira .aui-lozenge-new {
+    background-color: #3a2a55 !important;
+    color: #e0caff !important;
+}
+
+html[data-artjsm-theme] body#jira #login-form .buttons-container,
+html[data-artjsm-theme] body#jira .aui-dialog .buttons-container,
+html[data-artjsm-theme] body#jira .aui-dialog2 .buttons-container,
+html[data-artjsm-theme] body#jira .jira-dialog .buttons-container {
+    background-color: transparent !important;
+}
+
+html[data-artjsm-theme="dark"] body#jira #announcement-banner,
+html[data-artjsm-theme="dark"] body#jira .alertHeader {
+    background-color: #3a311c !important;
+    color: #ffe8b8 !important;
+    border-color: #6b5a2e !important;
+}
+
+html[data-artjsm-theme="dark"] body#jira #content .aui-message-info,
+html[data-artjsm-theme="dark"] body#jira #upm-manage-container .aui-message-info {
+    background-color: #1a2e48 !important;
+    border-color: #2d4f78 !important;
+    color: #d6e8ff !important;
+}
+
+html[data-artjsm-theme="dark"] body#jira #content .aui-message-warning,
+html[data-artjsm-theme="dark"] body#jira #login-form .aui-message-warning {
+    background-color: #3a311c !important;
+    border-color: #6b5a2e !important;
+    color: #ffe8b8 !important;
+}
+
+html[data-artjsm-theme="dark"] body#jira #content .aui-lozenge-current,
+html[data-artjsm-theme="dark"] body#jira #issuetable .aui-lozenge-current {
+    background-color: #1d3d66 !important;
+    color: #b9d6ff !important;
+}
+
+html[data-artjsm-theme="dark"] body#jira #content .aui-lozenge-success,
+html[data-artjsm-theme="dark"] body#jira #issuetable .aui-lozenge-success {
+    background-color: #1c3d2e !important;
+    color: #9be7b8 !important;
+}
+
+html[data-artjsm-theme] body#jira #stalker,
+html[data-artjsm-theme] body#jira #issue-header,
+html[data-artjsm-theme] body#jira #issue-header-content,
+html[data-artjsm-theme] body#jira .command-bar,
+html[data-artjsm-theme] body#jira #opsbar-jira,
+html[data-artjsm-theme] body#jira #attachmentmodule,
+html[data-artjsm-theme] body#jira #linkingmodule,
+html[data-artjsm-theme] body#jira #timetrackingmodule,
+html[data-artjsm-theme] body#jira #descriptionmodule,
+html[data-artjsm-theme] body#jira #peoplemodule,
+html[data-artjsm-theme] body#jira #datesmodule,
+html[data-artjsm-theme] body#jira #viewissuesidebar,
+html[data-artjsm-theme] body#jira .split-view,
+html[data-artjsm-theme] body#jira #watchers,
+html[data-artjsm-theme] body#jira .cv-request,
+html[data-artjsm-theme] body#jira .cv-request-activity,
+html[data-artjsm-theme] body#jira .cv-comment,
+html[data-artjsm-theme] body#jira .error-container,
+html[data-artjsm-theme] body#jira #error-state,
+html[data-artjsm-theme] body#jira .ghx-backlog,
+html[data-artjsm-theme] body#jira .ghx-sprint-header,
+html[data-artjsm-theme] body#jira #user-preferences,
+html[data-artjsm-theme] body#jira #bulkedit,
+html[data-artjsm-theme] body#jira .project-meta,
+html[data-artjsm-theme] body#jira .aui-inline-dialog,
+html[data-artjsm-theme] body#jira #app-switcher,
+html[data-artjsm-theme] body#jira #inline-dialog-app-switcher {
+    background-color: var(--artjsm-surface) !important;
+    color: var(--artjsm-text) !important;
+    border-color: var(--artjsm-border) !important;
+}
+
+html[data-artjsm-theme] body#jira .wiki-content,
+html[data-artjsm-theme] body#jira .wiki-content td,
+html[data-artjsm-theme] body#jira .wiki-content th,
+html[data-artjsm-theme] body#jira #descriptionmodule .wiki-content {
+    background-color: transparent !important;
+    color: var(--artjsm-text) !important;
+    border-color: var(--artjsm-border) !important;
+}
+
+html[data-artjsm-theme="dark"] body#jira .aui-datepicker-dialog,
+html[data-artjsm-theme="dark"] body#jira .aui-datepicker-dialog td,
+html[data-artjsm-theme="dark"] body#jira .aui-datepicker-dialog th,
+html[data-artjsm-theme="dark"] body#jira #ui-datepicker-div,
+html[data-artjsm-theme="dark"] body#jira #ui-datepicker-div td,
+html[data-artjsm-theme="dark"] body#jira #ui-datepicker-div a {
+    background-color: var(--artjsm-surface) !important;
+    color: var(--artjsm-text) !important;
+}
+
+html[data-artjsm-theme="dark"] body#jira .aui-datepicker-dialog .aui-datepicker-selected,
+html[data-artjsm-theme="dark"] body#jira .aui-datepicker-dialog .aui-datepicker-selected a,
+html[data-artjsm-theme="dark"] body#jira #ui-datepicker-div .ui-datepicker-current-day a {
+    background-color: var(--artjsm-primary) !important;
+    color: #ffffff !important;
+}
+
+html[data-artjsm-theme="dark"] body#jira .aui-progress-tracker-step {
+    background-color: var(--artjsm-bg-muted) !important;
+    color: var(--artjsm-text) !important;
+}
+
+html[data-artjsm-theme="dark"] body#jira .aui-progress-tracker-step-current {
+    background-color: var(--artjsm-primary) !important;
+    color: #ffffff !important;
+}
+
+/* Icon buttons, the sidebar collapse control and column-header controls
+   stay flat. A filled primary button keeps its own shape. */
+
+html[data-artjsm-theme] body#jira button,
+html[data-artjsm-theme] body#jira .aui-button,
+html[data-artjsm-theme] body#jira .aui-button:focus,
+html[data-artjsm-theme] body#jira button:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+html[data-artjsm-theme] body#jira .aui-button.aui-button-subtle,
+html[data-artjsm-theme] body#jira a.aui-button.aui-button-subtle,
+html[data-artjsm-theme] body#jira button.aui-button.aui-button-subtle,
+html[data-artjsm-theme] body#jira .aui-button.aui-button-compact,
+html[data-artjsm-theme] body#jira .aui-button.aui-button-link,
+html[data-artjsm-theme] body#jira .aui-sidebar-toggle,
+html[data-artjsm-theme] body#jira .aui-sidebar .aui-button,
+html[data-artjsm-theme] body#jira #sidebar .aui-button,
+html[data-artjsm-theme] body#jira th button,
+html[data-artjsm-theme] body#jira th a,
+html[data-artjsm-theme] body#jira thead button,
+html[data-artjsm-theme] body#jira thead a,
+html[data-artjsm-theme] body#jira th .aui-button,
+html[data-artjsm-theme] body#jira [role="columnheader"] button,
+html[data-artjsm-theme] body#jira [role="columnheader"] a,
+html[data-artjsm-theme] body#jira #issuetable th button,
+html[data-artjsm-theme] body#jira #issuetable th a,
+html[data-artjsm-theme] body#jira #content th button,
+html[data-artjsm-theme] body#jira #content th a,
+html[data-artjsm-theme] body#jira #content .aui-button.aui-button-subtle,
+html[data-artjsm-theme] body#jira #content .aui-button.aui-button-compact,
+html[data-artjsm-theme] body#jira #content .aui-sidebar-toggle,
+html[data-artjsm-theme] body#jira #sidebar .aui-sidebar-toggle,
+html[data-artjsm-theme] body#jira #sidebar .aui-button.aui-button-subtle {
+    background-color: transparent !important;
+    border: 0 !important;
+    border-color: transparent !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+@media print {
+    html .artjsm-theme-toggle,
+    html .artjsm-theme-settings,
+    html .artjsm-theme-toggle-item,
+    html .artjsm-theme-toggle-fallback,
+    html .artjsm-theme-panel {
+        display: none !important;
+    }
+
+    html[data-artjsm-theme="dark"] {
+        --artjsm-header: #0747a6;
+        --artjsm-header-text: #ffffff;
+        --artjsm-bg: #ffffff;
+        --artjsm-bg-subtle: #f7f8fa;
+        --artjsm-bg-muted: #f1f2f4;
+        --artjsm-bg-sunken: #ebedf0;
+        --artjsm-surface: #ffffff;
+        --artjsm-border: #e4e6ea;
+        --artjsm-border-strong: #cfd4dc;
+        --artjsm-text: #1d2b3a;
+        --artjsm-text-subtle: #5e6c84;
+        --artjsm-link: #0b57d0;
+        --artjsm-link-hover: #0842a0;
+        --artjsm-primary: #0052cc;
+        --artjsm-primary-hover: #0747a6;
+        --artjsm-accent-soft: #e9f2ff;
+        color-scheme: light;
+    }
+}

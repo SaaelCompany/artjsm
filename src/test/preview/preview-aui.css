@@ -1,0 +1,149 @@
+/* Minimal stand-in for AUI layout. Not shipped in the plugin. */
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body { font-size: 14px; line-height: 1.45; }
+#header { min-height: 56px; }
+.aui-header-inner { display: flex; align-items: center; justify-content: space-between; min-height: 56px; padding: 0 16px; }
+.aui-header-primary, .aui-header-secondary, .aui-nav { display: flex; align-items: center; gap: 4px; list-style: none; margin: 0; padding: 0; }
+.aui-header-logo { margin: 0 16px 0 0; font-size: 18px; }
+.aui-header-logo a, .aui-nav-link { text-decoration: none; padding: 6px 10px; }
+.subnav { border-bottom: 1px solid #dfe1e6; padding: 0 24px; }
+.aui-nav-horizontal a { display: inline-block; padding: 12px 12px 10px; text-decoration: none; }
+.aui-page-panel { padding: 20px 24px 40px; }
+.page-title { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 16px; }
+.page-title h1 { margin: 0; font-size: 22px; }
+.title-actions, .toolbar, .chips { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.toolbar, .chips { margin: 12px 0; }
+.hint { color: #5e6c84; font-size: 13px; margin: 8px 0 12px; }
+.aui-button { display: inline-block; padding: 4px 12px; line-height: 20px; text-decoration: none; cursor: pointer; font-size: 14px; }
+select, input[type="text"], input[type="search"] { height: 32px; padding: 0 8px; }
+table.aui { width: 100%; border-collapse: collapse; }
+table.aui th, table.aui td { padding: 8px 10px; text-align: left; border-bottom: 1px solid #dfe1e6; font-size: 13px; }
+.layout { display: flex; gap: 20px; }
+.aui-sidebar { width: 220px; flex: none; padding: 8px; }
+.aui-sidebar .aui-nav { display: block; }
+.aui-sidebar .aui-nav-item { display: block; padding: 8px 10px; text-decoration: none; margin-bottom: 2px; }
+.main { flex: 1; min-width: 0; }
+.aui-lozenge { display: inline-block; font-size: 11px; line-height: 16px; }
+.aui-message { padding: 10px 12px; margin-top: 16px; }
+.cards { display: flex; gap: 12px; margin-top: 16px; }
+.portal-card { padding: 16px; width: 220px; }
+.portal-card h3 { margin: 0 0 6px; font-size: 15px; }
+.field-group { margin-top: 16px; }
+.field-group label { display: block; margin-bottom: 4px; }
+.beta { margin-left: 8px; vertical-align: middle; }
+.hour {
+    display: inline-flex; min-width: 28px; height: 24px; align-items: center; justify-content: center;
+    border-radius: 6px; background: var(--artjsm-bg-muted, #eee); color: var(--artjsm-text, #172b4d);
+    font-weight: 600; font-size: 12px;
+}
+.filters { display: flex; gap: 8px; flex-wrap: wrap; margin: 8px 0 12px; }
+.filter {
+    display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--artjsm-border, #e4e6ea);
+    background: var(--artjsm-surface, #fff); color: var(--artjsm-text, #1d2b3a);
+    border-radius: 999px; padding: 4px 10px; font-size: 13px;
+}
+.dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+#footer { padding: 16px 24px; font-size: 12px; }
+
+/* Stand-in for Jira 8 rules that beat a plain html selector. */
+body#jira,
+body#jira #content,
+body#jira #dashboard,
+body#jira .aui-page-panel,
+body#jira .aui-page-header,
+body#jira .aui-navgroup-horizontal,
+body#jira .aui-navgroup-inner,
+body#jira .dashboard-item-content {
+    background: #f0f0f0 !important;
+    color: #172b4d !important;
+}
+body#jira .aui-sidebar-header,
+body#jira .aui-sidebar-header-inner {
+    background: #f4f5f7 !important;
+    color: #172b4d !important;
+}
+body#jira .dashboard-item-header {
+    background: #0747a6 !important;
+    color: #ffffff !important;
+}
+body#jira #issuetable td.gutter {
+    background: #ffffff !important;
+}
+body#jira #issuetable,
+body#jira #issuetable th,
+body#jira #issuetable td,
+body#jira #issuetable tr {
+    border: 1px solid #515866 !important;
+}
+body#jira .aui-sidebar-subheader,
+body#jira #sidebar #project-subheader-strip {
+    display: block;
+    height: 14px;
+    margin: 0 12px;
+    background: #181a1f !important;
+}
+body#jira #sidebar .aui-navgroup,
+body#jira #sidebar .aui-navgroup-inner {
+    background: #181a1f !important;
+}
+body#jira #admin-tabs {
+    border-bottom: 1px solid #ebecf0 !important;
+}
+body#jira #footer {
+    border-top: 1px solid #dfe1e6 !important;
+}
+body#jira #upm-manage-container #upm-box {
+    border: 1px solid #cccccc !important;
+    margin-top: 12px;
+    padding: 8px;
+}
+body#jira .queue-count {
+    color: #172b4d !important;
+    font-size: 11px;
+    margin-left: 8px;
+}
+body#jira #filter-trigger {
+    display: inline-block;
+    background: #ffffff !important;
+    color: #172b4d !important;
+    padding: 4px 12px;
+}
+body#jira input.text,
+body#jira input[type="password"] {
+    background: #ffffff !important;
+    color: #172b4d !important;
+}
+body#jira .aui-button {
+    background: #f4f5f7 !important;
+    color: #172b4d !important;
+}
+body#jira #login-form .aui-button,
+body#jira #websudo-form .aui-button {
+    background: #2c333d !important;
+    color: #333333 !important;
+}
+body#jira #header #quicksearch,
+body#jira #header #quickSearchInput {
+    width: 72px !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
+}
+body#jira .aui-message-warning {
+    background: #ffffff !important;
+    color: #172b4d !important;
+}
+body#jira #sidebar-toggle,
+body#jira #col-key,
+body#jira #col-type,
+body#jira #col-group,
+body#jira #queue-gear {
+    border: 2px solid #172b4d !important;
+    outline: 2px solid #172b4d !important;
+    box-shadow: 0 0 0 2px #172b4d !important;
+    background: #ffffff !important;
+    border-radius: 0 !important;
+}
+.gadget-frame { width: 100%; height: 160px; border: 0; background: #ffffff; }
+.login-card, .sudo-card { max-width: 420px; margin: 24px 0; padding: 16px; }
+.admin-strip { height: 14px; }

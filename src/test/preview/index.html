@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Графики — ArtJSM</title>
+    <script>
+        (function () {
+            var q = window.location.search || "";
+            try {
+                if (q.indexOf("theme=dark") >= 0) localStorage.setItem("artjsm-theme", "dark");
+                if (q.indexOf("theme=light") >= 0) localStorage.setItem("artjsm-theme", "light");
+            } catch (e) {}
+        })();
+    </script>
+    <script data-artjsm="boot">(function(){var d=document.documentElement;try{if((" "+d.className+" ").indexOf(" artjsm ")<0){d.className+=(d.className?" ":"")+"artjsm";}}catch(e){}try{var t=localStorage.getItem("artjsm-theme");if(t!=="dark"&&t!=="light"){t="light";}d.setAttribute("data-artjsm-theme",t);}catch(e){}})();</script>
+    <link rel="stylesheet" href="preview-aui.css">
+    <link rel="stylesheet" href="../../main/resources/css/artjsm.css">
+</head>
+<body id="jira">
+<header id="header" role="banner">
+    <nav class="aui-header">
+        <div class="aui-header-inner">
+            <div class="aui-header-primary">
+                <h1 class="aui-header-logo"><a href="#top">Jira</a></h1>
+                <ul class="aui-nav">
+                    <li><a class="aui-nav-link" href="#dash">Дашборды</a></li>
+                    <li><a class="aui-nav-link" href="#proj">Проекты</a></li>
+                    <li><a class="aui-nav-link" href="#issues">Задачи</a></li>
+                </ul>
+            </div>
+            <div class="aui-header-secondary">
+                <ul class="aui-nav">
+                    <li id="quicksearch"><input id="quickSearchInput" class="search" type="search" placeholder="Поиск"></li>
+                    <li><a class="aui-button aui-button-primary" id="create_link" href="#create">Создать</a></li>
+                    <li id="user-options">
+                        <a id="header-details-user-fullname" class="aui-dropdown2-trigger aui-nav-link" aria-controls="user-options-content" href="#user">Админ</a>
+                        <div id="user-options-content" class="aui-dropdown2 aui-style-default">
+                            <div class="aui-dropdown2-section">
+                                <ul>
+                                    <li><a id="view_profile" href="#profile">Профиль</a></li>
+                                    <li><a id="log_out" href="#logout">Выйти</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+<nav class="subnav aui-navgroup aui-navgroup-horizontal" aria-label="Разделы">
+    <ul class="aui-nav aui-nav-horizontal">
+        <li><a href="#mine">Мои активы</a></li>
+        <li><a href="#assets">Активы</a></li>
+        <li class="aui-nav-selected"><a href="#schedules">Графики</a></li>
+        <li><a href="#reports">Отчёты</a></li>
+        <li><a href="#map">Карта</a></li>
+        <li><a href="#settings">Настройки</a></li>
+    </ul>
+</nav>
+<div id="page">
+    <div class="layout">
+        <aside class="aui-sidebar" id="sidebar">
+            <div class="aui-sidebar-wrapper">
+                <div class="aui-sidebar-body">
+                    <button type="button" class="aui-button aui-button-subtle aui-sidebar-toggle" id="sidebar-toggle"><span class="aui-icon">×</span></button>
+                    <header class="aui-sidebar-header">
+                        <div class="aui-sidebar-header-inner">STP</div>
+                        <div id="project-subheader-strip" class="project-subheader-strip"> </div>
+                    </header>
+                    <div class="aui-sidebar-subheader"> </div>
+                    <nav class="aui-navgroup aui-navgroup-vertical">
+                        <div class="aui-navgroup-inner">
+                            <div class="aui-nav-heading">Очереди</div>
+                            <ul class="aui-nav">
+                                <li class="aui-nav-selected"><a class="aui-nav-item" href="#all">Все открытые <span class="queue-count">21</span></a></li>
+                                <li><a class="aui-nav-item" href="#mineq">Назначенные мне <span class="queue-count">20</span></a></li>
+                                <li><a class="aui-nav-item" href="#sla">SLA нарушен <span class="queue-count">18</span></a></li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </aside>
+        <main class="main aui-page-panel" id="content">
+            <div class="aui-page-header">
+                <div class="aui-page-header-inner" style="background:#ffffff">
+                    <div class="aui-page-header-main"><h1 style="color:#172b4d">Все оборудование</h1></div>
+                </div>
+            </div>
+            <div class="queue-heading" style="background:#ffffff;color:#172b4d;padding:8px 12px">Все оборудование</div>
+            <table id="issuetable">
+                <thead>
+                <tr class="rowHeader">
+                    <th style="background:#ffffff;color:#172b4d"><button type="button" id="col-key">Код</button></th>
+                    <th style="background:#ffffff;color:#172b4d"><button type="button" id="col-type">Тип</button></th>
+                    <th style="background:#ffffff;color:#172b4d"><button type="button" id="col-group">Группа</button></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="issuerow focused"><td class="gutter" style="background:#ffffff"></td><td style="background:#ffffff;color:#172b4d"><a href="#stp">STP-2</a></td><td style="background:#ffffff">ожидание поддержки</td></tr>
+                <tr class="issuerow"><td class="gutter" style="background:#ffffff"></td><td>STP-3</td><td>открыто</td></tr>
+                </tbody>
+            </table>
+            <div class="aui-dropdown2" id="sample-menu">
+                <strong class="aui-dropdown2-heading">Администрирование</strong>
+                <ul><li><a href="#apps">Приложения</a></li></ul>
+            </div>
+            <div class="page-title">
+                <h1>Графики <span class="aui-lozenge aui-lozenge-new beta">BETA</span></h1>
+                <div class="title-actions">
+                    <label class="field-label" for="project">Проект</label>
+                    <select id="project"><option>STP</option><option>IT</option></select>
+                    <a class="aui-button aui-button-primary" href="#new">Новая работа</a>
+                </div>
+            </div>
+            <div class="toolbar">
+                <button class="aui-button" type="button">Сегодня</button>
+                <span class="aui-buttons">
+                    <button class="aui-button" type="button">Календарь</button>
+                    <button class="aui-button aui-button-primary" type="button">Табель</button>
+                </span>
+            </div>
+            <p class="hint description">Первый клик ставит смену, второй снимает. Тема и настройки открываются из меню пользователя.</p>
+            <button type="button" class="aui-button aui-button-subtle" id="queue-gear"><span class="aui-icon aui-iconfont-configure"></span></button>
+            <div class="filters">
+                <span class="filter"><span class="dot" style="background:#5b4b8a"></span> Рабочий день</span>
+                <span class="filter"><span class="dot" style="background:#7b61c9"></span> Ночная работа</span>
+                <span class="filter"><span class="dot" style="background:#1f8f4e"></span> Выезд на филиал</span>
+                <span class="filter"><span class="dot" style="background:#e07a1f"></span> Отпуск</span>
+                <span class="filter"><span class="dot" style="background:#d23b4a"></span> Больничный</span>
+            </div>
+            <table class="aui">
+                <thead>
+                <tr>
+                    <th>Сотрудник</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>Дней</th><th>Часов</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><a href="#anna">Петрова Анна</a></td>
+                    <td><span class="hour">8</span></td><td><span class="hour">8</span></td><td><span class="hour">8</span></td>
+                    <td><span class="hour">8</span></td><td></td><td>4</td><td>32</td>
+                </tr>
+                <tr class="focused">
+                    <td><a href="#sergey">Иванов Сергей</a></td>
+                    <td><span class="hour">12</span></td><td><span class="hour">12</span></td><td></td>
+                    <td><span class="hour">12</span></td><td><span class="hour">12</span></td><td>4</td><td>48</td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="filters">
+                <span class="aui-lozenge aui-lozenge-success">Открыт</span>
+                <span class="aui-lozenge aui-lozenge-current">В работе</span>
+                <span class="aui-lozenge aui-lozenge-complete">Готово</span>
+                <span class="aui-lozenge aui-lozenge-moved">Ожидает</span>
+                <span class="aui-lozenge aui-lozenge-error">Блокер</span>
+            </div>
+            <div class="field-group">
+                <label class="field-label" for="comment">Комментарий</label>
+                <input id="comment" type="text" placeholder="Что изменилось в смене" style="width:320px">
+            </div>
+            <div class="aui-message aui-message-info">Смены на октябрь 2026 опубликованы для проекта STP.</div>
+            <a class="aui-button aui-dropdown2-trigger" id="filter-trigger" href="#filter">Пользовательские</a>
+            <div class="aui-navgroup aui-navgroup-horizontal" id="admin-tabs">
+                <div class="aui-navgroup-inner admin-strip">Приложения</div>
+            </div>
+            <div id="upm-manage-container">
+                <div id="upm-box" class="upm-plugin-list">Приложения, устанавливаемые пользователями</div>
+            </div>
+            <div id="dashboard">
+                <div class="dashboard-item gadget-container">
+                    <div class="dashboard-item-header">Назначенные мне</div>
+                    <div class="dashboard-item-content">
+                        <iframe class="gadget gadget-frame" id="gadget-frame" title="Назначенные мне" src="gadget.html"></iframe>
+                    </div>
+                </div>
+            </div>
+            <form id="login-form" class="login-card">
+                <label for="login-password">Пароль</label>
+                <input id="login-password" class="text" type="password" value="secret">
+                <a href="#show">Показать пароль</a>
+                <div class="buttons-container">
+                    <input id="login" class="aui-button aui-button-primary" type="submit" value="Вход">
+                    <a class="aui-button aui-button-link cancel" href="#cancel">Отмена</a>
+                </div>
+            </form>
+            <form id="websudo-form" class="sudo-card aui-dialog2">
+                <div class="aui-message aui-message-warning">Если вы попали на эту страницу по ссылке, проверьте её.</div>
+                <label for="websudo-password">Пароль</label>
+                <input id="websudo-password" class="text" type="password" value="secret">
+                <div class="buttons-container">
+                    <input id="websudo-submit" class="aui-button aui-button-primary" type="submit" value="Подтвердить">
+                    <a class="aui-button aui-button-link cancel" href="#cancel">Отмена</a>
+                </div>
+            </form>
+            <div class="cards">
+                <article class="portal-card">
+                    <h3>Доступ в офис</h3>
+                    <p class="description">Запрос на портале службы поддержки</p>
+                </article>
+                <article class="portal-card">
+                    <h3>Новый ноутбук</h3>
+                    <p class="description">Типовой запрос для сотрудников</p>
+                </article>
+            </div>
+        </main>
+    </div>
+</div>
+<footer id="footer">ArtJSM Theme · Jira 8.21.1 · JSM 4.21.1</footer>
+<script data-artjsm="js" src="../../main/resources/js/artjsm.js" defer></script>
+</body>
+</html>

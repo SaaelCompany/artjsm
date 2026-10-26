@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<atlassian-plugin key="com.artjsm.theme" name="ArtJSM Theme" plugins-version="2">
+    <plugin-info>
+        <description>Редизайн Jira и Jira Service Management: светлый интерфейс и тёмная тема.</description>
+        <version>${project.version}</version>
+        <vendor name="ArtJSM" url="https://github.com/artjsm"/>
+        <param name="atlassian-data-center-status">compatible</param>
+        <param name="atlassian-data-center-compatible">true</param>
+        <param name="atlassian-licensing-enabled">false</param>
+        <param name="plugin-icon">images/plugin-icon.png</param>
+        <param name="plugin-logo">images/plugin-logo.png</param>
+    </plugin-info>
+
+    <servlet-filter key="artjsm-theme-filter"
+                    name="ArtJSM Theme Filter"
+                    class="com.artjsm.theme.ThemeInjectionFilter"
+                    location="before-decoration"
+                    weight="200">
+        <description>Вставляет стили редизайна и переключатель тёмной темы в HTML-страницы.</description>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+        <dispatcher>ERROR</dispatcher>
+    </servlet-filter>
+
+    <web-resource key="artjsm-resources" name="ArtJSM Theme Resources">
+        <dependency>com.atlassian.auiplugin:ajs</dependency>
+        <context>atl.general</context>
+        <context>atl.admin</context>
+        <context>atl.userprofile</context>
+        <context>jira.general</context>
+        <context>jira.view.issue</context>
+        <context>jira.browse</context>
+        <context>customerportal</context>
+        <context>servicedesk.portal</context>
+        <context>servicedesk.general</context>
+        <context>sd.project.view</context>
+        <resource type="download" name="artjsm.css" location="css/artjsm.css"/>
+        <resource type="download" name="artjsm.js" location="js/artjsm.js"/>
+    </web-resource>
+
+    <web-item key="artjsm-theme-toggle-item" name="Тёмная тема" section="system.user.options/personal" weight="5">
+        <description>Переключатель темы в меню пользователя.</description>
+        <label>Тёмная тема</label>
+        <link linkId="artjsm-theme-toggle">#artjsm-theme</link>
+        <styleClass>artjsm-theme-toggle</styleClass>
+    </web-item>
+    <web-item key="artjsm-theme-settings-item" name="Настройки темы" section="system.user.options/personal" weight="6">
+        <description>Настройки оформления в меню пользователя.</description>
+        <label>Настройки</label>
+        <link linkId="artjsm-theme-settings">#artjsm-theme-settings</link>
+        <styleClass>artjsm-theme-settings</styleClass>
+    </web-item>
+</atlassian-plugin>
