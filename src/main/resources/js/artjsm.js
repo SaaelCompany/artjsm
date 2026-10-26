@@ -188,7 +188,7 @@
             var cls = classNameOf(node);
             var trigger = cls.indexOf("aui-dropdown2-trigger") >= 0 || cls.indexOf("aui-dd-trigger") >= 0;
             var popup = !trigger && (cls.indexOf("aui-dropdown") >= 0 || cls.indexOf("aui-inline-dialog") >= 0 || cls.indexOf("ajs-layer") >= 0);
-            if (id === "header" || cls.indexOf("aui-header") >= 0 || popup || cls.indexOf("artjsm-theme-panel") >= 0 || cls.indexOf("aui-flag") >= 0 || cls.indexOf("aui-message") >= 0 || cls.indexOf("aui-banner") >= 0 || cls.indexOf("aui-lozenge") >= 0 || cls.indexOf("aui-icon") >= 0 || cls.indexOf("aui-avatar") >= 0) {
+            if (id === "header" || id === "announcement-banner" || cls.indexOf("aui-header") >= 0 || cls.indexOf("alertHeader") >= 0 || popup || cls.indexOf("artjsm-theme-panel") >= 0 || cls.indexOf("aui-flag") >= 0 || cls.indexOf("aui-message") >= 0 || cls.indexOf("aui-banner") >= 0 || cls.indexOf("aui-lozenge") >= 0 || cls.indexOf("aui-icon") >= 0 || cls.indexOf("aui-avatar") >= 0) {
                 return true;
             }
             node = node.parentNode;
@@ -419,21 +419,34 @@
         }
         if (primary) {
             el.style.setProperty("background-color", "var(--artjsm-primary)", "important");
-            el.style.setProperty("background-image", "none", "important");
+            clearDecorativeFill(el);
             el.style.setProperty("color", "#ffffff", "important");
             el.style.setProperty("border-color", "var(--artjsm-primary)", "important");
         } else {
             el.style.setProperty("background-color", "var(--artjsm-surface)", "important");
-            el.style.setProperty("background-image", "none", "important");
+            clearDecorativeFill(el);
             el.style.setProperty("color", "var(--artjsm-text)", "important");
             el.style.setProperty("border-color", "var(--artjsm-border-strong)", "important");
         }
         markPaint(el);
     }
 
+    function clearDecorativeFill(el) {
+        var view = viewOf(el);
+        var image = "";
+        try {
+            image = view && view.getComputedStyle ? (view.getComputedStyle(el).backgroundImage || "") : "";
+        } catch (e) {
+            image = "";
+        }
+        if (image.indexOf("url(") < 0) {
+            el.style.setProperty("background-image", "none", "important");
+        }
+    }
+
     function paintField(el) {
         el.style.setProperty("background-color", "var(--artjsm-bg-sunken)", "important");
-        el.style.setProperty("background-image", "none", "important");
+        clearDecorativeFill(el);
         el.style.setProperty("color", "var(--artjsm-text)", "important");
         el.style.setProperty("border-color", "var(--artjsm-border-strong)", "important");
         markPaint(el);
@@ -567,7 +580,7 @@
             }
             var bg = style.backgroundColor;
             var sprite = hasSprite(style);
-            if (insideSidebar(el) && !sprite && tag !== "IMG" && closeColor(rgbOf(bg), rgbOf(cssVar("--artjsm-bg", "#181a1f")), 12)) {
+            if (insideSidebar(el) && !sprite && tag !== "IMG" && tag !== "INPUT" && tag !== "SELECT" && tag !== "TEXTAREA" && closeColor(rgbOf(bg), rgbOf(cssVar("--artjsm-bg", "#181a1f")), 4)) {
                 el.style.setProperty("background-color", sidebarShell(el) ? "var(--artjsm-surface)" : "transparent", "important");
                 if (insideSidebarHeader(el)) {
                     el.style.setProperty("border-color", "transparent", "important");
@@ -593,7 +606,11 @@
                 }
             }
             var tiny = el.offsetWidth > 0 && el.offsetWidth < 16 && el.offsetHeight > 0 && el.offsetHeight < 16;
-            if (!tiny && neutralLight(bg) && !sprite) {
+            if (sprite && (classNameOf(el).indexOf("select2-choice") >= 0 || classNameOf(el).indexOf("select2-arrow") >= 0) && neutralLight(bg)) {
+                el.style.setProperty("background-color", "var(--artjsm-bg-sunken)", "important");
+                el.style.setProperty("color", "var(--artjsm-text)", "important");
+                markPaint(el);
+            } else if (!tiny && neutralLight(bg) && !sprite) {
                 el.style.setProperty("background-color", paintFill(el), "important");
                 if (tag === "TH" || tag === "TD" || tag === "H1" || tag === "H2" || tag === "H3" || tag === "H4" || tag === "HEADER" || tag === "LABEL" || tag === "A" || tag === "P" || tag === "SPAN" || tag === "LI" || tag === "STRONG" || tag === "SMALL") {
                     el.style.setProperty("color", tag === "A" ? "var(--artjsm-link)" : "var(--artjsm-text)", "important");
@@ -619,6 +636,11 @@
         var i;
         for (i = 0; i < frames.length; i++) {
             var frame = frames[i];
+            var frameId = frame.id || "";
+            var frameCls = classNameOf(frame);
+            if (frameId.indexOf("workflow") >= 0 || frameCls.indexOf("workflow") >= 0) {
+                continue;
+            }
             if (frame.getAttribute("data-artjsm-frame") !== "1") {
                 frame.setAttribute("data-artjsm-frame", "1");
                 frame.addEventListener("load", function () {

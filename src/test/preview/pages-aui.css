@@ -1,0 +1,72 @@
+/* Hostile Jira 8 rules. Not shipped. Each block uses body#jira so a weak theme selector loses. */
+
+body#jira #details-module,
+body#jira #activitymodule,
+body#jira .activity-comment,
+body#jira .action-body,
+body#jira .module,
+body#jira .mod-content,
+body#jira .search-container,
+body#jira #jqlform,
+body#jira .cv-card,
+body#jira .request-type-card,
+body#jira .portal-card,
+body#jira .ghx-issue,
+body#jira .profile-header,
+body#jira .people-details,
+body#jira .ajs-layer,
+body#jira .aui-dropdown2,
+body#jira #quicksearch-menu,
+body#jira .aui-page-panel-nav,
+body#jira #user-browser,
+body#jira .report,
+body#jira .select2-drop,
+body#jira .issue-body {
+    background: #ffffff !important;
+    color: #172b4d !important;
+}
+
+body#jira #issuetable .aui-lozenge-current,
+body#jira .aui-lozenge-current {
+    background: #deebff !important;
+    color: #0747a6 !important;
+}
+
+body#jira #issuetable .aui-lozenge-success,
+body#jira .aui-lozenge-success {
+    background: #e3fcef !important;
+    color: #006644 !important;
+}
+
+body#jira #upm-manage-container .aui-message-info,
+body#jira #content .aui-message-warning {
+    background: #ffffff !important;
+    color: #172b4d !important;
+    border: 1px solid #dfe1e6 !important;
+}
+
+body#jira #announcement-banner {
+    background: #fff7d6 !important;
+    color: #172b4d !important;
+}
+
+body#jira .sla-ok {
+    background: #36b37e !important;
+    color: #ffffff !important;
+}
+
+body#jira .select2-container .select2-choice {
+    background-color: #ffffff !important;
+    background-image: url("data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7") !important;
+    color: #172b4d !important;
+}
+
+body#jira .account-link {
+    color: #172b4d !important;
+}
+
+body#jira #dashboard .dashboard-item-content,
+body#jira .gadget-inline {
+    background: #f0f0f0 !important;
+    color: #172b4d !important;
+}

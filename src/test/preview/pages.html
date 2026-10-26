@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Страницы Jira — ArtJSM</title>
+    <script>
+        (function () {
+            var q = window.location.search || "";
+            try {
+                if (q.indexOf("theme=dark") >= 0) localStorage.setItem("artjsm-theme", "dark");
+                if (q.indexOf("theme=light") >= 0) localStorage.setItem("artjsm-theme", "light");
+            } catch (e) {}
+        })();
+    </script>
+    <script data-artjsm="boot">(function(){var d=document.documentElement;try{if((" "+d.className+" ").indexOf(" artjsm ")<0){d.className+=(d.className?" ":"")+"artjsm";}}catch(e){}try{var k="artjsm-theme",t=localStorage.getItem(k);if(t!=="dark"&&t!=="light"){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}d.setAttribute("data-artjsm-theme",t);}catch(e){}})();</script>
+    <link rel="stylesheet" href="preview-aui.css">
+    <link rel="stylesheet" href="pages-aui.css">
+    <link rel="stylesheet" href="../../main/resources/css/artjsm.css">
+</head>
+<body id="jira">
+<header id="header"><nav class="aui-header"><a id="create_link" class="aui-button aui-button-primary" href="#c">Создать</a><input id="quickSearchInput" class="search" type="search" placeholder="Поиск"></nav></header>
+<div id="announcement-banner" class="alertHeader">Технические работы в субботу.</div>
+
+<main id="content">
+<section data-page="dashboard" id="dashboard">
+    <h1>Системная панель</h1>
+    <div class="dashboard-item gadget-container">
+        <div class="dashboard-item-header">Назначенные мне</div>
+        <div class="dashboard-item-content gadget-inline"><a href="#d1">STP-9</a> Принтер не печатает</div>
+    </div>
+    <iframe class="gadget" id="dash-gadget" title="Гаджет" src="gadget.html"></iframe>
+</section>
+
+<section data-page="navigator">
+    <h1>Поиск задач</h1>
+    <form id="jqlform" class="search-container navigator-filter"><label for="jql">Запрос</label><input id="jql" type="text" value="project = STP"></form>
+    <table id="issuetable" class="issue-table">
+        <thead><tr><th>Код</th><th>Статус</th><th>Тема</th></tr></thead>
+        <tbody>
+        <tr class="issuerow"><td>STP-2</td><td><span class="aui-lozenge aui-lozenge-current">ожидание поддержки</span></td><td>Тест <span class="sla-ok">-3 нед.</span></td></tr>
+        <tr class="issuerow"><td>STP-3</td><td><span class="aui-lozenge aui-lozenge-success">открыто</span></td><td>Картридж</td></tr>
+        </tbody>
+    </table>
+</section>
+
+<section data-page="issue" id="issue-content" class="issue-body">
+    <h1 id="summary-val">STP-2 Тест</h1>
+    <div id="details-module" class="module"><div class="mod-content"><p>Приоритет: низкий</p><div class="people-details"><a href="#admin">admin</a></div></div></div>
+    <div id="activitymodule" class="module">
+        <div class="mod-content activity-comment"><p class="action-body">Комментарий службы поддержки</p></div>
+        <iframe id="comment-editor" title="Редактор" src="gadget.html"></iframe>
+    </div>
+</section>
+
+<section data-page="queues">
+    <aside id="sidebar" class="aui-sidebar">
+        <header class="aui-sidebar-header"><div class="aui-sidebar-header-inner">STP</div><div id="project-subheader-strip"></div></header>
+        <div class="aui-sidebar-subheader"></div>
+        <nav class="aui-navgroup aui-navgroup-vertical"><div class="aui-navgroup-inner">
+            <ul class="aui-nav">
+                <li class="aui-nav-selected"><a class="aui-nav-item" href="#q">Все оборудование <span class="queue-count">21</span></a></li>
+                <li><a class="account-link" href="#acc">Учётные записи</a></li>
+            </ul>
+        </div></nav>
+    </aside>
+    <div class="sd-queue"><span class="js-queue-count queue-count">18</span></div>
+</section>
+
+<section data-page="project-settings">
+    <h1>Настройки проекта</h1>
+    <div class="aui-page-panel-nav"><a href="#types">Типы запросов</a><a class="aui-nav-selected" href="#sla">SLA</a></div>
+    <form><label for="pname">Имя</label><input id="pname" type="text" value="STP"><button class="aui-button aui-button-primary" type="submit">Сохранить</button></form>
+</section>
+
+<section data-page="admin-upm" id="upm-manage-container">
+    <h1>Управление приложениями</h1>
+    <div class="aui-message aui-message-info">Доступна новая версия.</div>
+    <a class="aui-button aui-dropdown2-trigger" id="filter-trigger" href="#f">Пользовательские</a>
+    <div id="upm-box" class="upm-plugin-list">ArtJSM Theme <button class="aui-button aui-button-primary" type="button">Обновить</button></div>
+</section>
+
+<section data-page="admin-users">
+    <h1>Пользователи</h1>
+    <table id="user-browser" class="aui"><thead><tr><th>Пользователь</th><th>Группы</th></tr></thead><tbody><tr><td><a href="#u">admin</a></td><td>jira-administrators</td></tr></tbody></table>
+</section>
+
+<section data-page="admin-system">
+    <h1>Система</h1>
+    <div id="admin-nav" class="aui-page-panel-nav"><a href="#general">Общие настройки</a></div>
+    <p class="description">Часовой пояс и язык по умолчанию.</p>
+</section>
+
+<section data-page="login" id="login-form">
+    <h1>Вход</h1>
+    <label for="login-password">Пароль</label>
+    <input id="login-password" class="text" type="password" value="secret">
+    <div class="buttons-container"><input id="login" class="aui-button aui-button-primary" type="submit" value="Вход"></div>
+</section>
+
+<section data-page="profile" class="profile-header">
+    <h1 id="up-user-title">Админ</h1>
+    <div class="user-content-block"><p>Профиль пользователя</p><a href="#mail">admin@example.com</a></div>
+</section>
+
+<section data-page="portal" class="cv-smart-portal">
+    <h1>Портал службы поддержки</h1>
+    <a class="cv-card request-type-card" href="#rt"><h2>Доступ в офис</h2><p>Запросить пропуск</p></a>
+    <article class="portal-card"><h2>Новый ноутбук</h2></article>
+</section>
+
+<section data-page="create-dialog" class="jira-dialog aui-dialog2">
+    <h1>Создать задачу</h1>
+    <label for="summary">Тема</label>
+    <input id="summary" type="text" value="Не печатает">
+    <div class="select2-container"><a class="select2-choice" href="#pick"><span>STP</span></a></div>
+    <div class="buttons-container"><button class="aui-button aui-button-primary" type="button">Создать</button><a class="aui-button aui-button-link cancel" href="#x">Отмена</a></div>
+</section>
+
+<section data-page="reports" class="report">
+    <h1>Отчёты</h1>
+    <table class="aui"><thead><tr><th>Очередь</th><th>Создано</th></tr></thead><tbody><tr><td>Все оборудование</td><td>12</td></tr></tbody></table>
+</section>
+
+<section data-page="request-types">
+    <h1>Типы запросов</h1>
+    <a class="request-type-card" href="#rt2">Инцидент</a>
+</section>
+
+<section data-page="filters">
+    <h1>Фильтры</h1>
+    <div id="quicksearch-menu" class="ajs-layer"><a href="#s1">STP-2 Тест</a></div>
+    <div class="aui-dropdown2" id="user-menu"><strong class="aui-dropdown2-heading">Администрирование</strong><ul><li><a href="#apps">Приложения</a></li></ul></div>
+</section>
+
+<section data-page="board">
+    <h1>Доска</h1>
+    <div class="ghx-column"><div class="ghx-column-header">В работе</div><div class="ghx-issue"><a href="#b1">STP-4</a> Замена кабеля</div></div>
+</section>
+
+<section data-page="banner">
+    <p>Объявление вынесено над содержимым и должно остаться предупреждением.</p>
+</section>
+
+<section data-page="workflow">
+    <h1>Рабочий процесс</h1>
+    <iframe id="workflow-designer" title="Дизайнер" src="gadget.html"></iframe>
+</section>
+</main>
+<footer id="footer">ArtJSM</footer>
+<script data-artjsm="js" src="../../main/resources/js/artjsm.js" defer></script>
+</body>
+</html>

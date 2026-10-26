@@ -556,13 +556,27 @@ html input[type="tel"],
 html textarea,
 html select,
 html .aui-select,
-html .select2-container .select2-choice,
 html .select2-search input {
-    background: var(--artjsm-surface) !important;
+    background-color: var(--artjsm-surface) !important;
     color: var(--artjsm-text) !important;
     border: 1px solid var(--artjsm-border-strong) !important;
     border-radius: 6px !important;
     box-shadow: none !important;
+}
+
+html .select2-container .select2-choice {
+    background-color: var(--artjsm-surface) !important;
+    color: var(--artjsm-text) !important;
+    border: 1px solid var(--artjsm-border-strong) !important;
+    border-radius: 6px !important;
+    box-shadow: none !important;
+}
+
+html[data-artjsm-theme="dark"] body#jira .select2-container .select2-choice,
+html[data-artjsm-theme="dark"] body#jira .select2-container .select2-choice span,
+html[data-artjsm-theme="dark"] body#jira .select2-search input {
+    background-color: var(--artjsm-bg-sunken) !important;
+    color: var(--artjsm-text) !important;
 }
 
 html textarea:focus,
@@ -771,10 +785,6 @@ html .mod-header {
 
 html .mod-header {
     background: transparent !important;
-}
-
-html .module {
-    border-radius: 10px;
 }
 
 html #dashboard,
@@ -1594,7 +1604,6 @@ html[data-artjsm-theme] body#jira .project-header * {
     background-color: transparent !important;
     border-color: transparent !important;
     box-shadow: none !important;
-    color: var(--artjsm-text) !important;
 }
 
 html[data-artjsm-theme] body#jira .aui-sidebar .aui-avatar,
@@ -1624,14 +1633,8 @@ html[data-artjsm-theme="dark"] body#jira [class*="issue-count"],
 html[data-artjsm-theme="dark"] body#jira [class*="issueCount"],
 html[data-artjsm-theme="dark"] body#jira .aui-badge,
 html[data-artjsm-theme="dark"] body#jira .aui-nav-item-count,
-html[data-artjsm-theme="dark"] body#jira [class*="queue"] [class*="count"],
-html[data-artjsm-theme="dark"] body#jira [class*="queue"] [class*="Count"],
-html[data-artjsm-theme="dark"] body#jira [class*="Queue"] [class*="count"],
-html[data-artjsm-theme="dark"] body#jira .aui-sidebar .count,
-html[data-artjsm-theme="dark"] body#jira .aui-sidebar [class*="count"],
-html[data-artjsm-theme="dark"] body#jira .aui-sidebar .aui-lozenge,
-html[data-artjsm-theme="dark"] body#jira [class*="queue"]::after,
-html[data-artjsm-theme="dark"] body#jira [class*="queue"] a::after {
+html[data-artjsm-theme="dark"] body#jira [class*="-count"],
+html[data-artjsm-theme="dark"] body#jira [class*="-Count"] {
     color: var(--artjsm-text) !important;
     opacity: 1 !important;
     background-color: transparent !important;
@@ -1667,11 +1670,16 @@ html[data-artjsm-theme] body#jira #issuetable td,
 html[data-artjsm-theme] body#jira table.issue-table th,
 html[data-artjsm-theme] body#jira table.issue-table td,
 html[data-artjsm-theme] body#jira .list-view th,
-html[data-artjsm-theme] body#jira .list-view td,
-html[data-artjsm-theme] body#jira .sd-queue th,
-html[data-artjsm-theme] body#jira .sd-queue td {
+html[data-artjsm-theme] body#jira .list-view td {
     border-bottom: 1px solid var(--artjsm-border) !important;
     background-color: transparent !important;
+}
+
+html[data-artjsm-theme] body#jira .sd-queue th,
+html[data-artjsm-theme] body#jira .sd-queue td,
+html[data-artjsm-theme] body#jira #sd-queues th,
+html[data-artjsm-theme] body#jira #sd-queues td {
+    border-bottom: 1px solid var(--artjsm-border) !important;
 }
 
 /* Admin filters: the closed dropdown was still white, and a light rule stayed on the footer. */
@@ -1686,7 +1694,6 @@ html[data-artjsm-theme="dark"] body#jira .aui-dropdown2-trigger,
 html[data-artjsm-theme="dark"] body#jira a.aui-dropdown2-trigger,
 html[data-artjsm-theme="dark"] body#jira option {
     background-color: var(--artjsm-bg-sunken) !important;
-    background-image: none !important;
     color: var(--artjsm-text) !important;
     border-color: var(--artjsm-border) !important;
 }
@@ -1712,10 +1719,141 @@ html[data-artjsm-theme="dark"] body#jira #upm-manage-container table,
 html[data-artjsm-theme="dark"] body#jira #upm-manage-container tr,
 html[data-artjsm-theme="dark"] body#jira #upm-manage-container td,
 html[data-artjsm-theme="dark"] body#jira #upm-manage-container th,
-html[data-artjsm-theme="dark"] body#jira #upm-manage-container div,
+html[data-artjsm-theme="dark"] body#jira #upm-manage-container div:not(.aui-message):not(.aui-lozenge),
 html[data-artjsm-theme="dark"] body#jira .upm-plugin,
 html[data-artjsm-theme="dark"] body#jira .upm-plugin-list {
     border-color: var(--artjsm-border) !important;
+}
+
+/* Pages whose own rules use body#jira and would otherwise stay on the stock palette. */
+
+html[data-artjsm-theme] body#jira #issue-content,
+html[data-artjsm-theme] body#jira #details-module,
+html[data-artjsm-theme] body#jira #activitymodule,
+html[data-artjsm-theme] body#jira .activity-comment,
+html[data-artjsm-theme] body#jira .action-body,
+html[data-artjsm-theme] body#jira .issue-body,
+html[data-artjsm-theme] body#jira .issue-data-block,
+html[data-artjsm-theme] body#jira .people-details,
+html[data-artjsm-theme] body#jira .user-content-block,
+html[data-artjsm-theme] body#jira .profile-header,
+html[data-artjsm-theme] body#jira #up-user-title,
+html[data-artjsm-theme] body#jira .module,
+html[data-artjsm-theme] body#jira .mod-content,
+html[data-artjsm-theme] body#jira .search-container,
+html[data-artjsm-theme] body#jira #jqlform,
+html[data-artjsm-theme] body#jira .navigator-filter,
+html[data-artjsm-theme] body#jira .cv-card,
+html[data-artjsm-theme] body#jira .request-type-card,
+html[data-artjsm-theme] body#jira .portal-card,
+html[data-artjsm-theme] body#jira .ghx-issue,
+html[data-artjsm-theme] body#jira .gh-issue,
+html[data-artjsm-theme] body#jira .js-issue {
+    background-color: var(--artjsm-surface) !important;
+    background-image: none !important;
+    color: var(--artjsm-text) !important;
+    border-color: var(--artjsm-border) !important;
+}
+
+html[data-artjsm-theme] body#jira .ghx-column,
+html[data-artjsm-theme] body#jira .gh-column,
+html[data-artjsm-theme] body#jira .ghx-column-header,
+html[data-artjsm-theme] body#jira .aui-page-panel-nav {
+    background-color: var(--artjsm-surface) !important;
+    color: var(--artjsm-text) !important;
+    border-color: var(--artjsm-border) !important;
+}
+
+html[data-artjsm-theme="dark"] body#jira .aui-dropdown2,
+html[data-artjsm-theme="dark"] body#jira .aui-dropdown2-section,
+html[data-artjsm-theme="dark"] body#jira .aui-inline-dialog,
+html[data-artjsm-theme="dark"] body#jira .aui-inline-dialog-contents,
+html[data-artjsm-theme="dark"] body#jira .ajs-layer,
+html[data-artjsm-theme="dark"] body#jira .select2-drop,
+html[data-artjsm-theme="dark"] body#jira .select2-results,
+html[data-artjsm-theme="dark"] body#jira .aui-datepicker-dialog,
+html[data-artjsm-theme="dark"] body#jira #quicksearch-menu {
+    background-color: var(--artjsm-surface) !important;
+    color: var(--artjsm-text) !important;
+    border-color: var(--artjsm-border) !important;
+}
+
+html[data-artjsm-theme="dark"] body#jira .aui-dropdown2 a,
+html[data-artjsm-theme="dark"] body#jira .ajs-layer a,
+html[data-artjsm-theme="dark"] body#jira .select2-result-label {
+    color: var(--artjsm-text) !important;
+    background-color: transparent !important;
+}
+
+html[data-artjsm-theme="dark"] body#jira .aui-lozenge {
+    background-color: #2a3342 !important;
+    color: #d5deea !important;
+}
+
+html[data-artjsm-theme="dark"] body#jira .aui-lozenge-success,
+html[data-artjsm-theme="dark"] body#jira .aui-lozenge-complete {
+    background-color: #1c3d2e !important;
+    color: #9be7b8 !important;
+}
+
+html[data-artjsm-theme="dark"] body#jira .aui-lozenge-error {
+    background-color: #4a2328 !important;
+    color: #ffb4b4 !important;
+}
+
+html[data-artjsm-theme="dark"] body#jira .aui-lozenge-current {
+    background-color: #1d3d66 !important;
+    color: #b9d6ff !important;
+}
+
+html[data-artjsm-theme="dark"] body#jira .aui-lozenge-moved {
+    background-color: #3f341c !important;
+    color: #f3d48a !important;
+}
+
+html[data-artjsm-theme="dark"] body#jira .aui-lozenge-new {
+    background-color: #3a2a55 !important;
+    color: #e0caff !important;
+}
+
+html[data-artjsm-theme] body#jira #login-form .buttons-container,
+html[data-artjsm-theme] body#jira .aui-dialog .buttons-container,
+html[data-artjsm-theme] body#jira .aui-dialog2 .buttons-container,
+html[data-artjsm-theme] body#jira .jira-dialog .buttons-container {
+    background-color: transparent !important;
+}
+
+html[data-artjsm-theme="dark"] body#jira #announcement-banner,
+html[data-artjsm-theme="dark"] body#jira .alertHeader {
+    background-color: #3a311c !important;
+    color: #ffe8b8 !important;
+    border-color: #6b5a2e !important;
+}
+
+html[data-artjsm-theme="dark"] body#jira #content .aui-message-info,
+html[data-artjsm-theme="dark"] body#jira #upm-manage-container .aui-message-info {
+    background-color: #1a2e48 !important;
+    border-color: #2d4f78 !important;
+    color: #d6e8ff !important;
+}
+
+html[data-artjsm-theme="dark"] body#jira #content .aui-message-warning,
+html[data-artjsm-theme="dark"] body#jira #login-form .aui-message-warning {
+    background-color: #3a311c !important;
+    border-color: #6b5a2e !important;
+    color: #ffe8b8 !important;
+}
+
+html[data-artjsm-theme="dark"] body#jira #content .aui-lozenge-current,
+html[data-artjsm-theme="dark"] body#jira #issuetable .aui-lozenge-current {
+    background-color: #1d3d66 !important;
+    color: #b9d6ff !important;
+}
+
+html[data-artjsm-theme="dark"] body#jira #content .aui-lozenge-success,
+html[data-artjsm-theme="dark"] body#jira #issuetable .aui-lozenge-success {
+    background-color: #1c3d2e !important;
+    color: #9be7b8 !important;
 }
 
 @media print {
