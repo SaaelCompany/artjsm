@@ -1600,7 +1600,12 @@ html[data-artjsm-theme] body#jira .project-header {
 html[data-artjsm-theme] body#jira .aui-sidebar-header *,
 html[data-artjsm-theme] body#jira .aui-sidebar-subheader *,
 html[data-artjsm-theme] body#jira #project-header *,
-html[data-artjsm-theme] body#jira .project-header * {
+html[data-artjsm-theme] body#jira .project-header *,
+html[data-artjsm-theme] body#jira #sidebar .aui-sidebar-header,
+html[data-artjsm-theme] body#jira #sidebar .aui-sidebar-header *,
+html[data-artjsm-theme] body#jira #sidebar .aui-sidebar-subheader,
+html[data-artjsm-theme] body#jira #sidebar .aui-sidebar-subheader *,
+html[data-artjsm-theme] body#jira #sidebar #project-subheader-strip {
     background-color: transparent !important;
     border-color: transparent !important;
     box-shadow: none !important;
@@ -1854,6 +1859,74 @@ html[data-artjsm-theme="dark"] body#jira #content .aui-lozenge-success,
 html[data-artjsm-theme="dark"] body#jira #issuetable .aui-lozenge-success {
     background-color: #1c3d2e !important;
     color: #9be7b8 !important;
+}
+
+html[data-artjsm-theme] body#jira #stalker,
+html[data-artjsm-theme] body#jira #issue-header,
+html[data-artjsm-theme] body#jira #issue-header-content,
+html[data-artjsm-theme] body#jira .command-bar,
+html[data-artjsm-theme] body#jira #opsbar-jira,
+html[data-artjsm-theme] body#jira #attachmentmodule,
+html[data-artjsm-theme] body#jira #linkingmodule,
+html[data-artjsm-theme] body#jira #timetrackingmodule,
+html[data-artjsm-theme] body#jira #descriptionmodule,
+html[data-artjsm-theme] body#jira #peoplemodule,
+html[data-artjsm-theme] body#jira #datesmodule,
+html[data-artjsm-theme] body#jira #viewissuesidebar,
+html[data-artjsm-theme] body#jira .split-view,
+html[data-artjsm-theme] body#jira #watchers,
+html[data-artjsm-theme] body#jira .cv-request,
+html[data-artjsm-theme] body#jira .cv-request-activity,
+html[data-artjsm-theme] body#jira .cv-comment,
+html[data-artjsm-theme] body#jira .error-container,
+html[data-artjsm-theme] body#jira #error-state,
+html[data-artjsm-theme] body#jira .ghx-backlog,
+html[data-artjsm-theme] body#jira .ghx-sprint-header,
+html[data-artjsm-theme] body#jira #user-preferences,
+html[data-artjsm-theme] body#jira #bulkedit,
+html[data-artjsm-theme] body#jira .project-meta,
+html[data-artjsm-theme] body#jira .aui-inline-dialog,
+html[data-artjsm-theme] body#jira #app-switcher,
+html[data-artjsm-theme] body#jira #inline-dialog-app-switcher {
+    background-color: var(--artjsm-surface) !important;
+    color: var(--artjsm-text) !important;
+    border-color: var(--artjsm-border) !important;
+}
+
+html[data-artjsm-theme] body#jira .wiki-content,
+html[data-artjsm-theme] body#jira .wiki-content td,
+html[data-artjsm-theme] body#jira .wiki-content th,
+html[data-artjsm-theme] body#jira #descriptionmodule .wiki-content {
+    background-color: transparent !important;
+    color: var(--artjsm-text) !important;
+    border-color: var(--artjsm-border) !important;
+}
+
+html[data-artjsm-theme="dark"] body#jira .aui-datepicker-dialog,
+html[data-artjsm-theme="dark"] body#jira .aui-datepicker-dialog td,
+html[data-artjsm-theme="dark"] body#jira .aui-datepicker-dialog th,
+html[data-artjsm-theme="dark"] body#jira #ui-datepicker-div,
+html[data-artjsm-theme="dark"] body#jira #ui-datepicker-div td,
+html[data-artjsm-theme="dark"] body#jira #ui-datepicker-div a {
+    background-color: var(--artjsm-surface) !important;
+    color: var(--artjsm-text) !important;
+}
+
+html[data-artjsm-theme="dark"] body#jira .aui-datepicker-dialog .aui-datepicker-selected,
+html[data-artjsm-theme="dark"] body#jira .aui-datepicker-dialog .aui-datepicker-selected a,
+html[data-artjsm-theme="dark"] body#jira #ui-datepicker-div .ui-datepicker-current-day a {
+    background-color: var(--artjsm-primary) !important;
+    color: #ffffff !important;
+}
+
+html[data-artjsm-theme="dark"] body#jira .aui-progress-tracker-step {
+    background-color: var(--artjsm-bg-muted) !important;
+    color: var(--artjsm-text) !important;
+}
+
+html[data-artjsm-theme="dark"] body#jira .aui-progress-tracker-step-current {
+    background-color: var(--artjsm-primary) !important;
+    color: #ffffff !important;
 }
 
 @media print {

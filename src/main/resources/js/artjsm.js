@@ -560,8 +560,25 @@
                 paintButton(el);
                 continue;
             }
+            if (insideSidebarHeader(el) && tag !== "IMG" && tag !== "SVG" && tag !== "INPUT" && tag !== "SELECT") {
+                var headerSprite = false;
+                try {
+                    var headerView = viewOf(el);
+                    headerSprite = !!(headerView && hasSprite(headerView.getComputedStyle(el)));
+                } catch (eSprite) {
+                    headerSprite = false;
+                }
+                if (!headerSprite) {
+                    el.style.setProperty("background-color", "transparent", "important");
+                    el.style.setProperty("box-shadow", "none", "important");
+                    el.style.setProperty("border-color", "transparent", "important");
+                    markPaint(el);
+                }
+            }
             if (!dark) {
-                clearPaint(el);
+                if (!insideSidebarHeader(el)) {
+                    clearPaint(el);
+                }
                 continue;
             }
             var view = viewOf(el);
@@ -604,6 +621,19 @@
                         markPaint(el);
                     }
                 }
+            }
+            var clsNow = classNameOf(el);
+            if (clsNow.indexOf("aui-progress-tracker-step-current") >= 0 || clsNow.indexOf("aui-datepicker-selected") >= 0) {
+                el.style.setProperty("background-color", "var(--artjsm-primary)", "important");
+                el.style.setProperty("color", "#ffffff", "important");
+                markPaint(el);
+                continue;
+            }
+            if (clsNow.indexOf("aui-progress-tracker-step") >= 0) {
+                el.style.setProperty("background-color", "var(--artjsm-bg-muted)", "important");
+                el.style.setProperty("color", "var(--artjsm-text)", "important");
+                markPaint(el);
+                continue;
             }
             var tiny = el.offsetWidth > 0 && el.offsetWidth < 16 && el.offsetHeight > 0 && el.offsetHeight < 16;
             if (sprite && (classNameOf(el).indexOf("select2-choice") >= 0 || classNameOf(el).indexOf("select2-arrow") >= 0) && neutralLight(bg)) {

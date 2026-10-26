@@ -70,3 +70,50 @@ body#jira .gadget-inline {
     background: #f0f0f0 !important;
     color: #172b4d !important;
 }
+
+body#jira #stalker,
+body#jira #issue-header,
+body#jira #opsbar-jira,
+body#jira #attachmentmodule,
+body#jira #linkingmodule,
+body#jira #viewissuesidebar,
+body#jira .split-view,
+body#jira .cv-request,
+body#jira .cv-comment,
+body#jira .error-container,
+body#jira .ghx-backlog,
+body#jira .ghx-sprint-header,
+body#jira #user-preferences,
+body#jira #bulkedit,
+body#jira .project-meta,
+body#jira .aui-inline-dialog,
+body#jira #app-switcher,
+body#jira .wiki-content,
+body#jira .wiki-content td,
+body#jira .aui-datepicker-dialog,
+body#jira .aui-datepicker-dialog td,
+body#jira #ui-datepicker-div td {
+    background: #ffffff !important;
+    color: #172b4d !important;
+}
+
+body#jira .aui-datepicker-selected,
+body#jira .aui-datepicker-selected a {
+    background: #ebecf0 !important;
+    color: #172b4d !important;
+}
+
+body#jira .aui-progress-tracker-step {
+    background: #f4f5f7 !important;
+    color: #172b4d !important;
+}
+
+body#jira .aui-progress-tracker-step-current {
+    background: #deebff !important;
+    color: #0747a6 !important;
+}
+
+body#jira .sla-calendar .day-off {
+    background: #ff5630 !important;
+    color: #ffffff !important;
+}

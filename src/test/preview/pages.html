@@ -144,6 +144,81 @@
 <section data-page="workflow">
     <h1>Рабочий процесс</h1>
     <iframe id="workflow-designer" title="Дизайнер" src="gadget.html"></iframe>
+    <ol class="aui-progress-tracker">
+        <li class="aui-progress-tracker-step aui-progress-tracker-step-current"><span>Открыт</span></li>
+        <li class="aui-progress-tracker-step"><span>В работе</span></li>
+    </ol>
+</section>
+
+<section data-page="issue-ops" id="stalker">
+    <div id="issue-header"><h1>STP-2</h1></div>
+    <div id="opsbar-jira" class="command-bar"><button class="aui-button" type="button">В работу</button><button class="aui-button aui-button-primary" type="button">Решить</button></div>
+    <div id="attachmentmodule" class="module"><p>Вложение: photo.png</p></div>
+    <div id="linkingmodule" class="module"><a href="#link">связан с STP-1</a></div>
+    <aside id="viewissuesidebar"><p>Исполнитель</p><a href="#assignee">admin</a></aside>
+</section>
+
+<section data-page="split">
+    <div class="split-view"><h2>Список и карточка</h2><a href="#s2">STP-8</a></div>
+</section>
+
+<section data-page="portal-request" class="cv-request">
+    <h1>Запрос с портала</h1>
+    <div class="cv-comment"><p>Ждём доступ.</p></div>
+    <div class="cv-request-activity"><p>Создан сегодня</p></div>
+</section>
+
+<section data-page="error" class="error-container" id="error-state">
+    <h1>Страница не найдена</h1>
+    <p>Проверьте адрес или вернитесь на панель.</p>
+    <a href="#home">На главную</a>
+</section>
+
+<section data-page="backlog" class="ghx-backlog">
+    <div class="ghx-sprint-header">Спринт 12</div>
+    <a href="#back">STP-11 Оценка</a>
+</section>
+
+<section data-page="preferences" id="user-preferences">
+    <h1>Настройки пользователя</h1>
+    <label for="tz">Часовой пояс</label>
+    <select id="tz"><option>Europe/Moscow</option></select>
+</section>
+
+<section data-page="bulk" id="bulkedit">
+    <h1>Массовое изменение</h1>
+    <p>Выбрано задач: 2</p>
+    <button class="aui-button aui-button-primary" type="button">Далее</button>
+</section>
+
+<section data-page="project-home" class="project-meta">
+    <h1>Проект STP</h1>
+    <p>Служба поддержки оборудования</p>
+    <a href="#lead">Руководитель: admin</a>
+</section>
+
+<section data-page="hover" class="aui-inline-dialog">
+    <h2>admin</h2>
+    <p>admin@example.com</p>
+</section>
+
+<section data-page="apps" id="app-switcher">
+    <a href="#jira">Jira</a>
+    <a href="#conf">Confluence</a>
+</section>
+
+<section data-page="wiki">
+    <div id="descriptionmodule"><div class="wiki-content"><p>Описание из вики.</p><table><tr><th>Поле</th><th>Значение</th></tr><tr><td>Серийный</td><td>A-18</td></tr></table></div></div>
+</section>
+
+<section data-page="calendar">
+    <div class="aui-datepicker-dialog"><table><tr><td>1</td><td class="aui-datepicker-selected"><a href="#d">2</a></td><td>3</td></tr></table></div>
+    <table class="sla-calendar"><tr><td class="day-off">Вс</td><td>Пн</td></tr></table>
+</section>
+
+<section data-page="watchers" id="watchers">
+    <h2>Наблюдатели</h2>
+    <a href="#w">admin</a>
 </section>
 </main>
 <footer id="footer">ArtJSM</footer>
